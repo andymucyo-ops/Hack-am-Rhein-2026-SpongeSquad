@@ -2,3 +2,12 @@
 .DS_Store
 hackamrhein-kit/
 random/
+
+# Basel site-scoping tool local artifacts
+basel-site-scoping-tool/node_modules/
+basel-site-scoping-tool/dist/
+basel-site-scoping-tool/.env
+basel-site-scoping-tool/.env.*
+!basel-site-scoping-tool/.env.example
+basel-site-scoping-tool/.cache/
+basel-site-scoping-tool/data/generated/
