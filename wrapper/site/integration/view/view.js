@@ -5,6 +5,9 @@
   var S = window.Sponge;
   if (!S) return;
   var MODULES = {
+    'evidence-atlas': {path:'wrapper/evidence-atlas/site/evidence-atlas.html',title:'Evidence Atlas',note:'Research snapshot from sponge-city; claims retain their original evidence status.'},
+    'situation-map': {path:'wrapper/evidence-atlas/site/situation-map.html',title:'Basel situation map',note:'Separate evidence exploration, not a replacement for Andy’s FIND tool.'},
+    'adaptive-preview': {path:'wrapper/experiments/adaptive-interface/demo/',title:'Experimental adaptive interface',note:'Unmerged source PR #3. Mock data and qualitative effects. Preview only; not the canonical Street Lab.'},
     'sponge-street': { path: 'wrapper/prototypes/sponge-street/', title: 'Sponge Street explainer · Achim · early prototype', note: 'Standalone explainer: seven intervention tracks, twelve guided states. Water shares and the heat indicator are scenario values, not measured Basel performance.' },
     'street-xray': { path: 'wrapper/street-xray/', title: 'Street X-Ray · evidence gate', note: 'One illustrative study point near the Klybeck candidate. The street segment, candidate strip and intervention are illustrative; known context, hypotheses and decisive unknowns are kept apart.' },
     'rain-walk': { path: 'wrapper/street-workspace/rain-walk/', title: 'Rain Walk · street evidence campaign', note: 'Demo campaign on a synthetic 120 m segment. Observations stay in this browser; review is by a local user, not an authority. No observation changes geometry or simulation.' },
