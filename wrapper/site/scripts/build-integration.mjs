@@ -54,7 +54,8 @@ function buildModules() {
     } else if (mod.build === 'script') {
       run(process.execPath, [mod.script], { cwd: source });
       rmSync(output, { recursive: true, force: true });
-      cpSync(join(source, mod.dist), output, { recursive: true });
+      if (mod.files) { mkdirSync(output, {recursive:true}); for (const file of mod.files) cpSync(join(source,mod.dist,file),join(output,file),{recursive:true}); }
+      else cpSync(join(source, mod.dist), output, { recursive: true });
     } else if (mod.build === 'copy') {
       rmSync(output, { recursive: true, force: true });
       mkdirSync(output, { recursive: true });
@@ -105,6 +106,17 @@ function sourceRepoPath(path) {
 
 // slug, repo path, section (research|team), group (for listing)
 const DOCS = [
+  ["repository-map", "wrapper/docs/REPOSITORY-MAP.md", "team", "architecture"],
+  ["atlas-decision-canvas", "wrapper/evidence-atlas/docs/DECISION-CANVAS.md", "research", "team"],
+  ["atlas-governance-and-measurement", "wrapper/evidence-atlas/docs/GOVERNANCE-AND-MEASUREMENT.md", "research", "team"],
+  ["atlas-monitoring-data-stack", "wrapper/evidence-atlas/docs/MONITORING-DATA-STACK.md", "research", "team"],
+  ["atlas-precedent-qtrees-berlin", "wrapper/evidence-atlas/docs/PRECEDENT-QTREES-BERLIN.md", "research", "team"],
+  ["atlas-queryable-evidence-atlas", "wrapper/evidence-atlas/docs/QUERYABLE-EVIDENCE-ATLAS.md", "research", "team"],
+  ["atlas-research", "wrapper/evidence-atlas/docs/RESEARCH.md", "research", "team"],
+  ["atlas-solutions", "wrapper/evidence-atlas/docs/SOLUTIONS.md", "research", "team"],
+  ["atlas-sponge-facts", "wrapper/evidence-atlas/docs/SPONGE-FACTS.md", "research", "team"],
+  ["atlas-zhaw-sources", "wrapper/evidence-atlas/docs/ZHAW-SOURCES.md", "research", "team"],
+
   ['data-charter', 'wrapper/data-charter-map/docs/DATA-CHARTER.md', 'research', 'team'],
   ['gatekeepers', 'wrapper/data-charter-map/docs/GATEKEEPERS.md', 'research', 'team'],
   ['data-sources', 'wrapper/data-charter-map/docs/DATA-SOURCES.md', 'research', 'team'],

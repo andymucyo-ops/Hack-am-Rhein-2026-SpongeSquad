@@ -6,7 +6,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const stage=root+'.site-workspace';
 mkdirSync(stage,{recursive:true});
 cpSync(root+'site',stage,{recursive:true});
-for(const name of ['street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs']){
+for(const name of ['street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs','evidence-atlas','experiments']){
  const dest=stage+'/wrapper/'+name;
  // Preserve installed dependencies, but never copy generated output from source.
  cpSync(root+name,dest,{recursive:true,filter:p=>!p.split('/').some(x=>['node_modules','dist','.git'].includes(x))});

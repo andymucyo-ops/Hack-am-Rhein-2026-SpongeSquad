@@ -11,6 +11,10 @@ const [major, minor] = process.versions.node.split('.').map(Number);
 // Street Lab's own script uses --test-isolation=none (Node ≥ 23.6). Older Node 22 names it --experimental-test-isolation.
 const isolation = major > 23 || (major === 23 && minor >= 6) ? '--test-isolation=none' : '--experimental-test-isolation=none';
 const checks = [
+  ['Evidence atlas validation', node, ['scripts/validate-atlas.mjs'], 'wrapper/evidence-atlas'],
+  ['Evidence solutions smoke', node, ['scripts/check.mjs'], 'wrapper/evidence-atlas'],
+  ['Facts catalogue', node, ['scripts/facts-doc.mjs', '--check'], 'wrapper/evidence-atlas'],
+  ['Adaptive preview tests', node, ['--test','tests/adaptive-interface.test.mjs','tests/state-engine.test.mjs'], 'wrapper/experiments/adaptive-interface'],
   ['Street Lab model and Rain Walk tests', node, ['--experimental-strip-types', '--no-warnings', '--test', isolation, ...readdirSync(join(root, 'wrapper/street-workspace/test')).filter((f) => f.endsWith('.test.ts')).map((f) => `test/${f}`)], 'wrapper/street-workspace'],
   ['Street Lab type-check', node, ['node_modules/typescript/bin/tsc', '--noEmit'], 'wrapper/street-workspace'],
   ['Site scoping type-check', node, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json', '--noEmit', '--incremental', 'false'], 'basel-site-scoping-tool'],
