@@ -1,5 +1,7 @@
 # SpongeSquad architecture and build status
 
+See also [Product vision](PRODUCT_VISION.md), [MVP boundary](MVP.md), [data-gap-to-decision TODO](TODO-DATA-GAP-TO-DECISION.md), [PR 3 sparring review](PR3-SPARRING.md) and the [architecture decision records](adr/README.md).
+
 ## Product spine
 
 The project is not one game or one map. It is a sequence of questions:
@@ -28,16 +30,17 @@ Who can act, what evidence is required, and how does a proposal advance?
 
 ```mermaid
 flowchart TD
-    A["1 · Evidence discovery<br/>Andy · mostly built"]
+    A["1 · Data Charter<br/>real, inferred, missing"]
     B["2 · Site scoping<br/>Andy · prototype built"]
-    C["3 · Street world model<br/>in progress"]
-    D["4 · Intervention engine<br/>partly built"]
-    E["5 · Illustrative simulation<br/>partly built"]
-    F["6 · Visual experience<br/>multiple prototypes"]
-    G["7 · Decision pathway<br/>research only"]
+    X["3 · Street X-Ray<br/>evidence gate built"]
+    C["4 · Street world model<br/>vertical slice built"]
+    D["5 · Intervention engine<br/>one patch built"]
+    E["6 · Illustrative simulation<br/>deterministic slice built"]
+    F["7 · Visual experience<br/>React/SVG MVP built"]
+    G["8 · Decision pathway<br/>research only"]
 
-    A --> B
-    B -->|CandidateArea| C
+    A --> B --> X
+    X -->|Candidate context only| C
     C -->|WorldState| D
     D --> E
     E --> F
@@ -47,14 +50,16 @@ flowchart TD
 
 | Module | Purpose | Current state | Remaining work |
 | --- | --- | --- | --- |
+| Evidence charter and gap engine | State what should exist, what Basel publishes and what can be inferred | Ported Data Charter with 25 indicators, frozen/live inputs, four inference pilots with typed claims (class, method, inputs, resolution, validation, limitations, permitted use) and explicit missing-data asks | Validate claims before any use beyond explain/screen; agree a handoff v2 before claims enter a site scenario (ADR 0007) |
 | Evidence discovery | Find relevant Basel datasets | Basel-Stadt and opendata.swiss connectors, source registry and metadata model exist in Andy's `feature/hot-spot-map` branch | Verify dataset IDs, schemas, licences, temporal coverage and spatial extent |
 | Site scoping | Identify places worth investigating | React/Leaflet map, `CandidateArea`, indicators, scoring, shortlist and comparison exist | Replace illustrative pins and values with spatially derived evidence |
-| Scenario adapter | Translate an area into a street case | Contract identified | Implement `candidateAreaToScenarioSeed()` |
-| Street world | Describe what physically exists | Five-primitives model designed | Implement one minimal typed street |
-| Intervention engine | Describe what changes | Seven tracks, dependencies, combinations and twelve states exist in the explainer | Convert one intervention into a typed world patch |
-| Simulation | Explain directional effects | Illustrative runoff, infiltration, storage, evapotranspiration and heat logic exists | Extract a pure deterministic function independent of the renderer |
-| Application shell | Navigation, evidence and controls | Andy's React application exists | Add an `Open Street Lab` transition and scenario workspace |
-| Renderer | Make the world state visible | Standalone explainer and Phaser prototypes exist | Make the renderer consume `WorldState` rather than own domain logic |
+| Street X-Ray | Separate available context, limited hypotheses and decision-blocking gaps | One Klybeck study point, three evidence layers, verification rehearsal and printable Evidence Passport | Replace the illustrative segment with a surveyed segment and attach actual gatekeeper responses |
+| Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |
+| Street world | Describe what physically exists | Minimal typed street with zones, surfaces, assets, nodes and connections | Add verified site input only through a scenario-seed contract |
+| Intervention engine | Describe what changes | Reversible rain-garden and runoff-connection patch | Add measures only when they demonstrate a new dependency or trade-off |
+| Simulation | Explain directional effects | Pure deterministic water balance plus driver-bearing mechanism claims, independent of rendering | Keep exact volumes illustrative until a calibrated model and suitable inputs exist |
+| Application shell | Navigation, evidence and controls | Site scoping → Street Lab transition, journey markers and candidate evidence panel implemented | Add presentation/explainer transition when that workstream exposes a stable entry point |
+| Renderer | Make the world state visible | Accessible React/SVG renderer consumes `WorldState` and `SimulationSnapshot` | Improve explanatory sequencing and visual polish without moving rules into the view |
 | Decision pathway | Explain who can act and how | Basel-specific research direction exists | Model ownership, actors, approvals, evidence gates and public influence |
 | Persistence/backend | Save and share scenarios | Not implemented and not yet required | Add only when shared scenarios or server-side processing justify it |
 
@@ -88,7 +93,7 @@ This fork's `feature/sponge-street-explainer` branch provides:
 
 Its domain logic is still embedded in the standalone prototype and must later be separated from presentation.
 
-### Phaser prototype — SEE
+### Phaser prototype — prior SEE exploration
 
 The Phaser v5 experiment provides:
 
@@ -98,7 +103,7 @@ The Phaser v5 experiment provides:
 - animated weather and shallow surface water;
 - coherent image slices from one master scene.
 
-Its current intervention values and calculations are owned by the Phaser scene. In the target architecture, Phaser receives a `WorldState` and renders it; it does not own site selection, intervention definitions, evidence or simulation logic.
+Its current intervention values and calculations are owned by the Phaser scene. It remains useful visual exploration, but is not the MVP runtime. [ADR 0003](adr/0003-use-react-svg-for-the-mvp-renderer.md) records the decision to use a React/SVG projection of typed state instead.
 
 ## Domain boundary
 
@@ -325,4 +330,3 @@ Do not build yet:
 ## Immediate finish line
 
 > Select one provisional Basel site, instantiate one small example street, apply one intervention, and visibly explain what changed physically, hydrologically and evidentially.
-

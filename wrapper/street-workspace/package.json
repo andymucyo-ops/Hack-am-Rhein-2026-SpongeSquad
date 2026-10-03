@@ -9,7 +9,6 @@
     "test": "node --experimental-strip-types --test --test-isolation=none test/*.test.ts"
   },
   "dependencies": {
-    "phaser": "3.90.0",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
