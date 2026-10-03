@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="find">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FIND: Andy's site-scoping tool for provisional heat-and-water screening in Basel." />
+  <title>Find · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/candidate-picker.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap">
+        <p class="eyebrow">Stage 1 of 6 · Find</p>
+        <h1>Where should we look first?</h1>
+        <p class="lead">Andy's site-scoping tool screens Basel for places where heat and water problems may overlap. It is a discussion tool for choosing where to investigate, not a hazard map.</p>
+        <div class="stage-facts" style="margin-top:24px">
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">Where in Basel might a heat-and-water intervention be worth investigating?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Leaflet map of Basel with 4 discussion areas and 16 exploration pins</li>
+            <li>Explainable provisional score, shortlist and side-by-side comparison</li>
+            <li>Dataset catalogue with Basel-Stadt and opendata.swiss connectors</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
+            <li>Every candidate location and indicator value is a placeholder</li>
+            <li>The ranking must not be presented as a factual claim</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li>Spatial join of official heat, land-cover, canopy and runoff layers</li>
+            <li>Basel-Stadt boundary checks and field validation</li>
+            <li>An export of the map selection to the next step</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plain" style="padding-top:0">
+      <div class="wrap">
+        <div class="embed">
+          <div class="embed-bar">
+            <span><b>Basel Site Scoping</b> · Andy · <code>basel-site-scoping-tool/</code>, shown unchanged</span>
+            <a class="button small" href="../basel-site-scoping-tool/" target="_top">Open full screen ↗</a>
+          </div>
+          <iframe src="../basel-site-scoping-tool/" title="Basel Site Scoping tool" loading="lazy"></iframe>
+        </div>
+        <p class="tiny" style="margin-top:8px">The tool is designed for desktop widths. On a phone, scroll inside the frame or open it full screen. Catalogue refresh needs internet access; the map tiles come from OpenStreetMap-based providers.</p>
+      </div>
+    </section>
+
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Next · Understand</p><h2>Carry a candidate forward</h2></div>
+          <p>The map does not hand its selection to the website yet. Pick the same place here to continue.</p>
+        </div>
+        <div data-candidate-picker data-next="understand/"><p class="tiny">Loading candidates…</p></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

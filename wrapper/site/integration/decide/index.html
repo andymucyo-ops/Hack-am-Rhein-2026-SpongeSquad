@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="decide">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DECIDE: who could act on a Basel street, what evidence is missing, what must be investigated, and how people can take part." />
+  <title>Decide · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="decide.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap">
+        <p class="eyebrow">Stage 6 of 6 · Decide</p>
+        <h1>Who could act, <i>and what would they need to know?</i></h1>
+        <p class="lead">A street change needs an owner, evidence and approvals. This page sets out what the team's research supports for Basel and keeps the unresolved questions open.</p>
+        <div class="stage-facts" style="margin-top:24px">
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">Who can act, what evidence is required, and how could a proposal advance?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Who controls each kind of ground, and which actions fit there</li>
+            <li>Verified Basel rules, programmes and projects, each with its source</li>
+            <li>Gatekeepers for the missing evidence</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Proposals</h3><ul>
+            <li>The six levers are the team's proposals, not Basel policy</li>
+            <li>Unlock steps come from the team's gatekeeper model</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li>Basel approval procedures for unsealing, infiltration, tree pits and retention</li>
+            <li>Formal participation procedures for street projects</li>
+            <li>Ownership of the selected candidate's ground</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="candidate-section" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Selected candidate</p><h2 id="decide-cand-title"></h2></div>
+          <p>What this candidate's record already says is missing. None of it is resolved by the Street Lab.</p>
+        </div>
+        <div class="grid-2" id="decide-cand"></div>
+      </div>
+    </section>
+
+    <section class="section" id="actors">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">1 · Ownership and responsible actors</p><h2>Whose ground is it?</h2></div>
+          <p>Most sealed ground in Basel-Stadt is not street space, so the actor changes with the place. Grouping by owner follows the team's sponge catalogue.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ground</th><th>Who acts</th><th>Sponge actions that fit</th><th>What is established</th></tr></thead>
+            <tbody>
+              <tr><td><b>Public street space (Allmend)</b></td><td>Canton of Basel-Stadt, which runs the current street redesigns</td><td>Unseal street space, tree trenches, rain gardens, leading road water into green, permeable parking, keeping gullies clear, dig once</td><td><span class="label source">Verified</span> The canton is redesigning about 30 streets during the district-heating build-out, including unsealing (<a href="https://www.bs.ch/medienmitteilungen/bvd/2025-kanton-sorgt-anlaesslich-des-fernwaermeausbaus-fuer-besseren-hitzeschutz-auf-gut-30-strassen" rel="noreferrer">media release, July 2025</a>).</td></tr>
+              <tr><td><b>Public buildings and grounds</b></td><td>The public owner of the building</td><td>Unseal forecourts, green roofs, disconnect downpipes, rain gardens</td><td><span class="label missing">Not researched</span> Which office decides for which building.</td></tr>
+              <tr><td><b>Private courtyards, roofs and forecourts</b></td><td>Property owners</td><td>Unseal courtyards, green roofs, disconnect downpipes, rain barrels</td><td><span class="label source">Verified</span> The canton advises owners and offers grants (<a href="https://www.bs.ch/schwerpunkte/klima/stadtklima/umsetzung-stadtklimakonzept" rel="noreferrer">Stadtklimakonzept</a>). Flat-roof greening is required by § 72 BPG.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tiny" style="margin-top:10px">Parcel data has no owner field, so "other parcels" also include canton, municipal and SBB land. Parcels and Allmend parcels are open as <a href="https://data.bs.ch/explore/dataset/100201/" rel="noreferrer">data.bs.ch 100201</a>.</p>
+      </div>
+    </section>
+
+    <section class="section white" id="evidence">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">2 · Missing evidence</p><h2>What any street design still needs</h2></div>
+          <p>These facts block a real design on any Basel street, whichever candidate is chosen. The access state says who might unlock each one.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Evidence</th><th>Access</th><th>Who might unlock it</th></tr></thead>
+            <tbody>
+              <tr><td>Exact footprint and ownership</td><td><span class="label works">Open</span></td><td>Parcel data exists; the candidates have no boundary yet</td></tr>
+              <tr><td>Utility routes, depths and clearances</td><td><span class="label missing">Restricted · operator-held</span></td><td>Cadastral authority and the network operator</td></tr>
+              <tr><td>Drainage destination and sewer connection</td><td><span class="label missing">Restricted</span></td><td>Tiefbauamt drainage and general drainage plan (GEP) owners</td></tr>
+              <tr><td>Local infiltration capacity</td><td><span class="label missing">Site check required</span></td><td>A qualified site investigation</td></tr>
+              <tr><td>Groundwater clearance at the site</td><td><span class="label illustrative">Partial</span></td><td>Open station statistics give context only; nothing is known between stations</td></tr>
+              <tr><td>Tree pit size and root space</td><td><span class="label missing">Missing</span></td><td>Not in the tree cadastre; the Data Charter asks the Stadtgärtnerei for a pit-area field</td></tr>
+              <tr><td>When the street is next opened</td><td><span class="label illustrative">Partial</span></td><td>Permits are open; no coordinated multi-year works plan is published</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small" style="margin-top:12px"><a href="../research/gatekeepers/">Gatekeeper model</a> · <a href="../research/data-charter/">Data Charter</a> · <a href="../research/gap-filling/">How the team tried to fill the gaps</a></p>
+      </div>
+    </section>
+
+    <section class="section" id="investigations">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">3 · Investigations and approvals</p><h2>What must be established before a proposal advances</h2></div>
+          <p>Only rules found in Basel sources are stated as rules. Guidance from Bern, Zürich and Luzern is useful background but is not a Basel requirement.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel">
+            <span class="label source">Established for Basel</span>
+            <h3 style="margin-top:10px">Rules and practice found</h3>
+            <ul class="small">
+              <li><b>Green roofs.</b> § 72 BPG: flat roofs of 10 m² or more must be greened when built or renovated, with at least 15 cm of substrate. <a href="https://www.bs.ch/bvd/stadtgaertnerei/biodiversitaet/stadtnatur-foerdern" rel="noreferrer">Source</a></li>
+              <li><b>Rainwater fee.</b> CHF 0.90 per m² of sealed area connected to the sewer. <a href="https://www.bs.ch/ls/node/28497" rel="noreferrer">Source</a></li>
+              <li><b>Works coordination.</b> The canton uses the district-heating build-out to redesign streets with unsealing and greening. <a href="https://www.bs.ch/bvd/staedtebau-architektur/baukultur/grau-blau-gruen-baukultur-machen/gruene-zukunft-begruenung-und-entsiegelung-im-zuge-des-fernwaermeausbaus" rel="noreferrer">Source</a></li>
+              <li><b>Pilots under monitoring.</b> Sponge-city elements in the new VoltaNord streets, with five years of scientific monitoring. <a href="https://www.bs.ch/regierungsratsbeschluesse/P251765?backUrl=/apps/regierungsratsbeschluesse" rel="noreferrer">Source</a></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <span class="label missing">Open questions</span>
+            <h3 style="margin-top:10px">Not yet established</h3>
+            <ul class="small">
+              <li>Basel-specific planning and approval guidance for unsealing, infiltration, tree pits, retention and green roofs</li>
+              <li>Whether planned roadworks, sewer, tram or district-heating works are available as data that can be joined to need</li>
+              <li>Which intervention effects can be simulated defensibly, and with which sourced effect ranges</li>
+              <li>Who must sign off a rain garden that takes road water in a Basel street</li>
+            </ul>
+            <p class="tiny">From the <a href="../research/research-backlog/">research backlog</a>. These stay open until a Basel source answers them.</p>
+          </article>
+        </div>
+        <div class="panel" style="margin-top:16px">
+          <h3>Investigations for a candidate site</h3>
+          <p class="small">Steps the team's gatekeeper model proposes before any footprint is drawn. They are a working checklist, not a documented Basel procedure.</p>
+          <ol class="small">
+            <li>Fix a footprint and check its parcels and public-realm status.</li>
+            <li>Check groundwater protection zones (<a href="https://data.bs.ch/explore/dataset/100292/" rel="noreferrer">data.bs.ch 100292</a>) and nearby groundwater statistics.</li>
+            <li>Request an area-limited utility extract and confirm with the network operator before any excavation.</li>
+            <li>Establish where retained and overflow water can go with the drainage owners.</li>
+            <li>Test local infiltration on site.</li>
+            <li>Check permitted works nearby for a chance to dig once.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="participation">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">4 · Public participation</p><h2>How people could take part</h2></div>
+          <p>Existing routes are separated from the team's ideas. Formal participation in street projects has not been researched yet.</p>
+        </div>
+        <div class="grid-3">
+          <article class="panel">
+            <span class="label source">Exists</span>
+            <h3 style="margin-top:10px">Advice and grants</h3>
+            <p class="small">The canton advises owners and offers grants from the value-added levy fund and Swisslos for citizen initiatives. <a href="https://www.bs.ch/schwerpunkte/klima/stadtklima/umsetzung-stadtklimakonzept" rel="noreferrer">Source</a></p>
+          </article>
+          <article class="panel">
+            <span class="label illustrative">Announced</span>
+            <h3 style="margin-top:10px">Private greening fund</h3>
+            <p class="small">A funding programme for unsealing, trees and green space on private property, planned for 2026 if the Grand Council approves it. <a href="https://www.bs.ch/medienmitteilungen/2025-fuer-ein-grueneres-basel-verstaerkte-foerderung-von-kleinprojekten" rel="noreferrer">Source</a></p>
+          </article>
+          <article class="panel dashed">
+            <span class="label missing">Open question</span>
+            <h3 style="margin-top:10px">Shaping a street project</h3>
+            <p class="small">How residents can comment on or propose a change to a specific Basel street is not yet researched. This page does not claim a procedure.</p>
+          </article>
+        </div>
+        <div class="panel" style="margin-top:16px">
+          <span class="label illustrative">Team prototype</span>
+          <h3 style="margin-top:10px">Rain Walk: residents as evidence collectors</h3>
+          <p class="small">A demo campaign in which people record what they see on a street, such as paving, gullies or tree pits, and review each other's notes. It is a prototype on a synthetic segment, not an official participation channel. A visual observation never establishes what is underground. <a href="../view/?m=rain-walk">Open Rain Walk</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="basel-today">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Context</p><h2>What Basel is already doing</h2></div>
+          <p>From the team's sponge catalogue, updated 3 October 2026. "Nothing found" means nothing was published in the sources the team reviewed.</p>
+        </div>
+<!--@baseltoday-->
+      </div>
+    </section>
+
+    <section class="section white" id="levers">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Team proposals</p><h2>Six levers</h2></div>
+          <p>These are the team's suggestions for how Basel could get further. They are proposals, not findings.</p>
+        </div>
+<!--@levers-->
+      </div>
+    </section>
+
+    <section class="section" id="todo">
+      <div class="wrap">
+        <div class="panel dashed">
+          <span class="label placeholder">Research to-do</span>
+          <h3 style="margin-top:10px">From data gaps to decision support</h3>
+          <p class="small">A broader direction kept outside tonight's demo. For one street, show what is observed and what can responsibly be derived. Then show what remains unknown, and how resolving each gap would change the assessment. Street imagery might support visible-surface observations such as paving, tree pits or kerbs. It cannot establish utilities, drainage connections, soil permeability or groundwater clearance.</p>
+          <p class="small"><a href="../research/data-gap-to-decision/">Read the to-do note</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

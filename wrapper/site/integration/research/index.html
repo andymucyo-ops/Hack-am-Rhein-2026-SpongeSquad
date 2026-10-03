@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="research">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sources and research behind SpongeSquad: Basel data, sponge-city guidance, open questions and limitations." />
+  <title>Sources &amp; Research · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap">
+        <p class="eyebrow">Sources &amp; Research</p>
+        <h1>The evidence behind the demo, <i>and its limits</i></h1>
+        <p class="lead">Research from two places: the team's sponge-city work in this repository, and the shared research library from the team's earlier repository. Every claim keeps its original status label.</p>
+        <div class="actions">
+          <a class="button" href="#labels">How to read the labels</a>
+          <a class="button" href="#sources">Sponge-city sources</a>
+          <a class="button" href="#open-questions">Open questions</a>
+          <a class="button" href="#documents">All documents</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="labels">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">How to read the labels</p><h2>Two label systems, both kept</h2></div>
+          <p>Labels say what kind of statement something is. They are not quality scores.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel">
+            <h3>Research library labels</h3>
+            <p class="tiny">From the imported <a href="research-method/">research method</a>.</p>
+            <dl class="kv">
+              <dt><span class="label source">Verified</span></dt><dd>Checked against a primary or official source during the research pass.</dd>
+              <dt><span class="label neutral">Interpretation</span></dt><dd>A reasoned framing or architectural reading, not a sourced fact.</dd>
+              <dt><span class="label illustrative">Speculative</span></dt><dd>Worth exploring, not established.</dd>
+              <dt><span class="label missing">Verify</span></dt><dd>A useful lead whose licence, maintenance or applicability still needs checking.</dd>
+            </dl>
+          </article>
+          <article class="panel">
+            <h3>Sponge catalogue and Data Charter classes</h3>
+            <p class="tiny">From <a href="sponge-catalogue/">the sponge catalogue</a> and <a href="data-charter/">the Data Charter</a>.</p>
+            <dl class="kv">
+              <dt><span class="label source">Observed</span></dt><dd>Published by an authority, quoted as published.</dd>
+              <dt><span class="label illustrative">Derived</span></dt><dd>Computed by the team from open Basel data, method named, for explaining and screening only.</dd>
+              <dt><span class="label neutral">Assumed</span></dt><dd>The team's reasoning or proposal; not measured.</dd>
+              <dt><span class="label missing">Unknown</span></dt><dd>No open data found in the reviewed Basel and federal sources.</dd>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Sponge-city sources</p><h2>Basel data and sponge-city guidance</h2></div>
+          <p>Catalogue entries relevant to this challenge. Guidance from other cities is a verified source but not a Basel rule.</p>
+        </div>
+<!--@catalog:sponge-->
+        <div class="grid-2" style="margin-top:16px">
+          <article class="panel">
+            <h3>Basel's own sponge-city example</h3>
+            <p class="small">Basel-Stadt coordinated greening and unsealing with district-heating works. The library notes this makes planned works a potentially important evidence layer: not only where need is high, but where action is unusually feasible now.</p>
+            <p class="tiny">From <a href="data-and-sources/">Data &amp; sources</a> · VERIFIED</p>
+          </article>
+          <article class="panel">
+            <h3>Modelling caution</h3>
+            <p class="small">Do not invent one opaque sponge score by adding incomparable quantities. Heat, runoff, shade, biodiversity, cost and implementation complexity should stay separate unless a documented objective function is chosen.</p>
+            <p class="tiny">From <a href="challenge-landscape/">Challenge landscape</a>, "Important modelling caution"</p>
+          </article>
+        </div>
+        <p class="small" style="margin-top:16px">The team's own data review is deeper: <a href="data-charter/">Data Charter</a> with 25 indicators, <a href="data-sources/">open data and APIs</a>, and <a href="../view/?m=data-charter">the Data Charter map</a>.</p>
+      </div>
+    </section>
+
+    <section class="section white" id="open-questions">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Open questions</p><h2>Research gaps, kept visible</h2></div>
+          <p>Questions from the imported research backlog that could still change what the team builds. None is answered by the demo.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel content" style="border:0;padding:0;background:none">
+            <h3>Sponge City</h3>
+<!--@md:research/source-repo/docs/RESEARCH_BACKLOG.md#Sponge_City-->
+          </article>
+          <article class="panel content" style="border:0;padding:0;background:none">
+            <h3>Cross-cutting</h3>
+<!--@md:research/source-repo/docs/RESEARCH_BACKLOG.md#Cross-cutting-->
+            <h3>Research anti-goals</h3>
+<!--@md:research/source-repo/docs/RESEARCH_BACKLOG.md#Research_anti-goals-->
+          </article>
+        </div>
+        <div class="panel dashed" style="margin-top:16px">
+          <span class="label placeholder">Research to-do</span>
+          <h3 style="margin-top:10px">Data gaps to decision support</h3>
+          <p class="small">A broader direction, deliberately outside tonight's demo. It includes the idea of street imagery for visible-surface observations, with an explicit boundary against inferring underground conditions. <a href="data-gap-to-decision/">Read the to-do note</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="documents">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">All documents</p><h2>Read the research</h2></div>
+          <p>Each document is rendered from its Markdown source and links back to it.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel"><h3>Team research for Basel</h3><p class="tiny">This repository, sponge-city specific.</p><!--@docs:team--></article>
+          <article class="panel"><h3>Shared research library</h3><p class="tiny">Imported from the team's earlier repository. Challenge-neutral.</p><!--@docs:library--></article>
+          <article class="panel"><h3>Background</h3><p class="tiny">Imported. Covers all four Hack am Rhein challenges, not only this one.</p><!--@docs:background--></article>
+          <article class="panel"><h3>Research to-do and provenance</h3><p class="tiny">What is deliberately left for later, and where imported material came from.</p><!--@docs:todo--><!--@docs:provenance--></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="catalogue">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Resource catalogue · background</p><h2>Everything else the team catalogued</h2></div>
+          <p>Imported from <code>resources/catalog.yml</code>. Rhine, heat-routing and life-science entries belong to other challenges. Prior-art repositories still need their licence and quality checked.</p>
+        </div>
+        <details>
+          <summary class="small" style="cursor:pointer"><b>Show the background entries</b></summary>
+          <div style="margin-top:12px">
+<!--@catalog:background-->
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="notice">
+          <p><b>Provenance.</b> The library, backlog and catalogue were imported verbatim from <a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/tree/51273960e54f730328383931665f2d95da33107c" rel="noreferrer">blackmath88/the-spongesuad-hackamrhein at commit 5127396</a>. Issues and pull requests stay in that repository. <a href="migration/">Migration manifest</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

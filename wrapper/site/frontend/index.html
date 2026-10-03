@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="workstream">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad frontend workstream." />
+  <title>Frontend · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap hero-grid" style="align-items:end">
+        <div>
+          <p class="eyebrow">Workstream · frontend/</p>
+          <h1>Product interface</h1>
+          <p class="lead">Shared UI components, routes and layout work that the journey can adopt.</p>
+        </div>
+        <aside class="panel">
+          <p class="eyebrow">Workstream owner</p>
+          <h3>Simon · Frontend</h3>
+          <p class="small">Integration-ready interface work. Domain logic and datasets stay in their owning folders.</p>
+          <p><span class="label placeholder">Template page</span></p>
+        </aside>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-3">
+          <article class="panel dashed"><span class="label missing">Not yet in the repository</span><h3 style="margin-top:10px">Frontend entry point</h3><p class="small">No renderable frontend has been committed to <code>frontend/</code> yet. When one exists, link or embed it here and add it as a module in <code>integration/routes.json</code>.</p></article>
+          <article class="panel"><span class="label works">Available to reuse</span><h3 style="margin-top:10px">Shared site styles</h3><p class="small">The website uses one stylesheet and one navigation script: <code>integration/assets/site.css</code> and <code>site.js</code>. Components can adopt the same colour tokens.</p></article>
+          <article class="panel"><span class="label works">Live</span><h3 style="margin-top:10px">Current journey</h3><p class="small">The demo path already runs from Find to Decide. Interface improvements can start from any stage page.</p><p class="small"><a href="../find/">Open the journey</a></p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section white">
+      <div class="wrap">
+        <div class="panel dashed">
+          <span class="label placeholder">For the owner</span>
+          <h3 style="margin-top:10px">Replace this page</h3>
+          <p class="small">This file is <code>frontend/index.html</code>. Edit or replace it freely; keep the two slot <code>div</code>s and the script tags so the site header and footer stay. Then set your <code>status</code> in <code>integration/routes.json</code> and run <code>npm run build:shell</code>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>
