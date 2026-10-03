@@ -1,0 +1,12 @@
+{
+  "name": "spongesquad-wrapper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "npm ci --prefix street-workspace",
+    "build": "npm run build --prefix street-workspace && npm run build --prefix data-charter-map && node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "npm test --prefix street-workspace && npm test --prefix data-charter-map && npm test --prefix sponge-catalogue && npm test --prefix street-xray/engine && node street-xray/smoke.mjs"
+  }
+}

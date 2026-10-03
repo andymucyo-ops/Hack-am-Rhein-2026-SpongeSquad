@@ -49,6 +49,10 @@ export type StreetScenario = {
   label: string;
   evidence: {
     classification: "illustrative";
+    routing: {
+      state: "assumed" | "observed" | "unknown";
+      note: string;
+    };
     assumptions: string[];
     site?: CandidateSiteContext;
   };
@@ -59,6 +63,15 @@ export type StreetScenario = {
   connections: Connection[];
 };
 export type InterventionPlan = { rainGarden: boolean; connected: boolean };
+export type EvidenceState = "supported" | "illustrative" | "unknown";
+export type MechanismClaim = {
+  id: "absorb" | "store" | "slow";
+  label: string;
+  active: boolean;
+  state: EvidenceState;
+  explanation: string;
+  drivers: string[];
+};
 export type Storm = { depthMm: number; durationMinutes: number };
 export type SimulationSnapshot = {
   elapsedMinutes: number;

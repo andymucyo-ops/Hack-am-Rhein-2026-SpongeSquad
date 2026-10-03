@@ -7,3 +7,5 @@ random/
 node_modules/
 dist/
 *.tsbuildinfo
+
+/dist/

@@ -27,6 +27,10 @@ export function createDemoStreet(site?: CandidateSiteContext): StreetScenario {
     label: "A street, connected",
     evidence: {
       classification: "illustrative",
+      routing: {
+        state: "assumed",
+        note: "No open Basel sewer or gully network was found. Demo runoff routes are assumptions, never inferred from the selected candidate.",
+      },
       site: site ? structuredClone(site) : undefined,
       assumptions: [
         "Synthetic 60 × 30 m schematic, not a surveyed Basel street.",
