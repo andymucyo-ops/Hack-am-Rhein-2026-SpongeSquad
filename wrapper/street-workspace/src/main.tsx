@@ -106,7 +106,7 @@ function App() {
         <a className="brand" href="#">
           SPONGE SQUAD <span>/ STREET LAB</span>
         </a>
-        <span className="tag">Illustrative scenario · v0.2</span>
+        <a className="tag" href="./rain-walk/">Rain Walk · collect street evidence →</a>
       </header>
       <section className="intro">
         <div>

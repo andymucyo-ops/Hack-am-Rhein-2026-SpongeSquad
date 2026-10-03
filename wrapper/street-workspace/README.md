@@ -99,3 +99,29 @@ The design controls now sit above the street on desktop and mobile. Changing a d
 Two labelled water-balance bars compare the sealed street and the current design at the same minute. The original end-of-storm table remains separately labelled. Catchment links can be revealed on demand; the selected zone and the active drainage route are readable outside the canvas. Roof details, cars and planting are drawn from the existing zone/surface state without bitmap assets or model changes.
 
 Verified in Chromium at desktop and 390 px widths: same-minute design changes, before/after comparison, disconnect, reset, pause/resume, complete-storm shortcut and catchment toggle. No runtime errors or horizontal page overflow. The canvas remains a scaled schematic on small screens; the HTML route summary and zone controls provide readable alternatives.
+
+## Rain Walk / Street Evidence Passport
+
+From Street Lab, follow **Rain Walk · collect street evidence** or open
+`/rain-walk/` on the same Vite server. `npm ci && npm run dev` starts the app;
+`npm run build` includes the standalone module in `dist/rain-walk/`.
+The future wrapper can link/embed this directory without coupling to React.
+
+The module lives in `public/rain-walk/` (no new dependencies): four English/German
+field prompts, ten synthetic clues, observation capture with optional local photo,
+review queue with reasons and append-only history, evidence passport, JSON and
+text field-check exports. Browser localStorage is device-local, not a shared queue;
+storage errors are surfaced and export remains available. Reset asks for confirmation.
+
+Source (`demo` / `community`) and review outcome are separate. Accepted demo clues
+never count as community evidence. Rejected clues remain in the export audit trail.
+Review is by a local unauthenticated user, not an authority. No visual observation
+modifies geometry or simulation. No actual street, measured areas, rainfall/runoff
+ranges or field images are invented. The 120 m layout is schematic; choosing and
+surveying a real segment, shared review, site-bound records and scenario adapters
+remain future work. Photos (max 1 MB each) are local and included in JSON export.
+
+Demo: review one synthetic clue, mark another uncertain/rejected, add an observation,
+open the passport, export the field-check brief. `npm test` includes provenance and
+review-history regression tests. Rain Walk concept: user-supplied campaign brief,
+4 October 2026; independently implemented without external fAIr code.
