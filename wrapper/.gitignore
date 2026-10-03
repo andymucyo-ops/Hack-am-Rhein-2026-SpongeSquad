@@ -9,3 +9,5 @@ dist/
 *.tsbuildinfo
 
 /dist/
+
+/.site-workspace/

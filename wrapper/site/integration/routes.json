@@ -1,0 +1,35 @@
+{
+  "_comment": "Single source of truth for the SpongeSquad website. The build reads `modules` to compile each app into dist/, and every page reads `stages`, `sections` and `workstreams` to draw navigation. Paths are relative to the site root, so the site works under any subpath. To replace a placeholder, edit the workstream's own index.html and update its `status` here.",
+  "stages": [
+    { "id": "find", "label": "Find", "path": "find/", "question": "Where in Basel might a heat-and-water intervention be worth investigating?" },
+    { "id": "understand", "label": "Understand", "path": "understand/", "question": "What is known about the selected place, and what is not?" },
+    { "id": "design", "label": "Design", "path": "lab/#design", "question": "What can change, and which measures depend on one another?" },
+    { "id": "test", "label": "Test", "path": "lab/#test", "question": "How might rainwater move differently after the change?" },
+    { "id": "see", "label": "See", "path": "lab/#see", "question": "Can a person see and follow the changed street system?" },
+    { "id": "decide", "label": "Decide", "path": "decide/", "question": "Who can act, what evidence is required, and how could a proposal advance?" }
+  ],
+  "sections": [
+    { "id": "research", "label": "Sources & Research", "path": "research/" },
+    { "id": "team", "label": "Team", "path": "team/" }
+  ],
+  "workstreams": [
+    { "folder": "basel-site-scoping-tool/", "owner": "Andy", "title": "Site scoping and hot-spot finder", "page": "find/", "app": "basel-site-scoping-tool/", "status": "live", "summary": "React and Leaflet map, dataset catalogue, provisional scoring, shortlist and comparison." },
+    { "folder": "wrapper/street-workspace/", "owner": "Achim", "title": "Street Lab", "page": "lab/", "app": "wrapper/street-workspace/", "status": "live", "summary": "Typed synthetic street, rain-garden intervention, conserved water balance and React/SVG view." },
+    { "folder": "wrapper/prototypes/sponge-street/", "owner": "Achim", "title": "Sponge Street explainer (early prototype)", "page": "wrapper/prototypes/sponge-street/", "status": "live", "summary": "Standalone explainer with seven intervention tracks and twelve guided states." },
+    { "folder": "wrapper/street-xray/", "owner": "Achim", "title": "Street X-Ray evidence gate", "page": "view/?m=street-xray", "status": "live", "summary": "One study point: what is known, what is only a hypothesis, and what must be unlocked before design." },
+    { "folder": "wrapper/street-workspace/public/rain-walk/", "owner": "Achim", "title": "Rain Walk (street evidence campaign)", "page": "view/?m=rain-walk", "status": "live", "summary": "Demo campaign for recording street observations with review history and an evidence passport. Synthetic, browser-local." },
+    { "folder": "wrapper/data-charter-map/", "owner": "Achim", "title": "Data Charter map", "page": "wrapper/data-charter-map/", "status": "live", "summary": "City-wide evidence charter: what Basel publishes, what is inferred and what is missing." },
+    { "folder": "wrapper/", "owner": "Achim", "title": "Wrapper and integration", "page": "wrapper/", "status": "live", "summary": "Shared shell, contracts, architecture records and integration of the modules." },
+    { "folder": "frontend/", "owner": "Simon", "title": "Frontend", "page": "frontend/", "status": "placeholder", "summary": "Shared product interface. Template page until the frontend exposes an entry point." },
+    { "folder": "data/", "owner": "Andy", "title": "Data and provenance", "page": "data/", "status": "partial", "summary": "Datasets, schemas, transformations and provenance for the map and the street." },
+    { "folder": "explainer-videos-context/", "owner": "Bala Chandar Muppala", "title": "Explainers and context", "page": "explainer-videos-context/", "status": "placeholder", "summary": "Explanations and video assets. Template page until assets are added." },
+    { "folder": "presentation-story/", "owner": "Mary", "title": "Presentation and story", "page": "presentation-story/", "status": "partial", "summary": "Demo narrative and slides. The Canva deck is linked; the story page is a template." }
+  ],
+  "modules": [
+    { "id": "site-scoping", "source": "basel-site-scoping-tool", "output": "basel-site-scoping-tool", "build": "vite" },
+    { "id": "street-lab", "source": "wrapper/street-workspace", "output": "wrapper/street-workspace", "build": "vite", "typecheck": true, "treeshake": false, "env": { "VITE_SCOPING_TOOL_URL": "../../find/" } },
+    { "id": "data-charter", "source": "wrapper/data-charter-map", "output": "wrapper/data-charter-map", "build": "script", "script": "scripts/build.mjs", "dist": "dist" },
+    { "id": "street-xray", "source": "wrapper/street-xray", "output": "wrapper/street-xray", "build": "copy", "files": ["index.html", "data", "engine/data", "engine/src"] },
+    { "id": "sponge-street-prototype", "source": "wrapper/prototypes/sponge-street", "output": "wrapper/prototypes/sponge-street", "build": "copy", "files": ["index.html"] }
+  ]
+}

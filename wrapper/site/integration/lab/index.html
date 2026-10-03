@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="lab">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DESIGN, TEST and SEE: the SpongeSquad Street Lab on a synthetic example street." />
+  <title>Design · Test · See · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/street-lab-adapter.js" defer></script>
+  <script src="lab.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain" style="padding-bottom:24px">
+      <div class="wrap">
+        <p class="eyebrow">Stages 3–5 of 6 · Street Lab</p>
+        <h1>Change one street. <i>Follow the water.</i></h1>
+        <p class="lead">One synthetic street, one rain garden and an explicit water network. The three stages below use the same running lab, so switching stages keeps your changes.</p>
+        <div class="tabs" role="tablist" aria-label="Stage" style="margin-top:20px">
+          <button role="tab" id="tab-design" aria-controls="panel-design" data-stage="design">3 · Design</button>
+          <button role="tab" id="tab-test" aria-controls="panel-test" data-stage="test">4 · Test</button>
+          <button role="tab" id="tab-see" aria-controls="panel-see" data-stage="see">5 · See</button>
+        </div>
+
+        <div role="tabpanel" id="panel-design" aria-labelledby="tab-design" class="stage-facts">
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">What can change, and which measures depend on one another?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Add a rain garden in place of the north parking strip</li>
+            <li>Connect street runoff through a kerb opening; this step needs the garden first</li>
+            <li>Reset restores the exact baseline</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
+            <li>The 60 × 30 m street is a schematic, not a surveyed Basel street</li>
+            <li>12 m³ storage, the infiltration rate and three removed parking spaces are assumptions</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li>Real site geometry, ownership and feasibility</li>
+            <li>A second intervention and sourced effect ranges</li>
+          </ul></div>
+        </div>
+
+        <div role="tabpanel" id="panel-test" aria-labelledby="tab-test" class="stage-facts" hidden>
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">How might rainwater move differently after the change?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Minute-by-minute water balance for a chosen storm depth</li>
+            <li>Same-minute comparison against the baseline</li>
+            <li>Eleven model tests, including conservation of water at every frame</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
+            <li>Default storm of 30 mm in 30 minutes: 54 m³ to the sewer when sealed, 40 m³ with a connected garden</li>
+            <li>No calibration, evaporation, travel delay or flooding; the sewer is an unlimited sink</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li>Calibrated hydrology and Basel design storms</li>
+            <li>Sewer capacity and any heat effect</li>
+          </ul></div>
+        </div>
+
+        <div role="tabpanel" id="panel-see" aria-labelledby="tab-see" class="stage-facts" hidden>
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">Can a person see and follow the changed street system?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Street diagram with water paths, zone inspector and timeline</li>
+            <li>Mechanism cards that name their evidence class</li>
+            <li><a href="../view/?m=sponge-street">Sponge Street explainer</a> with seven intervention tracks</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
+            <li>The diagram is schematic</li>
+            <li>The explainer's water shares and heat indicator are scenario values</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li><a href="../explainer-videos-context/" target="_top">Bala's explainers</a> and <a href="../presentation-story/" target="_top">Mary's story</a> are not embedded yet</li>
+            <li>A view of a real site</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section plain" style="padding-top:0">
+      <div class="wrap">
+        <p class="notice" id="handoff-note">No candidate selected. The lab runs on its synthetic example street. <a href="../understand/">Choose a candidate</a> to carry its name and open questions in.</p>
+        <div class="embed" style="margin-top:12px">
+          <div class="embed-bar">
+            <span><b>Street Lab</b> · Achim · <code>wrapper/street-workspace/</code></span>
+            <a class="button small" id="lab-full" href="../wrapper/street-workspace/" target="_top">Open full screen ↗</a>
+          </div>
+          <iframe id="lab-frame" title="SpongeSquad Street Lab" src="about:blank"></iframe>
+        </div>
+        <div class="actions">
+          <a class="button primary" id="to-decide" href="../decide/">Next: Decide <span aria-hidden="true">→</span></a>
+          <a class="button" href="../view/?m=sponge-street">Open the Sponge Street explainer</a>
+          <a class="button" href="../view/?m=data-charter">Open the Data Charter map</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

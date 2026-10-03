@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="team">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad team area: workstreams, weekend plan, planning records and how to contribute." />
+  <title>Team · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/workstreams.js" defer></script>
+  <script src="team.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap">
+        <p class="eyebrow">Team</p>
+        <h1>Five people, <i>one connected story</i></h1>
+        <p class="lead">Where each contribution lives, what the weekend plan was, and how to replace a placeholder with real work.</p>
+        <div class="actions">
+          <a class="button" href="#workstreams">Workstreams</a>
+          <a class="button" href="#plan">Weekend plan</a>
+          <a class="button" href="#observatory">Observatory</a>
+          <a class="button" href="#records">Planning records</a>
+          <a class="button" href="#contribute">Contribute</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="workstreams">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Workstreams</p><h2>Every folder has a page</h2></div>
+          <p>Status comes from <code>integration/routes.json</code>. Template pages are marked and belong to their owners.</p>
+        </div>
+        <div class="ws-list" data-workstreams><noscript><p>Enable JavaScript to list the workstreams, or read <a href="workstreams/">WORKSTREAMS.md</a>.</p></noscript></div>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Weekend plan</p><h2>Hack am Rhein, 3–4 October 2026</h2></div>
+          <p id="plan-status">Historical plan, recorded in the team's earlier repository on 3 October at 11:22. It is not updated here.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Day" id="day-tabs"></div>
+        <div class="plan-day" id="day-slots"><p class="tiny">Loading the plan…</p></div>
+        <div class="grid-2" style="margin-top:16px">
+          <article class="panel">
+            <h3>Working gates</h3>
+            <ol class="small" id="gates"></ol>
+            <p class="tiny">Planning gates only. The source repository recorded no agreed gate.</p>
+          </article>
+          <article class="panel">
+            <h3>Source</h3>
+            <p class="small">Copied verbatim from <a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/blob/51273960e54f730328383931665f2d95da33107c/observatory/data/weekend.json" rel="noreferrer">observatory/data/weekend.json</a> at commit 5127396. The "now" marker uses Basel time in your browser. The status values stored in the file are left as recorded and are not shown.</p>
+            <p class="small"><a href="day-plan/">Day plan as text</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="observatory">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Observatory</p><h2>Repository awareness</h2></div>
+          <p>The Observatory watched the team's earlier repository. It does not observe this one.</p>
+        </div>
+        <div class="grid-3">
+          <article class="panel dashed">
+            <span class="label missing">Not available</span>
+            <h3 style="margin-top:10px">Live view of this repository</h3>
+            <p class="small">No Observstory workflow runs here. The workflow and its GitHub Pages deployment were left in the source repository on purpose. In-flight work, overlaps and stale branches of this repository are therefore not shown.</p>
+          </article>
+          <article class="panel">
+            <span class="label source">Source repository</span>
+            <h3 style="margin-top:10px">Earlier repository's Observatory</h3>
+            <p class="small">The published Observatory shows activity of <b>blackmath88/the-spongesuad-hackamrhein</b> only, not this group repository.</p>
+            <p class="small"><a href="https://blackmath88.github.io/the-spongesuad-hackamrhein/" rel="noreferrer">Open its Observatory</a></p>
+          </article>
+          <article class="panel">
+            <span class="label neutral">Snapshot</span>
+            <h3 style="margin-top:10px">Last recorded state there</h3>
+            <p class="small">Its snapshot from 3 October, 18:42 UTC listed one open pull request, no open issues and 22 commits in its 36-hour window.</p>
+            <ul class="small">
+              <li><a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/pull/1" rel="noreferrer">PR #1 · Add shared research and resources library</a> (merged)</li>
+              <li><a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/pull/2" rel="noreferrer">PR #2 · Research library</a> (open)</li>
+              <li><a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/issues" rel="noreferrer">Its issues</a></li>
+            </ul>
+          </article>
+        </div>
+        <div class="panel" style="margin-top:16px">
+          <h3>Task planning</h3>
+          <p class="small">The source repository tracked shared work as GitHub Issues with <code>[TASK]</code>, <code>[EXPERIMENT]</code> and <code>[DECISION]</code> prefixes. This group repository has no such convention yet. Agreeing one is a team decision. <a href="task-planner/">Task planner conventions</a> · <a href="observatory/">Observatory module notes</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="records">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Planning records</p><h2>Decisions and plans so far</h2></div>
+          <p>Records in this repository first, then the earlier repository's originals.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel"><h3>Product and architecture</h3><p class="tiny">This repository · <code>wrapper/docs/</code></p><!--@docs:architecture--></article>
+          <article class="panel"><h3>Architecture decision records</h3><p class="tiny">This repository · <code>wrapper/docs/adr/</code></p><!--@docs:adr--></article>
+          <article class="panel"><h3>Working agreements</h3><p class="tiny">This repository</p><!--@docs:planning--></article>
+          <article class="panel"><h3>Earlier repository's planning</h3><p class="tiny">Imported verbatim · <a href="../research/migration/">migration manifest</a></p><!--@docs:source-planning-->
+            <p class="small">Its coordination file declared three decisions for that repository. They are linked here, not adopted: <a href="https://github.com/blackmath88/the-spongesuad-hackamrhein/blob/51273960e54f730328383931665f2d95da33107c/.observstory/coordination.json" rel="noreferrer">coordination.json</a>.</p>
+          </article>
+        </div>
+        <div class="panel" style="margin-top:16px">
+          <h3>Pull requests on the group repositories</h3>
+          <ul class="small">
+            <li><a href="https://github.com/andymucyo-ops/Hack-am-Rhein-2026-SpongeSquad/pull/1" rel="noreferrer">andymucyo-ops · PR #1 · Add Sponge Street explainer prototype</a> (closed without merge; its content now lives in <code>wrapper/prototypes/</code>)</li>
+            <li><a href="https://github.com/blackmath88/Hack-am-Rhein-2026-SpongeSquad/pull/1" rel="noreferrer">blackmath88 fork · PR #1 · Structured street world and connected rain-garden slice</a> (merged into the fork's explainer branch)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="contribute">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Contribute</p><h2>Replace a placeholder tomorrow</h2></div>
+          <p>Each workstream owns its folder. The website only links stable entry points.</p>
+        </div>
+        <div class="grid-2">
+          <article class="panel">
+            <h3>Run the site</h3>
+            <pre class="small" style="background:#f3f5f2;border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto"><code>npm start</code></pre>
+            <p class="small">Installs missing dependencies, builds every module and serves the site at <code>http://localhost:4173/</code>. After editing only shell pages or docs, run <code>npm run build:shell</code> and reload.</p>
+          </article>
+          <article class="panel">
+            <h3>Replace your page</h3>
+            <ol class="small">
+              <li>Edit your folder's <code>index.html</code>, for example <code>explainer-videos-context/index.html</code>. Keep the header and footer slots and the script tags.</li>
+              <li>Put assets such as videos or images next to it and list them in the build if they need copying.</li>
+              <li>Change your workstream's <code>status</code> in <code>integration/routes.json</code>.</li>
+              <li>A new app is added under <code>modules</code> in the same file.</li>
+            </ol>
+          </article>
+          <article class="panel">
+            <h3>Keep the evidence honest</h3>
+            <ul class="small">
+              <li>Label values as observed, derived, assumed, illustrative or unknown.</li>
+              <li>Never turn an area score into street geometry, soil or drainage values.</li>
+              <li>Unknown never silently becomes good, zero or safe.</li>
+              <li>State a Basel procedure only with a Basel source.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>More detail</h3>
+            <p class="small"><a href="contributing/">Repository README</a> · <a href="workstreams/">WORKSTREAMS.md</a> · <a href="https://github.com/andymucyo-ops/Hack-am-Rhein-2026-SpongeSquad/tree/feature/site-wrapper" rel="noreferrer">Branch on GitHub</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="understand">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="UNDERSTAND: what is known about a candidate place in Basel, what is gated and what is still unknown." />
+  <title>Understand · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/candidate-picker.js" defer></script>
+  <script src="understand.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap">
+        <p class="eyebrow">Stage 2 of 6 · Understand</p>
+        <h1>What do we actually know here?</h1>
+        <p class="lead">A screening signal is not a site description. This page separates what the candidate record says, what Basel publishes city-wide, and what nobody can tell from open data.</p>
+        <div class="stage-facts" style="margin-top:24px">
+          <div><h3><span class="dot q"></span>Question</h3><p class="q">What is known about the selected place, and what is not?</p></div>
+          <div><h3><span class="dot works"></span>Works now</h3><ul>
+            <li>Candidate identity, evidence leads, constraints and missing data from the site-scoping fixture</li>
+            <li>City-wide availability of the evidence a street decision needs</li>
+            <li>Who holds the gated evidence</li>
+            <li>Street X-Ray evidence gate for one study point</li>
+          </ul></div>
+          <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
+            <li>Each candidate's profile is a screening hypothesis</li>
+            <li>Evidence leads are marked "to verify" by their author</li>
+          </ul></div>
+          <div><h3><span class="dot missing"></span>Still missing</h3><ul>
+            <li>No site-level data is pulled for the candidate yet: surfaces, trees, drainage, utilities or ownership</li>
+            <li>The proposed open-data place provider is not built</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Selected candidate</p><h2 id="cand-title">Choose a place</h2></div>
+          <p id="cand-sub">Pick a discussion area or exploration pin from the site-scoping tool.</p>
+        </div>
+        <div id="cand-detail" class="stack"></div>
+        <details id="cand-picker-wrap" style="margin-top:20px">
+          <summary class="small" style="cursor:pointer"><b>Choose or change the candidate</b></summary>
+          <div style="margin-top:12px" data-candidate-picker><p class="tiny">Loading candidates…</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">City-wide context</p><h2>What Basel publishes for a street decision</h2></div>
+          <p>From the team's Data Charter review of Basel and federal sources, snapshot 3 October 2026. "Restricted" means the data is expected to exist but was not found as open data.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Evidence</th><th>Status</th><th>What exists openly</th></tr></thead>
+            <tbody>
+              <tr><td>Land cover and surfaces</td><td><span class="label works">Open</span></td><td>Official survey land cover, <a href="https://data.bs.ch/explore/dataset/100477/" rel="noreferrer">data.bs.ch 100477</a></td></tr>
+              <tr><td>Trees</td><td><span class="label works">Open</span></td><td>Tree cadastre with species and daily updates, <a href="https://data.bs.ch/explore/dataset/100052/" rel="noreferrer">100052</a>; LiDAR canopy cover 2012, 2021, 2024, <a href="https://data.bs.ch/explore/dataset/100357/" rel="noreferrer">100357</a></td></tr>
+              <tr><td>Ownership and public realm</td><td><span class="label works">Open</span></td><td>Parcels with public-realm (Allmend) parcels, <a href="https://data.bs.ch/explore/dataset/100201/" rel="noreferrer">100201</a></td></tr>
+              <tr><td>Sponge suitability and heat focus areas</td><td><span class="label works">Open</span></td><td>Street suitability by daily traffic (<a href="https://api.geo.bs.ch/stac/v1/collections/SETV" rel="noreferrer">SETV</a>) and city-climate focus areas (<a href="https://api.geo.bs.ch/stac/v1/collections/FGSK" rel="noreferrer">FGSK</a>)</td></tr>
+              <tr><td>Urban climate analysis</td><td><span class="label illustrative">Partial</span></td><td>Open as map images; the grids are in the geodata shop</td></tr>
+              <tr><td>Works calendar</td><td><span class="label illustrative">Partial</span></td><td>Public-ground permits, <a href="https://data.bs.ch/explore/dataset/100018/" rel="noreferrer">100018</a>; no coordinated multi-year works plan is published</td></tr>
+              <tr><td>Sewer and drainage network</td><td><span class="label missing">Restricted</span></td><td>Only the treatment-plant catchment is open</td></tr>
+              <tr><td>Underground utilities</td><td><span class="label missing">Restricted</span></td><td>Works permits show activity, not the network or its depth</td></tr>
+              <tr><td>Gullies and inlets</td><td><span class="label missing">Missing</span></td><td>No open gully data found</td></tr>
+              <tr><td>Infiltration capacity</td><td><span class="label missing">Missing</span></td><td>Groundwater station statistics are open; local permeability needs a site test</td></tr>
+              <tr><td>Tree pits and root space</td><td><span class="label missing">Missing</span></td><td>The tree cadastre has no pit size field</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small" style="margin-top:12px"><a href="../research/data-charter/">Read the full Data Charter</a> · <a href="../view/?m=data-charter">Open the Data Charter map</a></p>
+      </div>
+    </section>
+
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">The data question</p><h2>Unknown to us is not unknown to the city</h2></div>
+          <p>The team's gatekeeper model asks who holds the evidence, what unlocks it, and which decision waits until then. Role names come from the team's research and still need confirmation with the authorities.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Decision-relevant fact</th><th>Access</th><th>Gatekeeper</th><th>Decision blocked until then</th></tr></thead>
+            <tbody>
+              <tr><td>Utility conflicts under a footprint</td><td><span class="label missing">Restricted · operator-held</span></td><td>Cadastral authority and the relevant network operator</td><td>Can this footprint proceed to detailed design?</td></tr>
+              <tr><td>Drainage destination and sewer context</td><td><span class="label missing">Restricted</span></td><td>Tiefbauamt drainage and general drainage plan (GEP) owners; property records for private drainage</td><td>Where can retained or overflow water safely go?</td></tr>
+              <tr><td>Infiltration feasibility</td><td><span class="label illustrative">Mixed</span></td><td>Environmental authorities for context; a qualified site investigation for the local value</td><td>Is infiltration credible at this footprint?</td></tr>
+              <tr><td>Performance after construction</td><td><span class="label illustrative">Project-held</span></td><td>Project owner, research partner or monitoring operator</td><td>Does a built design perform as expected?</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small" style="margin-top:12px"><a href="../research/gatekeepers/">Read the gatekeeper model</a></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-2">
+          <article class="panel">
+            <span class="label works">Live</span>
+            <h3 style="margin-top:10px">Street X-Ray: is this edge buildable?</h3>
+            <p class="small">An evidence gate for one study point near the Klybeck candidate. It keeps three layers apart: what is known now, what is derived carefully, and what must be asked or measured. The segment, strip and intervention shown there are illustrative.</p>
+            <p class="small"><a href="../view/?m=street-xray">Open Street X-Ray</a></p>
+          </article>
+          <article class="panel">
+            <span class="label illustrative">Demo campaign</span>
+            <h3 style="margin-top:10px">Rain Walk: what does the street tell us?</h3>
+            <p class="small">Record street observations, review them with a history and export a field-check brief. It runs on a synthetic segment and stores observations only in this browser.</p>
+            <p class="small"><a href="../view/?m=rain-walk">Open Rain Walk</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Next · Design, Test, See</p><h2>Try a change on an example street</h2></div>
+          <p>The Street Lab receives the candidate's name and its open questions. Its street stays a synthetic example. Area scores never become street geometry, soil or drainage values.</p>
+        </div>
+        <div class="actions" style="margin-top:0">
+          <a class="button teal" id="to-lab" href="../lab/#design">Open the Street Lab <span aria-hidden="true">→</span></a>
+          <a class="button" href="../decide/" id="to-decide">Skip to Decide</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>
