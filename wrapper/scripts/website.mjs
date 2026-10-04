@@ -6,10 +6,12 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const stage=root+'.site-workspace';
 mkdirSync(stage,{recursive:true});
 cpSync(root+'site',stage,{recursive:true});
-// Workstream-owned media stays in its repository folder. Stage a read-only
-// copy so the wrapper can publish the declared playground assets.
-cpSync(root+'../explainer-videos-context',stage+'/explainer-videos-context',{recursive:true});
-for(const name of ['street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs','evidence-atlas','experiments','frontend']){
+// Workstream-owned pages and media stay in their repository folders. Stage
+// read-only copies so the wrapper can publish each independent owner bucket.
+for(const name of ['explainer-videos-context','frontend','presentation-story']){
+ cpSync(root+'../'+name,stage+'/'+name,{recursive:true,filter:p=>!p.split('/').some(x=>['node_modules','dist','.git'].includes(x))});
+}
+for(const name of ['achim','street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs','evidence-atlas','experiments','frontend']){
  const dest=stage+'/wrapper/'+name;
  // Preserve installed dependencies, but never copy generated output from source.
  cpSync(root+name,dest,{recursive:true,filter:p=>!p.split('/').some(x=>['node_modules','dist','.git'].includes(x))});
