@@ -251,6 +251,19 @@
         "adaptive-interface",
         "shared"
       ]
+    },
+    {
+      "id": "rain-walk-legacy-alias",
+      "source": "wrapper/compat/rain-walk",
+      "output": "wrapper/street-workspace/public/rain-walk",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "style.css",
+        "app.mjs",
+        "evidence.mjs",
+        "references.html"
+      ]
     }
   ]
 }

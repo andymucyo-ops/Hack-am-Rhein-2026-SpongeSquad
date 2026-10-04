@@ -85,7 +85,7 @@
       "owner": "Evidence classification",
       "purpose": "Mark what is known, derived, assumed, modelled, restricted or missing.",
       "boundary": "A relevant dataset is not automatically valid for a decision.",
-      "url": "stage.html?view=classify#classify"
+      "url": "../view/?m=data-charter"
     },
     {
       "id": "case",
@@ -94,7 +94,7 @@
       "owner": "Next action",
       "purpose": "Connect claims, gaps, gatekeepers and actions into one bounded case.",
       "boundary": "The current state is investigation, not a recommendation to construct.",
-      "url": "stage.html?view=decide#decide"
+      "url": "../achim/#case"
     },
     {
       "id": "scoping",
@@ -122,15 +122,6 @@
       "purpose": "Inspect claims, sources, actors and spatial context.",
       "boundary": "Context does not establish site feasibility.",
       "url": "../view/?m=evidence-atlas"
-    },
-    {
-      "id": "charter-map",
-      "label": "Charter Map",
-      "title": "Data Charter Map",
-      "owner": "Data gaps",
-      "purpose": "Explore decision indicators, evidence classes and gatekeepers.",
-      "boundary": "Unknown evidence cannot become a favourable default.",
-      "url": "../view/?m=data-charter"
     },
     {
       "id": "catalogue",
