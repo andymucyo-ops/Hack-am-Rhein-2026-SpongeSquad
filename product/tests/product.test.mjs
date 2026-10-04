@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(join(root, 'data/product-manifest.json'), 'utf8'));
 const showcase = JSON.parse(readFileSync(join(root, 'data/showcase-manifest.json'), 'utf8'));
+const page = readFileSync(join(root, 'index.html'), 'utf8');
 
 test('showcase follows the four-part five-minute presentation', () => {
   assert.equal(showcase.contract, 'spongesquad-showcase/v1');
@@ -14,6 +15,13 @@ test('showcase follows the four-part five-minute presentation', () => {
     ['problem', 45], ['understanding', 45], ['demo', 165], ['vision', 45]
   ]);
   assert.equal(showcase.chapters.reduce((sum, chapter) => sum + chapter.seconds, 0), 300);
+});
+
+test('vision frames the data gap and its two bridge strategies', () => {
+  assert.match(page, /Other-city best practice/);
+  assert.match(page, /Ask the gatekeepers/);
+  assert.match(page, /AI \+ creative compute/);
+  assert.match(page, /Defensible next action/);
 });
 
 test('Simon is the centerpiece and all live modules stay bounded', () => {
