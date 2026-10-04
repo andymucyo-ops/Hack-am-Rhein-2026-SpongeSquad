@@ -36,7 +36,7 @@ def get_baseline(weather: Weather = Query(...)) -> dict:
 @app.post("/api/evaluate", response_model=EvaluateResponse)
 def post_evaluate(request: EvaluateRequest) -> dict:
     try:
-        return evaluate(request.weather, request.selected, store.catalogue())
+        return evaluate(request.weather, request.selected, store.catalogue(), store.baseline())
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 

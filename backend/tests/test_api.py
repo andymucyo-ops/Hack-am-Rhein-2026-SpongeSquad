@@ -62,7 +62,7 @@ def test_evaluate_matches_local_formula_for_sample_inputs():
     response = client.post("/api/evaluate", json={"weather": "heatwave", "selected": {"apartments": "green roof", "street": "permeable paving blocks"}})
     assert response.status_code == 200
     assert response.json()["ponding"] == 0
-    assert response.json()["temp"] == 54.3
+    assert response.json()["temp"] == 37.5
 
 
 def test_evaluate_preflight_allows_localhost():

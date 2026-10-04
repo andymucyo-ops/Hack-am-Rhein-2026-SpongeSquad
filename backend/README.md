@@ -53,6 +53,8 @@ curl -X POST http://localhost:8000/api/evaluate -H 'content-type: application/js
 
 Returns `ponding`, `temp` and a complete per-section `breakdown`. Missing
 sections mean `unchanged`; unknown section or option ids return HTTP 422.
+The API uses the selected weather baseline from `baseline.json`, including the
+observed heatwave surface-temperature baseline.
 
 `GET /api/site`
 
