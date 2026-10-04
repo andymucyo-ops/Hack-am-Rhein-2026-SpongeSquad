@@ -1,0 +1,91 @@
+sources:
+  - short_name: heat
+    official_title: "Wärmeinseleffekt [K]"
+    role: blocking
+    dataset_identifier: KL_Waermeinseleffekt
+    metadata_url: https://www.bs.ch/bvd/grundbuch-und-vermessungsamt/geo/geodaten/geodienste
+    service_type: WMS
+    endpoint: https://wms.geo.bs.ch/
+    layer_name: KL_Waermeinseleffekt
+    geometry_type: raster
+    expected_crs: EPSG:2056
+    relevant_fields: [numerical heat value]
+    data_status: modelled
+    licence: null
+    access_status: FAIL
+    limitations: "Capabilities mark the layer queryable and advertise JSON/GML/XML/text formats, but all 25 grid responses and all declared formats contained no numerical heat attribute. GeoBS STAC exposed no matching heat collection or download link."
+  - short_name: land_cover
+    official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Bodenbedeckung"
+    role: blocking
+    dataset_identifier: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [Bodenbedeckungsart, ID]
+    data_status: measured
+    licence: CC BY 4.0
+    access_status: PASS
+    limitations: "Current service data are dynamic; classes are retained without a sealed-surface mapping."
+  - short_name: trees
+    official_title: "Baumkataster: Baumbestand"
+    role: blocking
+    dataset_identifier: "100052"
+    metadata_url: https://data.bs.ch/explore/dataset/100052/
+    service_type: Opendatasoft Explore API
+    endpoint: https://data.bs.ch/api/explore/v2.1/catalog/datasets/100052/records
+    layer_name: null
+    geometry_type: Point
+    expected_crs: EPSG:4326
+    relevant_fields: [ba_baumnr, ba_art, ba_baumalter, ba_gemeinde, ba_gruppe]
+    data_status: measured
+    licence: CC BY 4.0 + OpenStreetMap
+    access_status: PASS
+    limitations: "Inventory covers trees maintained by Stadtgärtnerei Basel and Gemeinde Riehen; public/managed inventory, not all trees."
+  - short_name: runoff
+    official_title: "Gefährdungskarte Oberflächenabfluss"
+    role: blocking
+    dataset_identifier: ch.bafu.gefaehrdungskarte-oberflaechenabfluss
+    metadata_url: https://www.geo.admin.ch/en/geodata
+    service_type: WMS + STAC download
+    endpoint: https://wms.geo.admin.ch/
+    layer_name: ch.bafu.gefaehrdungskarte-oberflaechenabfluss
+    geometry_type: raster
+    expected_crs: EPSG:2056
+    relevant_fields: [hazard class]
+    data_status: modelled
+    licence: null
+    access_status: PASS
+    limitations: "WMS JSON GetFeatureInfo returned analytical hazard geometries for sampled points, with empty responses representing valid no-hazard points. Official STAC also exposes canton-wide GDB downloads; the 37.6 MB Basel file was not downloaded because the WMS geometry was sufficient for this small audit. Returned geometries have no class attribute."
+  - short_name: focus_areas
+    official_title: Fokusgebiete Stadtklimakonzept
+    role: contextual
+    dataset_identifier: ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [ID Fokusgebiet, Art]
+    data_status: inferred
+    licence: null
+    access_status: PASS
+    limitations: "Planning context only; not a numerical heat-intensity layer."
+  - short_name: einzelobjekte
+    official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Einzelobjekt"
+    role: optional
+    dataset_identifier: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [object class]
+    data_status: measured
+    licence: null
+    access_status: PARTIAL
+    limitations: "Collection is confirmed in capabilities but was not interpreted beyond the mandatory sources."
