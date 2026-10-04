@@ -96,6 +96,21 @@
   ],
   "modules": [
     {
+      "id": "product-mvp",
+      "source": "product",
+      "output": "product",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "product.css",
+        "app.js",
+        "package.json",
+        "data",
+        "contributions",
+        "README.md"
+      ]
+    },
+    {
       "id": "andy-bucket",
       "source": "basel-site-scoping-tool/bucket",
       "output": "andy",

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="view">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad module viewer with a return path to the website." />
+  <title>Module · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="view.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain" style="padding-top:20px">
+      <div class="wrap">
+        <div class="embed">
+          <div class="embed-bar">
+            <span id="view-title">Module</span>
+            <span class="actions" style="margin:0"><a class="button small" id="view-back" href="../">← Back to the site</a><a class="button small" id="view-full" href="../" target="_top">Open full screen ↗</a></span>
+          </div>
+          <iframe id="view-frame" title="Module" src="about:blank"></iframe>
+        </div>
+        <p class="tiny" id="view-note" style="margin-top:8px"></p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

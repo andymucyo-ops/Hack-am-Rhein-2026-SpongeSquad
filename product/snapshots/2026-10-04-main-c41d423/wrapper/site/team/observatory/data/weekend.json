@@ -1,0 +1,177 @@
+{
+  "schema": "sponge-squad.weekend-plan/v1",
+  "timezone": "Europe/Zurich",
+  "event": "Hack am Rhein 2026",
+  "team": "The Sponge Squad",
+  "days": [
+    {
+      "date": "2026-10-03",
+      "label": "Saturday · Creation",
+      "mode": "team",
+      "items": [
+        {
+          "start": "09:00",
+          "end": "10:00",
+          "title": "Getting to know each other",
+          "kind": "team",
+          "status": "done",
+          "note": "Names, strengths, curiosities, what each person wants from the weekend."
+        },
+        {
+          "start": "10:30",
+          "end": "11:00",
+          "title": "Self-study",
+          "kind": "explore",
+          "status": "active",
+          "note": "Individual exploration. Return with propositions, questions, evidence, or surprising directions — not finished solutions."
+        },
+        {
+          "start": "11:00",
+          "end": "11:30",
+          "title": "Stand-up · idea discussion",
+          "kind": "converge",
+          "status": "planned",
+          "note": "Share propositions, collide ideas, surface disagreements, choose what to test next."
+        },
+        {
+          "start": "11:30",
+          "end": "13:00",
+          "title": "Open creation block I",
+          "kind": "build",
+          "status": "planned",
+          "note": "Frame the problem, inspect data, run cheap tests. Avoid premature parallel implementation."
+        },
+        {
+          "start": "13:00",
+          "end": "14:00",
+          "title": "Lunch + informal synthesis",
+          "kind": "break",
+          "status": "planned",
+          "note": "Keep it light. Capture only decisions that actually matter."
+        },
+        {
+          "start": "14:00",
+          "end": "16:00",
+          "title": "Open creation block II",
+          "kind": "build",
+          "status": "planned",
+          "note": "Prototype the smallest end-to-end interaction that tests the core claim."
+        },
+        {
+          "start": "16:00",
+          "end": "16:30",
+          "title": "Checkpoint · what changed our mind?",
+          "kind": "converge",
+          "status": "planned",
+          "note": "Review evidence, rejected ideas, current risks, and whether the concept still deserves investment."
+        },
+        {
+          "start": "16:30",
+          "end": "19:00",
+          "title": "Open creation block III",
+          "kind": "build",
+          "status": "planned",
+          "note": "Build, integrate, test. Keep the demo path continuously runnable."
+        },
+        {
+          "start": "19:00",
+          "end": "19:30",
+          "title": "Saturday close",
+          "kind": "handoff",
+          "status": "planned",
+          "note": "Record current state, open loops, ownership and the first move for Sunday."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "label": "Sunday · Convergence",
+      "mode": "deadline",
+      "items": [
+        {
+          "start": "09:00",
+          "end": "11:00",
+          "title": "Finish the proof",
+          "kind": "build",
+          "status": "planned",
+          "note": "Close only the gaps that matter for the core story and demo."
+        },
+        {
+          "start": "11:00",
+          "end": "12:00",
+          "title": "Demo + narrative rehearsal",
+          "kind": "story",
+          "status": "planned",
+          "note": "Run the actual demo. Remove fragile steps. Make evidence and limitations visible."
+        },
+        {
+          "start": "12:00",
+          "end": "13:00",
+          "title": "Travel / setup buffer",
+          "kind": "buffer",
+          "status": "planned",
+          "note": "Get to the convergence venue with enough margin."
+        },
+        {
+          "start": "13:00",
+          "end": "14:00",
+          "title": "Doors open · find a table and set up",
+          "kind": "official",
+          "status": "planned",
+          "source": "official schedule"
+        },
+        {
+          "start": "14:00",
+          "end": "15:00",
+          "title": "Last hour · finish, polish, demo running",
+          "kind": "official",
+          "status": "planned",
+          "source": "official schedule"
+        },
+        {
+          "start": "15:00",
+          "end": "15:30",
+          "title": "Submission deadline + welcome",
+          "kind": "deadline",
+          "status": "planned",
+          "source": "official schedule"
+        },
+        {
+          "start": "15:30",
+          "end": "16:30",
+          "title": "Team demos",
+          "kind": "official",
+          "status": "planned",
+          "source": "official schedule"
+        },
+        {
+          "start": "16:30",
+          "end": "17:00",
+          "title": "Results + closing",
+          "kind": "official",
+          "status": "planned",
+          "source": "official schedule"
+        }
+      ]
+    }
+  ],
+  "external_context": [
+    {
+      "date": "2026-10-01",
+      "label": "Thursday Evening · Discovery",
+      "detail": "Challenges revealed online. Browse, think, imagine possibilities. No pressure to decide yet."
+    },
+    {
+      "date": "2026-10-02",
+      "label": "Friday Evening · Connection",
+      "detail": "Meetup at Manabar, Güterstrasse 99, 4053 Basel. Meet participants, discover challenges in person, start forming teams."
+    }
+  ],
+  "working_gates": [
+    "Problem locked",
+    "Evidence sufficient",
+    "Prototype proves the interaction",
+    "Validation passed",
+    "Demo frozen"
+  ]
+}

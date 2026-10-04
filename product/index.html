@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad product MVP: from a Basel candidate signal to a defensible next decision." />
+  <title>SpongeSquad Product · Hack am Rhein 2026</title>
+  <link rel="stylesheet" href="product.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>SpongeSquad</span></a>
+    <nav aria-label="Product navigation">
+      <a href="#journey">Journey</a>
+      <a href="#demo">MVP</a>
+      <a href="#team">Contributions</a>
+      <a class="repo-link" href="https://github.com/andymucyo-ops/Hack-am-Rhein-2026-SpongeSquad/tree/main/product">Source ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Hack am Rhein 2026 · Integrated product MVP</p>
+        <h1>Basel knows the <em>Sponge City.</em><br />Can we make the next local decision clearer?</h1>
+        <p class="lead">We connect mapping, evidence, field observation, visual exploration and explanation—without using AI to invent what the city has not measured.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#journey">Follow the journey <span>↓</span></a>
+          <a class="button secondary" href="#demo">Open the MVP</a>
+        </div>
+      </div>
+      <aside class="hero-thesis" aria-label="Product thesis">
+        <p class="mini-label">The question</p>
+        <p class="thesis">Not “where should Basel build a rain garden?”</p>
+        <p class="answer">But: <strong>what do we know here, what blocks a decision, and what should happen next?</strong></p>
+        <div class="rule"><span>GIS calculates</span><span>Rules constrain</span><span>AI explains</span></div>
+      </aside>
+    </section>
+
+    <section class="section intro" id="journey">
+      <div class="section-heading">
+        <div><p class="eyebrow">One place · six questions</p><h2>A journey, not a pile of prototypes</h2></div>
+        <p>Each tool has one bounded job. Its output becomes the next tool’s input while uncertainty remains visible.</p>
+      </div>
+
+      <div class="view-switch" role="group" aria-label="Product perspective">
+        <button type="button" class="active" data-view-button="journey" aria-pressed="true">Journey view</button>
+        <button type="button" data-view-button="tools" aria-pressed="false">Tool view</button>
+      </div>
+
+      <div data-view-panel="journey">
+        <div class="journey-rail" role="tablist" aria-label="Product stages" id="journey-rail"></div>
+        <article class="stage-detail" aria-live="polite">
+          <div class="stage-copy">
+            <p class="stage-meta" id="stage-meta"></p>
+            <p class="stage-question" id="stage-question"></p>
+            <h3 id="stage-title"></h3>
+            <p id="stage-contribution"></p>
+          </div>
+          <aside class="stage-boundary">
+            <p class="mini-label">Evidence boundary</p>
+            <p id="stage-boundary"></p>
+            <a id="stage-link" class="text-link" href="#">Open this module →</a>
+          </aside>
+        </article>
+      </div>
+
+      <div data-view-panel="tools" hidden>
+        <div class="tool-grid" id="tool-grid"></div>
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demo">
+      <div class="section-heading light">
+        <div><p class="eyebrow">Working MVP</p><h2>Inspect the system without losing the story</h2></div>
+        <p>Select a stage. The embedded module remains visibly labelled with its role, owner and limits.</p>
+      </div>
+
+      <div class="demo-shell">
+        <div class="demo-toolbar">
+          <label for="demo-stage">Module</label>
+          <select id="demo-stage"></select>
+          <span class="demo-state" id="demo-state">Loading product manifest…</span>
+          <a id="demo-open" href="#" target="_blank" rel="noreferrer">Open full screen ↗</a>
+        </div>
+        <div class="demo-context">
+          <strong id="demo-title">Site Scoping</strong>
+          <span id="demo-question">Where should we investigate?</span>
+          <span class="boundary-chip" id="demo-boundary">Screening signal—not a site recommendation</span>
+        </div>
+        <iframe id="demo-frame" title="Selected SpongeSquad module" loading="lazy"></iframe>
+      </div>
+      <p class="demo-note">The frame loads the existing deployed module. Product integration does not rewrite the contributor’s source.</p>
+    </section>
+
+    <section class="section case-section">
+      <div class="case-card">
+        <div>
+          <p class="eyebrow">Current connected case · Klybeck edge</p>
+          <h2>A useful result can still be “we need to investigate.”</h2>
+          <p>The current case combines real place identity and public context with explicitly illustrative geometry and scenario assumptions. Utilities, drainage and infiltration remain blockers.</p>
+        </div>
+        <div class="decision">
+          <span class="decision-label">Decision state</span>
+          <strong>Requires investigation</strong>
+          <ul>
+            <li>Request utility clearance</li>
+            <li>Confirm drainage routing</li>
+            <li>Test infiltration on site</li>
+            <li>Run a reviewed Rain Walk</li>
+          </ul>
+          <a href="../achim/#case">Inspect the connected case →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section team-section" id="team">
+      <div class="section-heading">
+        <div><p class="eyebrow">Contributions</p><h2>Independent work, one product spine</h2></div>
+        <p>The integration credits the source and keeps each contribution replaceable.</p>
+      </div>
+      <div class="team-grid">
+        <article><span>01</span><h3>Andy</h3><p>Candidate signals, mapping, datasets and provenance.</p><a href="contributions/andy/README.md">Porting contract →</a></article>
+        <article><span>02</span><h3>Simon</h3><p>Visual street language and interactive intervention concepts.</p><a href="../simon/">Open contribution →</a></article>
+        <article><span>03</span><h3>Bala</h3><p>Context, explainers and the media layer around the system.</p><a href="../bala/">Open contribution →</a></article>
+        <article><span>04</span><h3>Mary</h3><p>Five-minute narrative, slides and presentation flow.</p><a href="../mary/">Open contribution →</a></article>
+        <article class="wide"><span>05</span><h3>Achim</h3><p>Evidence discipline, modular decision pathway, Street X-Ray, Rain Walk, Street Lab and the connected case.</p><a href="../achim/">Open contribution →</a></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>SpongeSquad</strong> · Hack am Rhein 2026</p>
+    <p>Candidate signal ≠ buildable site ≠ validated design ≠ engineering recommendation.</p>
+  </footer>
+</body>
+</html>

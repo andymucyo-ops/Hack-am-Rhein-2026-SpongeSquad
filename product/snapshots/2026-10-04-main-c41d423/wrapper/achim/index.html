@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="achim">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Achim's modular data-gap-to-decision work for SpongeSquad." />
+  <title>Achim · Data gap to decision · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <style>
+    .portfolio-hero { padding-bottom: clamp(40px, 7vw, 76px); }
+    .portfolio-hero h1 { max-width: 850px; font-size: clamp(40px, 7vw, 74px); line-height: 1.04; }
+    .portfolio-hero .lead { max-width: 810px; }
+    .thesis { display: grid; gap: 12px; align-content: start; background: #1f352b; color: #eaf4ed; border: 0; }
+    .thesis .eyebrow { color: #acd1b9; }
+    .thesis h3 { color: #fff; font-size: clamp(21px, 2.5vw, 29px); }
+    .thesis p { color: #cadbd0; }
+    .thesis-rule { display: grid; gap: 7px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.16); font: 500 12px/1.55 var(--mono); }
+    .thesis-rule span { display: flex; align-items: center; gap: 9px; }
+    .thesis-rule i { width: 7px; height: 7px; border-radius: 50%; background: #77bd90; flex: 0 0 auto; }
+    .view-switch-section { padding-top: 0; padding-bottom: 22px; }
+    .view-switch-shell { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; padding: 12px 12px 12px 18px; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 30px rgba(31,53,43,.07); }
+    .view-switch-copy { margin: 0; color: var(--ink-soft); font-size: 14px; }
+    .view-switch { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 10px; background: #edf2ee; }
+    .view-switch button { min-width: 146px; padding: 11px 14px; border: 0; border-radius: 8px; background: transparent; color: var(--ink-soft); cursor: pointer; font: 700 13px var(--sans); }
+    .view-switch button:hover { color: var(--ink); }
+    .view-switch button[aria-pressed="true"] { background: #fff; color: var(--green-dark); box-shadow: 0 2px 10px rgba(31,53,43,.12); }
+    [data-view-panel][hidden] { display: none !important; }
+    .mode-intro { max-width: 760px; }
+    .mode-note { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font: 500 11px var(--mono); }
+    .mode-note::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #c9a14e; }
+    .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; counter-reset: modules; }
+    .module-card { counter-increment: modules; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 16px; padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
+    .module-card::before { content: counter(modules, decimal-leading-zero); width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--green-dark); font: 500 12px var(--mono); }
+    .module-card h3 { margin: 1px 0 5px; }
+    .module-card .question { margin: 0 0 13px; color: var(--ink-soft); font: 600 15px/1.45 var(--head); }
+    .module-contract { display: grid; grid-template-columns: 58px 1fr; gap: 4px 10px; margin: 0 0 13px; font-size: 12.5px; }
+    .module-contract dt { color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+    .module-contract dd { margin: 0; color: var(--ink-soft); }
+    .module-card a { font-size: 13.5px; font-weight: 700; }
+    .module-card.orchestrator { grid-column: 1 / -1; background: #eef5f0; border-color: #cbded0; }
+    .module-card.orchestrator::before { background: var(--green); border-color: var(--green); color: #fff; }
+    .case-status { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+    .chain-caption { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 10px; }
+    .chain-caption p { margin: 0; color: var(--muted); font: 500 11px/1.5 var(--mono); }
+    .chain { display: grid; grid-template-columns: repeat(7, minmax(142px, 1fr)); gap: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; scroll-snap-type: x proximity; }
+    .chain-step { appearance: none; min-height: 138px; padding: 18px 15px 16px; border: 0; border-right: 1px solid var(--line); background: #fff; color: var(--ink); text-align: left; cursor: pointer; font-family: var(--sans); scroll-snap-align: start; }
+    .chain-step:last-child { border-right: 0; }
+    .chain-step:hover { background: #f6f9f6; }
+    .chain-step[aria-selected="true"] { background: var(--green); color: #fff; }
+    .chain-step[aria-selected="true"] .chain-no, .chain-step[aria-selected="true"] small { color: #d8ebdf; }
+    .chain-no { display: block; margin-bottom: 12px; color: var(--muted); font: 500 11px var(--mono); letter-spacing: .08em; }
+    .chain-step b { display: block; margin-bottom: 5px; font: 700 14px var(--head); }
+    .chain-step small { display: block; color: var(--muted); font: 400 12px/1.4 var(--sans); }
+    .chain-detail { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: 24px; margin-top: 14px; padding: clamp(20px, 3vw, 30px); background: #1f352b; color: #dce9e0; border-radius: 12px; }
+    .chain-detail h3 { color: #fff; font-size: clamp(22px, 3vw, 31px); }
+    .chain-detail p { color: #c9d9ce; }
+    .chain-detail .label { margin-bottom: 12px; }
+    .chain-output { border-left: 1px solid rgba(255,255,255,.17); padding-left: 24px; }
+    .chain-output h4 { color: #fff; font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .chain-output ul { margin: 0; padding-left: 19px; color: #d6e4da; font-size: 14px; }
+    .chain-output li + li { margin-top: 5px; }
+    .chain-detail a { color: #bde2c9; }
+    .evidence-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .evidence-column { padding: 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); }
+    .evidence-column h3 { display: flex; align-items: center; gap: 9px; font-size: 16px; }
+    .evidence-column ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 14px; }
+    .evidence-column li + li { margin-top: 5px; }
+    .evidence-column.known { border-top: 4px solid var(--green); }
+    .evidence-column.hypothesis { border-top: 4px solid #c9a14e; }
+    .evidence-column.unknown { border-top: 4px solid #b8613b; }
+    .boundary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; }
+    .boundary-grid article { padding: 20px; border-right: 1px solid var(--line); }
+    .boundary-grid article:last-child { border-right: 0; }
+    .boundary-grid h3 { font-size: 16px; }
+    .boundary-grid p { color: var(--ink-soft); font-size: 14px; margin: 0; }
+    @media (max-width: 1000px) {
+      .evidence-board { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .module-grid, .chain-detail, .boundary-grid { grid-template-columns: 1fr; }
+      .module-card.orchestrator { grid-column: auto; }
+      .view-switch-shell { grid-template-columns: 1fr; padding: 14px; }
+      .view-switch { width: 100%; }
+      .view-switch button { min-width: 0; }
+      .chain-caption { align-items: start; flex-direction: column; gap: 4px; }
+      .chain-output { border-left: 0; border-top: 1px solid rgba(255,255,255,.17); padding: 20px 0 0; }
+      .boundary-grid article { border-right: 0; border-bottom: 1px solid var(--line); }
+      .boundary-grid article:last-child { border-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain portfolio-hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Achim · product architecture and prototypes</p>
+          <h1>From data gaps <i>to a decision.</i></h1>
+          <p class="lead">Basel already knows a great deal about the Sponge City. The harder question is what the available evidence permits us to do at one particular place—and what must still be requested, observed or tested.</p>
+          <div class="actions"><a class="button primary" href="#case" data-view-link="case">Follow the Klybeck case <span aria-hidden="true">→</span></a><a class="button" href="#tools" data-view-link="tools">Explore the tools</a></div>
+        </div>
+        <aside class="panel thesis">
+          <p class="eyebrow">The proposition</p>
+          <h3>The map finds a signal. The system finds out what that signal permits us to do.</h3>
+          <p>AI and computation can connect evidence, expose gaps and illustrate possibilities. They cannot turn missing knowledge into a favourable fact.</p>
+          <div class="thesis-rule" aria-label="System principles"><span><i></i> GIS calculates</span><span><i></i> Rules constrain</span><span><i></i> AI may explain—not invent evidence</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section view-switch-section" aria-label="Choose a perspective">
+      <div class="wrap">
+        <div class="view-switch-shell">
+          <p class="view-switch-copy"><strong>One system, two perspectives.</strong> Inspect the independent tools or follow how they cooperate in one case.</p>
+          <div class="view-switch" role="group" aria-label="Page view">
+            <button type="button" aria-pressed="true" aria-controls="modules" data-view="tools">Tool overview</button>
+            <button type="button" aria-pressed="false" aria-controls="example" data-view="case">Case journey</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="modules" data-view-panel="tools">
+      <div class="wrap">
+        <div class="section-head"><div class="mode-intro"><p class="eyebrow">Tool overview</p><h2>Specialised tools, each with one job</h2></div><p>The modules exchange evidence-bearing objects and questions, not shared UI internals.</p></div>
+        <div class="module-grid">
+          <article class="module-card" id="tool-evidence-atlas"><div><span class="label works">Working</span><h3>Evidence Atlas + Situation Map</h3><p class="question">What do we know about the city, and where did it come from?</p><dl class="module-contract"><dt>Input</dt><dd>Sources, claims, actors and spatial context</dd><dt>Output</dt><dd>Inspectable evidence and open questions</dd></dl><a href="../view/?m=evidence-atlas">Open the Evidence Atlas →</a></div></article>
+          <article class="module-card" id="tool-data-charter"><div><span class="label works">Working</span><h3>Data Charter</h3><p class="question">Is the evidence open, inferred, gated—or not yet measured?</p><dl class="module-contract"><dt>Input</dt><dd>25 decision-relevant indicators and Basel sources</dd><dt>Output</dt><dd>Evidence class, gatekeeper, limitations and permitted use</dd></dl><a href="../view/?m=data-charter">Open the Data Charter →</a></div></article>
+          <article class="module-card" id="tool-street-xray"><div><span class="label works">Working slice</span><h3>Street X-Ray</h3><p class="question">A place looks promising. What blocks a defensible decision?</p><dl class="module-contract"><dt>Input</dt><dd>Candidate identity and bounded contextual evidence</dd><dt>Output</dt><dd>Known facts, hypotheses, blockers and Evidence Passport</dd></dl><a href="../view/?m=street-xray">Open Street X-Ray →</a></div></article>
+          <article class="module-card" id="tool-rain-walk"><div><span class="label works">Working demo</span><h3>Rain Walk</h3><p class="question">What can a person responsibly observe on the street?</p><dl class="module-contract"><dt>Input</dt><dd>Field prompts, local observations and optional photos</dd><dt>Output</dt><dd>Review history and a portable evidence record</dd></dl><a href="../view/?m=rain-walk">Open Rain Walk →</a></div></article>
+          <article class="module-card" id="tool-sponge-catalogue"><div><span class="label source">Knowledge model</span><h3>Sponge Catalogue</h3><p class="question">What could change here, for whom, and what would block it?</p><dl class="module-contract"><dt>Input</dt><dd>Basel actions, owners, mechanisms, precedents and gaps</dd><dt>Output</dt><dd>Candidate measures and investigation requirements</dd></dl><a href="../research/sponge-catalogue/">Read the catalogue →</a></div></article>
+          <article class="module-card" id="tool-street-lab"><div><span class="label works">Working MVP</span><h3>Street Lab</h3><p class="question">How does a connected intervention change the water pathway?</p><dl class="module-contract"><dt>Input</dt><dd>Typed synthetic street, intervention and storm</dd><dt>Output</dt><dd>WorldState, conserved water balance and explanation</dd></dl><a href="../lab/">Open Street Lab →</a></div></article>
+          <article class="module-card orchestrator" id="tool-connected-case"><div><span class="label works">Contract v1</span><h3>Connected Case + Adaptive Wrapper</h3><p class="question">How do independent tools contribute to one evidence-safe decision journey?</p><dl class="module-contract"><dt>Input</dt><dd>Versioned claims, gaps, gatekeepers, actions and scenarios</dd><dt>Output</dt><dd>A traceable case that preserves uncertainty across every handoff</dd></dl><a href="#case" data-view-link="case">Follow the connected case →</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="example" data-view-panel="case" hidden>
+      <div class="wrap">
+        <div class="section-head"><div class="mode-intro"><p class="eyebrow">Case journey · Klybeck edge</p><h2>One place moves through the toolchain</h2><span class="mode-note">Mixed evidence: sourced context + explicit assumptions</span></div><p>The tool rail remains visible throughout the journey. Each step shows what one module contributes—and what it cannot establish.</p></div>
+        <div class="case-status" aria-label="Case status"><span class="label source">connected-case/v1</span><span class="label illustrative">Illustrative case</span><span class="label missing">Requires investigation</span></div>
+        <div class="chain-caption"><p>TOOLS IN THE JOURNEY</p><p>Choose a tool to inspect its contribution</p></div>
+        <div class="chain" role="tablist" aria-label="Connected example stages">
+          <button class="chain-step" type="button" role="tab" aria-selected="true" data-step="0"><span class="chain-no">01 · SIGNAL</span><b>Site Scoping</b><small>Where should we investigate?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="1"><span class="chain-no">02 · CLASSIFY</span><b>Data Charter</b><small>What kind of evidence is it?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="2"><span class="chain-no">03 · GATE</span><b>Street X-Ray</b><small>What blocks a decision?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="3"><span class="chain-no">04 · OBSERVE</span><b>Rain Walk</b><small>What can people verify?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="4"><span class="chain-no">05 · CHOOSE</span><b>Catalogue</b><small>What could fit in principle?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="5"><span class="chain-no">06 · EXPLORE</span><b>Street Lab</b><small>How might it work?</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="6"><span class="chain-no">07 · DECIDE</span><b>Decision Pack</b><small>What happens next?</small></button>
+        </div>
+        <div class="chain-detail" aria-live="polite">
+          <div><span class="label source" id="chain-label">Upstream contract</span><h3 id="chain-title">A candidate arrives with identity—not invented street geometry.</h3><p id="chain-copy">Andy’s scoping tool can nominate a promising area and pass a versioned candidate context. The handoff carries the place name, coordinates, sources, constraints and evidence questions. It does not turn a district score into soil, utilities or drainage facts.</p><a id="chain-link" href="../find/">Open FIND →</a></div>
+          <aside class="chain-output"><h4>Output to the next module</h4><ul id="chain-output-list"><li>Candidate identity and location</li><li>Source references and known constraints</li><li>Explicit missing-evidence prompts</li></ul></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" data-view-panel="case" hidden>
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Evidence survives the journey</p><h2>The example never collapses into one score</h2></div><p>At every stage, the user can still distinguish evidence from design fiction.</p></div>
+        <div class="evidence-board">
+          <article class="evidence-column known"><h3><span class="dot works"></span> Known or sourced</h3><ul><li>Candidate identity and coordinates</li><li>Bundled city-level context and source references</li><li>Basel rain-garden precedent</li></ul></article>
+          <article class="evidence-column hypothesis"><h3><span class="dot illustrative"></span> Illustrative or assumed</h3><ul><li>The demonstration street geometry</li><li>The candidate strip and rain-garden design</li><li>The Street Lab storm and performance parameters</li></ul></article>
+          <article class="evidence-column unknown"><h3><span class="dot missing"></span> Still blocking a real decision</h3><ul><li>Underground utilities and ownership</li><li>Soil infiltration and groundwater clearance</li><li>Actual drainage connections and engineering feasibility</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-view-panel="case" hidden>
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">The boundary</p><h2>What this system does—and does not do</h2></div></div>
+        <div class="boundary-grid">
+          <article><span class="label works">Does</span><h3 style="margin-top:10px">Make a mechanism understandable</h3><p>It shows why surfaces, storage, soil, drainage and overflow must work as a connected system.</p></article>
+          <article><span class="label source">Does</span><h3 style="margin-top:10px">Turn unknowns into a next action</h3><p>It identifies what must be requested, observed, tested or decided—and who may hold that evidence.</p></article>
+          <article><span class="label missing">Does not</span><h3 style="margin-top:10px">Issue an engineering recommendation</h3><p>A map signal or interactive scenario never proves that an intervention is feasible at a real site.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script>
+    (function () {
+      var steps = [
+        {label:'Candidate signal',labelClass:'source',title:'A candidate arrives with identity—not invented street geometry.',copy:'The Site Scoping Tool can nominate Klybeck as an area worth investigating and pass a versioned candidate context. The handoff carries identity, coordinates, source references and missing-data prompts. Its illustrative indicator scores do not become street facts.',link:'../find/',linkText:'Open Site Scoping →',output:['Candidate identity and coordinates','Source references and screening hypothesis','Explicit missing-evidence prompts']},
+        {label:'Evidence classification',labelClass:'works',title:'The Data Charter asks what kind of knowledge we actually have.',copy:'The same blank field can mean very different things: open evidence not yet joined, a bounded derivation, information held by a gatekeeper, or something that has never been measured. That distinction determines what the evidence may support.',link:'../view/?m=data-charter',linkText:'Open the Data Charter →',output:['Evidence class and provenance','Gatekeeper or lawful access route','Permitted use and limitation']},
+        {label:'Evidence gate',labelClass:'illustrative',title:'Street X-Ray turns uncertainty into named blockers.',copy:'For the Klybeck edge, visible space is not buildable space. Utility clearance, ownership, drainage routing and infiltration remain explicit gaps rather than quietly becoming favourable defaults.',link:'../view/?m=street-xray',linkText:'Open Street X-Ray →',output:['Known and assumed claims stay separate','Four blockers linked to gatekeepers','Checks required before design']},
+        {label:'Observation plan',labelClass:'works',title:'Rain Walk defines what people can responsibly observe.',copy:'A participant could record curbs, drains, planting, visible obstructions and surface conditions with provenance and review history. No visit has happened in this case yet, so the contract contains a plan with zero collected observations.',link:'../view/?m=rain-walk',linkText:'Open Rain Walk →',output:['Prompts for visible surface conditions','Review and audit states','Subsurface questions remain unknown']},
+        {label:'Intervention candidate',labelClass:'source',title:'The Sponge Catalogue proposes a mechanism worth exploring.',copy:'A kerbside rain garden is a candidate because it could redirect, slow and temporarily store runoff. The catalogue also preserves ownership questions, prerequisites, known Basel precedents and reasons the measure may be blocked.',link:'../research/sponge-catalogue/',linkText:'Read the Sponge Catalogue →',output:['Candidate measure and mechanism','Dependencies and possible owners','Investigation requirements—not a recipe']},
+        {label:'Illustrative scenario',labelClass:'illustrative',title:'Street Lab makes the dependency visible without validating the site.',copy:'The synthetic scenario can explain that water needs an inlet, storage, suitable soil and a safe overflow route. The assumed 160 m × 2.4 m footprint receives 7.68 m³ in a 20 mm event; that is rainfall on the footprint, not retained capacity or proven performance.',link:'../lab/',linkText:'Open Street Lab →',output:['A reversible illustrative intervention','Visible water-pathway dependencies','Explicit model and site limits']},
+        {label:'Bounded decision',labelClass:'missing',title:'The result is an investigation package—not a recommendation.',copy:'The case can justify attention and identify what must happen next. It asks who will commission the utility extract, drainage confirmation, infiltration test and reviewed Rain Walk. Construction remains unsupported.',link:'../decide/',linkText:'Open the decision pathway →',output:['Agree who commissions the investigation','Request evidence from named gatekeepers','Proceed, pause or exclude when evidence changes']}
+      ];
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('.chain-step'));
+      var label = document.getElementById('chain-label');
+      var title = document.getElementById('chain-title');
+      var copy = document.getElementById('chain-copy');
+      var link = document.getElementById('chain-link');
+      var list = document.getElementById('chain-output-list');
+      function select(index) {
+        var step = steps[index];
+        buttons.forEach(function (button, i) { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1; });
+        label.className = 'label ' + step.labelClass; label.textContent = step.label;
+        title.textContent = step.title; copy.textContent = step.copy; link.href = step.link; link.textContent = step.linkText;
+        list.innerHTML = step.output.map(function (item) { return '<li>' + item + '</li>'; }).join('');
+      }
+      buttons.forEach(function (button, index) {
+        button.addEventListener('click', function () { select(index); });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          var next = event.key === 'ArrowRight' ? (index + 1) % buttons.length : (index - 1 + buttons.length) % buttons.length;
+          select(next); buttons[next].focus();
+        });
+      });
+      select(0);
+
+      var viewButtons = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+      var viewPanels = Array.prototype.slice.call(document.querySelectorAll('[data-view-panel]'));
+      var viewLinks = Array.prototype.slice.call(document.querySelectorAll('[data-view-link]'));
+      function setView(view, options) {
+        var target = view === 'case' ? 'case' : 'tools';
+        viewButtons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.view === target)); });
+        viewPanels.forEach(function (panel) { panel.hidden = panel.dataset.viewPanel !== target; });
+        if (options && options.updateHash) history.replaceState(null, '', target === 'case' ? '#case' : '#tools');
+        if (options && options.scroll) {
+          var targetPanel = document.querySelector('[data-view-panel="' + target + '"]');
+          if (targetPanel) targetPanel.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }
+      viewButtons.forEach(function (button) {
+        button.addEventListener('click', function () { setView(button.dataset.view, {updateHash:true, scroll:true}); });
+      });
+      viewLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          setView(link.dataset.viewLink, {updateHash:true, scroll:true});
+        });
+      });
+      window.addEventListener('hashchange', function () { setView(location.hash === '#case' ? 'case' : 'tools'); });
+      setView(location.hash === '#case' ? 'case' : 'tools');
+    })();
+  </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ mkdirSync(stage,{recursive:true});
 cpSync(root+'site',stage,{recursive:true});
 // Workstream-owned pages and media stay in their repository folders. Stage
 // read-only copies so the wrapper can publish each independent owner bucket.
-for(const name of ['explainer-videos-context','frontend','presentation-story']){
+for(const name of ['explainer-videos-context','frontend','presentation-story','product']){
  cpSync(root+'../'+name,stage+'/'+name,{recursive:true,filter:p=>!p.split('/').some(x=>['node_modules','dist','.git'].includes(x))});
 }
 for(const name of ['achim','street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs','evidence-atlas','experiments','frontend']){
