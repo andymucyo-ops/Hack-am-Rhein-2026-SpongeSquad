@@ -1,0 +1,28 @@
+apartments:
+	unchanged: 8, 0
+	green roof: 0, 13
+	gree-blue roof: 1, 14
+	
+sidewalk:
+	unchanged: 444, 224
+	street tree + permeatable pavement + bioswale (vegetated drainage strip): 446, 221
+	
+street:
+	all: 712, 433
+
+parking lot:
+ 	all: 1245, 500
+ 	
+-- horizontal lineup --
+
+Disclaimer: only describes y-coordinates, and only of the ones where different to above.
+
+sidewalk:
+	unchanged: 121
+	street tree + permeatable pavement + bioswale (vegetated drainage strip): 118
+	
+street:
+	all: 166
+	
+parking lot:
+	all: 66

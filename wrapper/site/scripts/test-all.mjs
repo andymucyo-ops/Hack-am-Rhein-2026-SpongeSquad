@@ -11,6 +11,7 @@ const [major, minor] = process.versions.node.split('.').map(Number);
 // Street Lab's own script uses --test-isolation=none (Node ≥ 23.6). Older Node 22 names it --experimental-test-isolation.
 const isolation = major > 23 || (major === 23 && minor >= 6) ? '--test-isolation=none' : '--experimental-test-isolation=none';
 const checks = [
+  ['Product MVP contract', node, ['--test', 'tests/product.test.mjs'], 'product'],
   ['Evidence atlas validation', node, ['scripts/validate-atlas.mjs'], 'wrapper/evidence-atlas'],
   ['Evidence solutions smoke', node, ['scripts/check.mjs'], 'wrapper/evidence-atlas'],
   ['Facts catalogue', node, ['scripts/facts-doc.mjs', '--check'], 'wrapper/evidence-atlas'],

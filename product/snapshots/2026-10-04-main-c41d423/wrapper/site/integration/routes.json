@@ -1,0 +1,229 @@
+{
+  "_comment": "Single source of truth for the SpongeSquad website. The shared landing page links five independent owner buckets. The archived group story and Achim's end-to-end journey keep using `stages`; `modules` controls the static build.",
+  "stages": [
+    {
+      "id": "find",
+      "label": "Find",
+      "path": "find/",
+      "question": "Where in Basel might a heat-and-water intervention be worth investigating?"
+    },
+    {
+      "id": "understand",
+      "label": "Understand",
+      "path": "understand/",
+      "question": "What is known about the selected place, and what is not?"
+    },
+    {
+      "id": "design",
+      "label": "Design",
+      "path": "lab/#design",
+      "question": "What can change, and which measures depend on one another?"
+    },
+    {
+      "id": "test",
+      "label": "Test",
+      "path": "lab/#test",
+      "question": "How might rainwater move differently after the change?"
+    },
+    {
+      "id": "see",
+      "label": "See",
+      "path": "lab/#see",
+      "question": "Can a person see and follow the changed street system?"
+    },
+    {
+      "id": "decide",
+      "label": "Decide",
+      "path": "decide/",
+      "question": "Who can act, what evidence is required, and how could a proposal advance?"
+    }
+  ],
+  "sections": [
+    {
+      "id": "research",
+      "label": "Sources & Research",
+      "path": "research/"
+    },
+    {
+      "id": "team",
+      "label": "Team",
+      "path": "team/"
+    }
+  ],
+  "workstreams": [
+    {
+      "folder": "wrapper/site/basel-site-scoping-tool/bucket/",
+      "owner": "Andy",
+      "title": "Data and mapping",
+      "page": "andy/",
+      "app": "basel-site-scoping-tool/",
+      "status": "partial",
+      "summary": "Site scoping, heat and water signals, datasets, spatial analysis and provenance."
+    },
+    {
+      "folder": "frontend/",
+      "owner": "Simon",
+      "title": "Frontend and interaction",
+      "page": "simon/",
+      "app": "wrapper/frontend/v1/",
+      "status": "partial",
+      "summary": "Visual language, interaction ideas, interface components and frontend experiments."
+    },
+    {
+      "folder": "explainer-videos-context/",
+      "owner": "Bala Chandar Muppala",
+      "title": "Explainers and context",
+      "page": "bala/",
+      "status": "partial",
+      "summary": "Videos, contextual explanations, facts, claims and source notes."
+    },
+    {
+      "folder": "presentation-story/",
+      "owner": "Mary",
+      "title": "Presentation and story",
+      "page": "mary/",
+      "status": "partial",
+      "summary": "Pitch, slide deck, speaker flow, demo order and the final five-minute story."
+    },
+    {
+      "folder": "wrapper/",
+      "owner": "Achim",
+      "title": "Evidence-to-decision systems",
+      "page": "achim/",
+      "status": "live",
+      "summary": "End-to-end journey, data-gap logic, citizen participation, contracts, state models and working prototypes."
+    }
+  ],
+  "modules": [
+    {
+      "id": "andy-bucket",
+      "source": "basel-site-scoping-tool/bucket",
+      "output": "andy",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "simon-bucket",
+      "source": "frontend/bucket",
+      "output": "simon",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "bala-bucket",
+      "source": "explainer-videos-context/bucket",
+      "output": "bala",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "mary-bucket",
+      "source": "presentation-story/bucket",
+      "output": "mary",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "achim-bucket",
+      "source": "wrapper/achim",
+      "output": "achim",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "bala-explainers",
+      "source": "explainer-videos-context",
+      "output": "explainer-videos-context",
+      "build": "copy",
+      "files": [
+        "playground.html",
+        "riehen-explainer.mp4",
+        "riehen-sources.mp4",
+        "README.md"
+      ]
+    },
+    {
+      "id": "simon-visual-lab",
+      "source": "wrapper/frontend/v1",
+      "output": "wrapper/frontend/v1",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "main.js",
+        "worldstate-adapter.js",
+        "style.css",
+        "assets",
+        "README.md"
+      ]
+    },
+    {
+      "id": "site-scoping",
+      "source": "basel-site-scoping-tool",
+      "output": "basel-site-scoping-tool",
+      "build": "vite"
+    },
+    {
+      "id": "street-lab",
+      "source": "wrapper/street-workspace",
+      "output": "wrapper/street-workspace",
+      "build": "vite",
+      "typecheck": true,
+      "treeshake": false,
+      "env": {
+        "VITE_SCOPING_TOOL_URL": "../../find/"
+      }
+    },
+    {
+      "id": "data-charter",
+      "source": "wrapper/data-charter-map",
+      "output": "wrapper/data-charter-map",
+      "build": "script",
+      "script": "scripts/build.mjs",
+      "dist": "dist"
+    },
+    {
+      "id": "street-xray",
+      "source": "wrapper/street-xray",
+      "output": "wrapper/street-xray",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "data",
+        "engine/data",
+        "engine/src"
+      ]
+    },
+    {
+      "id": "sponge-street-prototype",
+      "source": "wrapper/prototypes/sponge-street",
+      "output": "wrapper/prototypes/sponge-street",
+      "build": "copy",
+      "files": [
+        "index.html"
+      ]
+    },
+    {
+      "id": "evidence-atlas",
+      "source": "wrapper/evidence-atlas",
+      "output": "wrapper/evidence-atlas",
+      "build": "script",
+      "script": "scripts/build.mjs",
+      "dist": ".",
+      "files": [
+        "site",
+        "data",
+        "docs"
+      ]
+    },
+    {
+      "id": "adaptive-preview",
+      "source": "wrapper/experiments",
+      "output": "wrapper/experiments",
+      "build": "copy",
+      "files": [
+        "adaptive-interface",
+        "shared"
+      ]
+    }
+  ]
+}

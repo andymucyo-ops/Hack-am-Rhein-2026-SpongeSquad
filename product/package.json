@@ -1,0 +1,8 @@
+{
+  "name": "spongesquad-product-mvp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/product.test.mjs"
+  }
+}

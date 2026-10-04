@@ -13,6 +13,10 @@ supported by the imported test runner). `npm test` builds and runs module,
 adapter and internal-link checks. `npm run serve` serves the last build.
 Deployable static output is `wrapper/dist/`; no deployment is performed here.
 
+The integrated team MVP is published at `/product/`. Its source, frozen
+integration snapshot and contributor handoffs live in the repository-root
+`product/` folder. Original contributor folders remain untouched.
+
 ## What lives where
 
 - `site/integration/`: landing, FIND, UNDERSTAND, DESIGN/TEST/SEE, DECIDE,

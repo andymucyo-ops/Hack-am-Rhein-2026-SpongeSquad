@@ -1,0 +1,13 @@
+{
+  "name": "spongesquad-wrapper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/website.mjs",
+    "build": "node scripts/website.mjs",
+    "test": "node scripts/website.mjs --test",
+    "dev": "npm run build && npm run serve",
+    "start": "npm run dev",
+    "serve": "node scripts/serve.mjs"
+  }
+}

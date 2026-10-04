@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-root="../" data-section="workstream">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad data and provenance workstream." />
+  <title>Data · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap hero-grid" style="align-items:end">
+        <div>
+          <p class="eyebrow">Workstream · data/</p>
+          <h1>Data and provenance</h1>
+          <p class="lead">Datasets, schemas, transformations and provenance for the map and the street. Every derived value should name its source and method.</p>
+        </div>
+        <aside class="panel">
+          <p class="eyebrow">Workstream owner</p>
+          <h3>Andy · Data and map</h3>
+          <p class="small">Andy's site-scoping tool lives in <code>basel-site-scoping-tool/</code> and is used unchanged.</p>
+          <p><span class="label illustrative">Partial</span></p>
+        </aside>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-3">
+          <article class="panel"><span class="label works">Live</span><h3 style="margin-top:10px">Site scoping</h3><p class="small">Map, dataset catalogue, provisional scoring and comparison. Candidate values are placeholders.</p><p class="small"><a href="../find/">Open in the journey</a> · <a href="../basel-site-scoping-tool/">Full screen</a></p></article>
+          <article class="panel"><span class="label works">Live</span><h3 style="margin-top:10px">Data Charter</h3><p class="small">What Basel publishes, what the team inferred and what is missing, across 25 indicators.</p><p class="small"><a href="../view/?m=data-charter">Open the map</a> · <a href="../research/data-charter/">Read the charter</a></p></article>
+          <article class="panel dashed"><span class="label placeholder">Template</span><h3 style="margin-top:10px">Prepared datasets</h3><p class="small">No prepared, provenance-bearing dataset slice is in <code>data/</code> yet. The first one should replace the candidate fixture for one Basel place.</p></article>
+        </div>
+        <div class="notice" style="margin-top:16px">
+          <p><b>Integration snapshot.</b> <code>data/site-scoping-tool/</code> is an earlier copy of Andy's tool from the integration branch, with an <i>Explore in Street Lab</i> button added. The website does not build it. It uses Andy's original folder and a separate adapter instead. Keep or remove the copy once Andy decides whether to adopt the button.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section white">
+      <div class="wrap">
+        <div class="panel dashed">
+          <span class="label placeholder">For the owner</span>
+          <h3 style="margin-top:10px">Replace this page</h3>
+          <p class="small">This file is <code>data/index.html</code>. Edit or replace it freely; keep the two slot <code>div</code>s and the script tags so the site header and footer stay. Then set your <code>status</code> in <code>integration/routes.json</code> and run <code>npm run build:shell</code>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

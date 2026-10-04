@@ -1,0 +1,17 @@
+{
+  "name": "sponge-squad-website",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "SpongeSquad shared website: one static site that connects every workstream.",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "setup": "node scripts/setup.mjs",
+    "build": "node scripts/setup.mjs && node scripts/build-integration.mjs",
+    "build:shell": "node scripts/build-integration.mjs --shell-only",
+    "preview": "node scripts/serve-dist.mjs",
+    "check": "node scripts/check-site.mjs",
+    "test": "node scripts/test-all.mjs"
+  }
+}
