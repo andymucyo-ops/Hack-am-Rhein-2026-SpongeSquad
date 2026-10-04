@@ -15,6 +15,7 @@ const checks = [
   ['Evidence solutions smoke', node, ['scripts/check.mjs'], 'wrapper/evidence-atlas'],
   ['Facts catalogue', node, ['scripts/facts-doc.mjs', '--check'], 'wrapper/evidence-atlas'],
   ['Adaptive preview tests', node, ['--test','tests/adaptive-interface.test.mjs','tests/state-engine.test.mjs'], 'wrapper/experiments/adaptive-interface'],
+  ['Simon frontend ↔ WorldState adapter', node, ['--test', 'test/worldstate-adapter.test.mjs'], 'frontend/v1'],
   ['Street Lab model and Rain Walk tests', node, ['--experimental-strip-types', '--no-warnings', '--test', isolation, ...readdirSync(join(root, 'wrapper/street-workspace/test')).filter((f) => f.endsWith('.test.ts')).map((f) => `test/${f}`)], 'wrapper/street-workspace'],
   ['Street Lab type-check', node, ['node_modules/typescript/bin/tsc', '--noEmit'], 'wrapper/street-workspace'],
   ['Site scoping type-check', node, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json', '--noEmit', '--incremental', 'false'], 'basel-site-scoping-tool'],

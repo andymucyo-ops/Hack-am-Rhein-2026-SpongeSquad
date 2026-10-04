@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ddecf5" id="themeColorMeta" />
   <title>Sponge City Street Lab</title>
   <link rel="stylesheet" href="./style.css" />
-  <script defer src="./main.js"></script>
+  <script type="module" src="./main.js"></script>
 </head>
 <body>
 <div id="app">
@@ -30,8 +30,8 @@
       </div>
     </div>
     <div class="metrics" aria-live="polite">
-      <div class="metric-card flood-card"><div class="metric-top"><span>Sim. peak ponding</span><strong id="floodValue">0 mm</strong></div><div class="meter"><i id="floodBar"></i></div></div>
-      <div class="metric-card heat-card"><div class="metric-top"><span>Est. surface temp</span><strong id="heatValue">31.0°C</strong></div><div class="meter"><i id="heatBar"></i></div></div>
+      <div class="metric-card flood-card"><div class="metric-top"><span>Sewer load tendency</span><strong id="floodValue">Idle</strong></div><div class="meter"><i id="floodBar"></i></div></div>
+      <div class="metric-card heat-card"><div class="metric-top"><span>Surface heating</span><strong id="heatValue">Idle</strong></div><div class="meter"><i id="heatBar"></i></div></div>
     </div>
   </header>
   <main>
@@ -45,6 +45,7 @@
         <div class="loading" id="loading">Loading street assets…</div>
       </section>
       <section class="controls-grid" id="controlsGrid" aria-label="Sponge city interventions"></section>
+      <div class="worldstate-status" id="worldStateStatus" aria-live="polite">Loading WorldState…</div>
     </div>
 
     <section class="reading" aria-labelledby="readingTitle">
@@ -92,7 +93,7 @@
       </div>
     </section>
   </main>
-  <footer><span>Performance values are illustrative game estimates, not engineering predictions.</span><span>Scroll normally to move vertically. Hold Shift while scrolling to move the scene horizontally.</span></footer>
+  <footer><span>WorldState outputs are qualitative prototype projections, not engineering predictions. “Concept only” options have no executable recipe yet.</span><span>Scroll normally to move vertically. Hold Shift while scrolling to move the scene horizontally.</span></footer>
 </div>
 </body>
 </html>

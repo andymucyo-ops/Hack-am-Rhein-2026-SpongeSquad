@@ -110,12 +110,13 @@
       "summary": "Shared shell, contracts, architecture records and integration of the modules."
     },
     {
-      "folder": "frontend/",
+      "folder": "frontend/v1/",
       "owner": "Simon",
-      "title": "Frontend",
-      "page": "frontend/",
-      "status": "placeholder",
-      "summary": "Shared product interface. Template page until the frontend exposes an entry point."
+      "title": "Interactive street visual",
+      "page": "frontend/v1/",
+      "app": "frontend/v1/",
+      "status": "live",
+      "summary": "Layered canvas street, intervention controls and weather modes, connected to qualitative WorldState effects."
     },
     {
       "folder": "data/",
@@ -210,6 +211,19 @@
       "files": [
         "adaptive-interface",
         "shared"
+      ]
+    },
+    {
+      "id": "simon-frontend",
+      "source": "frontend/v1",
+      "output": "frontend/v1",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "main.js",
+        "worldstate-adapter.js",
+        "style.css",
+        "assets"
       ]
     }
   ]

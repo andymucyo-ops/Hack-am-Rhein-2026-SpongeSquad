@@ -214,6 +214,11 @@ tr:last-child td { border-bottom: 0; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 20px; padding-bottom: 24px; font-size: 13.5px; color: var(--muted); }
 .site-footer a { color: var(--ink-soft); }
 
+/* ---------- Simon visual prototype ---------- */
+.prototype-frame { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+.prototype-frame iframe { display: block; width: 100%; height: min(76vh, 820px); min-height: 560px; border: 0; }
+.prototype-actions { margin: 10px 0 0; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1000px) {
   .journey { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -240,6 +245,7 @@ tr:last-child td { border-bottom: 0; }
   .candidate-chip { display: none; }
   .slot { grid-template-columns: 1fr; gap: 4px; }
   .embed iframe { min-height: 520px; height: 78vh; }
+  .prototype-frame iframe { min-height: 520px; height: 78vh; }
   .kv { grid-template-columns: 1fr; gap: 2px; }
   .kv dd { margin-bottom: 8px; }
 }
