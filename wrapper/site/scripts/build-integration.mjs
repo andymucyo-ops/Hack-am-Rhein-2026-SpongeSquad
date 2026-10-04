@@ -292,7 +292,7 @@ function copyShell() {
   // Workstream template pages live in their own folders so owners can replace them.
   const moduleSources = new Set(routes.modules.map((m) => `${m.source}/`));
   for (const ws of routes.workstreams) {
-    if (ws.page !== ws.folder || moduleSources.has(ws.folder)) continue;
+    if (ws.page !== ws.folder || (moduleSources.has(ws.folder) && !ws.shellPage)) continue;
     const file = `${ws.folder}index.html`;
     if (!existsSync(join(root, file))) throw new Error(`Workstream page missing: ${file}`);
     const depth = ws.folder.split('/').filter(Boolean).length;
