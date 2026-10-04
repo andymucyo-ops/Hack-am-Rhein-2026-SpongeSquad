@@ -1,1 +1,145 @@
-{"contract":"spongesquad-showcase/v1","totalSeconds":300,"chapters":[{"id":"problem","label":"Intro / problem","seconds":45},{"id":"understanding","label":"Our understanding","seconds":45},{"id":"demo","label":"Design choices + live modules","seconds":165},{"id":"vision","label":"Vision","seconds":45}],"modules":[{"id":"simon","label":"Simon · Street","title":"Interactive street","owner":"Simon · Visual interface","purpose":"See how visible street interventions change the character of a place.","boundary":"A concept view, not a feasibility assessment.","url":"../wrapper/frontend/v1/index.html"},{"id":"andy","label":"Andy · Map","title":"Location explorer","owner":"Andy · Data and mapping","purpose":"Move from city-scale signals to a candidate place worth investigating.","boundary":"A screening signal is not a site recommendation.","url":"contributions/andy/current/index.html"},{"id":"bala","label":"Bala · Learn","title":"Sponge-city explainers","owner":"Bala · Learning experience","purpose":"Understand the measures, mechanisms and language behind a sponge city.","boundary":"Educational context does not establish local performance.","url":"../explainer-videos-context/playground.html"},{"id":"xray","label":"Street X-Ray","title":"Street X-Ray","owner":"Achim · Evidence workflow","purpose":"Expose hypotheses, blockers, gatekeepers and missing evidence.","boundary":"Visible space is not automatically buildable space.","url":"../wrapper/street-xray/index.html"},{"id":"rainwalk","label":"Rain Walk","title":"Rain Walk","owner":"Achim + residents · Observation","purpose":"Turn local observation into a provenance-bearing field note.","boundary":"Surface observation cannot reveal underground conditions.","url":"../wrapper/street-workspace/public/rain-walk/index.html"},{"id":"charter","label":"Data Charter","title":"Data Charter","owner":"Team · Evidence classification","purpose":"Mark what is known, derived, assumed, modelled, restricted or missing.","boundary":"A relevant dataset is not automatically valid for a decision.","url":"stage.html#classify"},{"id":"case","label":"Connected Case","title":"Connected Case","owner":"Team · Next action","purpose":"Connect claims, gaps, gatekeepers and actions into one bounded case.","boundary":"The current state is investigation, not a recommendation to construct.","url":"stage.html#decide"}]}
+{
+  "contract": "spongesquad-showcase/v1",
+  "totalSeconds": 300,
+  "chapters": [
+    {
+      "id": "problem",
+      "label": "Intro / problem",
+      "seconds": 45
+    },
+    {
+      "id": "understanding",
+      "label": "Our understanding",
+      "seconds": 45
+    },
+    {
+      "id": "demo",
+      "label": "Design choices + live modules",
+      "seconds": 165
+    },
+    {
+      "id": "vision",
+      "label": "Vision",
+      "seconds": 45
+    }
+  ],
+  "modules": [
+    {
+      "id": "simon",
+      "label": "Simon \u00b7 Street",
+      "title": "Interactive street",
+      "owner": "Simon \u00b7 Visual interface",
+      "purpose": "See how visible street interventions change the character of a place.",
+      "boundary": "A concept view, not a feasibility assessment.",
+      "url": "../wrapper/frontend/v1/index.html"
+    },
+    {
+      "id": "andy",
+      "label": "Andy \u00b7 Map",
+      "title": "Location explorer",
+      "owner": "Andy \u00b7 Data and mapping",
+      "purpose": "Move from city-scale signals to a candidate place worth investigating.",
+      "boundary": "A screening signal is not a site recommendation.",
+      "url": "contributions/andy/current/index.html"
+    },
+    {
+      "id": "bala",
+      "label": "Bala \u00b7 Learn",
+      "title": "Sponge-city explainers",
+      "owner": "Bala \u00b7 Learning experience",
+      "purpose": "Understand the measures, mechanisms and language behind a sponge city.",
+      "boundary": "Educational context does not establish local performance.",
+      "url": "../explainer-videos-context/playground.html"
+    },
+    {
+      "id": "xray",
+      "label": "Street X-Ray",
+      "title": "Street X-Ray",
+      "owner": "Achim \u00b7 Evidence workflow",
+      "purpose": "Expose hypotheses, blockers, gatekeepers and missing evidence.",
+      "boundary": "Visible space is not automatically buildable space.",
+      "url": "../wrapper/street-xray/index.html"
+    },
+    {
+      "id": "rainwalk",
+      "label": "Rain Walk",
+      "title": "Rain Walk",
+      "owner": "Achim + residents \u00b7 Observation",
+      "purpose": "Turn local observation into a provenance-bearing field note.",
+      "boundary": "Surface observation cannot reveal underground conditions.",
+      "url": "../wrapper/street-workspace/public/rain-walk/index.html"
+    },
+    {
+      "id": "charter",
+      "label": "Data Charter",
+      "title": "Data Charter",
+      "owner": "Team \u00b7 Evidence classification",
+      "purpose": "Mark what is known, derived, assumed, modelled, restricted or missing.",
+      "boundary": "A relevant dataset is not automatically valid for a decision.",
+      "url": "stage.html#classify"
+    },
+    {
+      "id": "case",
+      "label": "Connected Case",
+      "title": "Connected Case",
+      "owner": "Team \u00b7 Next action",
+      "purpose": "Connect claims, gaps, gatekeepers and actions into one bounded case.",
+      "boundary": "The current state is investigation, not a recommendation to construct.",
+      "url": "stage.html#decide"
+    },
+    {
+      "id": "scoping",
+      "label": "Site Scoping Map",
+      "title": "Basel Site Scoping",
+      "owner": "Andy \u00b7 Mapping",
+      "purpose": "Compare candidate places and inspect the dataset catalogue.",
+      "boundary": "Candidate locations and scores are illustrative screening fixtures.",
+      "url": "../basel-site-scoping-tool/"
+    },
+    {
+      "id": "lab",
+      "label": "Street Lab",
+      "title": "Street Lab",
+      "owner": "Achim \u00b7 Water pathways",
+      "purpose": "Explore how a synthetic street routes rain through connected interventions.",
+      "boundary": "Illustrative water model, not validated engineering performance.",
+      "url": "../lab/"
+    },
+    {
+      "id": "atlas",
+      "label": "Evidence Atlas",
+      "title": "Evidence Atlas + Situation Map",
+      "owner": "Achim \u00b7 Sources and actors",
+      "purpose": "Inspect claims, sources, actors and spatial context.",
+      "boundary": "Context does not establish site feasibility.",
+      "url": "../view/?m=evidence-atlas"
+    },
+    {
+      "id": "charter-map",
+      "label": "Charter Map",
+      "title": "Data Charter Map",
+      "owner": "Achim \u00b7 Data gaps",
+      "purpose": "Explore decision indicators, evidence classes and gatekeepers.",
+      "boundary": "Unknown evidence cannot become a favourable default.",
+      "url": "../view/?m=data-charter"
+    },
+    {
+      "id": "catalogue",
+      "label": "Catalogue",
+      "title": "Sponge Catalogue",
+      "owner": "Achim \u00b7 Intervention knowledge",
+      "purpose": "Inspect mechanisms, prerequisites and Basel precedents.",
+      "boundary": "Candidate measures are not site-specific design recipes.",
+      "url": "../research/sponge-catalogue/"
+    },
+    {
+      "id": "decisions",
+      "label": "Decision Pathway",
+      "title": "Decision Pathway",
+      "owner": "Achim \u00b7 Decisions and participation",
+      "purpose": "Explore who can decide, what evidence is needed and what comes next.",
+      "boundary": "An investigation package is not construction approval.",
+      "url": "../decide/"
+    }
+  ]
+}

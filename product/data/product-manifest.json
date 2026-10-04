@@ -74,8 +74,8 @@
       "question": "What could change, and how might it work?",
       "contribution": "A visual intervention concept and an illustrative, deterministic water pathway.",
       "boundary": "The scenario explains a mechanism; it does not validate engineering performance.",
-      "url": "../frontend/v1/index.html",
-      "demoUrl": "../frontend/v1/index.html",
+      "url": "../wrapper/frontend/v1/index.html",
+      "demoUrl": "../wrapper/frontend/v1/index.html",
       "status": "working-mvp"
     },
     {
