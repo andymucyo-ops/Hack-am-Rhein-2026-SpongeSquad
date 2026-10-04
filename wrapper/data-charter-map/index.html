@@ -132,6 +132,12 @@
     .pop-inferred { border-left: 3px dashed var(--inferred); padding-left: 6px; margin: 4px 0; }
     .pop-k { font: 700 9px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
     @media (max-width: 900px) { #charter { width: auto; left: 12px; right: 12px; top: auto; bottom: 34px; max-height: 40%; } #layers { max-height: 40%; } }
+    body.map-unavailable { height: auto; min-height: 100%; overflow: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding-bottom: 12px; }
+    .map-unavailable .bar, .map-unavailable #map { grid-column: 1 / -1; }
+    .map-unavailable #map { position: static; padding: 16px; }
+    .map-unavailable .panel { position: static; width: auto !important; max-height: none !important; margin: 0 12px; }
+    .map-unavailable .hud { display: none; }
+    @media (max-width: 600px) { body.map-unavailable { grid-template-columns: minmax(0, 1fr); } .map-unavailable .bar { flex-wrap: wrap; height: auto; padding: 12px; } }
   </style>
 </head>
 <body>
@@ -243,8 +249,7 @@
     const TREES = decodeTrees(SNAPSHOT);
     const PERMITS = decodePermits(SNAPSHOT);
     const SCORE = scorecard(CHARTER);
-  </script>
-  <script>
+
     const $ = selector => document.querySelector(selector);
     const state = { on: new Set(["r-setv", "i-pits"]), missing: null, theme: "light", open: null };
 
@@ -323,10 +328,19 @@
       sources: { base: { type: "raster", tiles: ["https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-grau/default/current/3857/{z}/{x}/{y}.jpeg"], tileSize: 256, maxzoom: 19, attribution: SWISSTOPO } },
       layers: [{ id: "base", type: "raster", source: "base", paint: state.theme === "dark" ? { "raster-brightness-min": 0.42, "raster-brightness-max": 0.06, "raster-saturation": -1 } : { "raster-opacity": 0.85 } }]
     });
-    const map = new maplibregl.Map({ container: "map", style: baseStyle(), center: [7.595, 47.56], zoom: 13, maxBounds: [[7.4, 47.48], [7.8, 47.65]] });
+    let map = null;
+    try {
+      if (!window.maplibregl || !maplibregl.supported()) throw new Error("Map rendering unavailable");
+      map = new maplibregl.Map({ container: "map", style: baseStyle(), center: [7.595, 47.56], zoom: 13, maxBounds: [[7.4, 47.48], [7.8, 47.65]] });
+    } catch {
+      document.body.classList.add("map-unavailable");
+      $("#map").textContent = "Map unavailable in this browser. Explore the data layers, evidence gaps and gatekeepers below.";
+    }
     window.charterMap = map;
-    map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "bottom-right");
-    map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+    if (map) {
+      map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "bottom-right");
+      map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+    }
 
     const fc = features => ({ type: "FeatureCollection", features });
     const pt = (lon, lat, properties) => ({ type: "Feature", geometry: { type: "Point", coordinates: [lon, lat] }, properties });
@@ -366,6 +380,7 @@
     }
 
     function applyVisibility() {
+      if (!map) return;
       for (const layer of LAYERS.filter(l => l.evidence !== "missing")) {
         for (const id of [layer.id]) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", state.on.has(layer.id) ? "visible" : "none");
       }
@@ -387,8 +402,8 @@
     $("#notice").addEventListener("click", event => { if (event.target.id === "clear-missing") setMissing(state.missing); });
 
     // ---------- Popups: real fields and inferred fields kept apart
-    const popup = new maplibregl.Popup({ closeButton: true, maxWidth: "300px" });
-    map.on("click", event => {
+    const popup = map ? new maplibregl.Popup({ closeButton: true, maxWidth: "300px" }) : null;
+    if (map) map.on("click", event => {
       const hits = map.queryRenderedFeatures(event.point, { layers: ["i-pits", "r-trees", "i-gwdepth", "r-gwstations", "i-digwindows", "i-underground", "r-permits"].filter(id => map.getLayer(id) && state.on.has(id)) });
       if (!hits.length) return;
       const f = hits[0];
@@ -413,14 +428,16 @@
       state.theme = theme;
       document.documentElement.dataset.theme = theme;
       $("#toggle-theme").setAttribute("aria-pressed", String(theme === "dark"));
-      map.once("style.load", () => addLayers());
-      map.setStyle(baseStyle(), { diff: false });
+      if (map) {
+        map.once("style.load", () => addLayers());
+        map.setStyle(baseStyle(), { diff: false });
+      }
     }
     $("#toggle-theme").addEventListener("click", () => setTheme(state.theme === "dark" ? "light" : "dark"));
 
     renderLayerPanel();
     renderCharter();
-    map.on("load", addLayers);
+    if (map) map.on("load", addLayers);
   </script>
 </body>
 </html>
