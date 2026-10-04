@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Information-design prototype for Achim's connected Sponge City case." />
+  <title>Connected case · Information-design prototype</title>
+  <style>
+    :root {
+      --ink: #18231d;
+      --ink-soft: #526159;
+      --paper: #f4f1e9;
+      --white: #fffefa;
+      --green: #24563e;
+      --green-dark: #173d2b;
+      --mint: #dfece3;
+      --line: #d9ddd8;
+      --amber: #a66f18;
+      --rust: #a34f32;
+      --blue: #315e78;
+      --violet: #725d88;
+      --red: #a63f3f;
+      --radius: 16px;
+      --shadow: 0 16px 42px rgba(20, 39, 29, .08);
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); }
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #78a889; outline-offset: 3px; }
+    .shell { width: min(1240px, calc(100% - 36px)); margin: 0 auto; }
+    .prototype-bar { padding: 10px 0; background: var(--green-dark); color: #e5f0e8; font: 600 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .prototype-bar .shell { display: flex; justify-content: space-between; gap: 20px; }
+    .prototype-bar span:last-child { color: #a9c9b4; }
+    header { padding: 26px 0; border-bottom: 1px solid var(--line); background: rgba(244, 241, 233, .94); }
+    header .shell { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 760; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: white; font: 700 11px var(--mono); }
+    .state { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid #d8bd94; border-radius: 999px; color: #714713; background: #fff9ea; font: 650 11px var(--mono); text-transform: uppercase; letter-spacing: .045em; }
+    .state::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+    main { padding-bottom: 72px; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(300px, .78fr); gap: clamp(30px, 6vw, 88px); padding: clamp(60px, 9vw, 116px) 0 60px; align-items: end; }
+    .kicker { margin: 0 0 14px; color: var(--green); font: 700 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 830px; margin-bottom: 22px; font-size: clamp(48px, 8vw, 94px); line-height: .98; letter-spacing: -.055em; }
+    h1 em { color: var(--green); font-style: normal; }
+    .lead { max-width: 750px; margin-bottom: 0; color: var(--ink-soft); font-size: clamp(18px, 2.1vw, 24px); line-height: 1.48; }
+    .case-card { padding: 24px; border-radius: var(--radius); background: var(--green-dark); color: #eaf2ec; box-shadow: var(--shadow); }
+    .case-card .kicker { color: #9bc3a8; }
+    .case-card h2 { margin-bottom: 18px; color: white; font-size: 28px; letter-spacing: -.025em; }
+    .case-facts { display: grid; gap: 0; margin: 0; }
+    .case-facts div { display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 11px 0; border-top: 1px solid rgba(255,255,255,.14); }
+    .case-facts dt { color: #9eb3a5; font: 600 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+    .case-facts dd { margin: 0; font-size: 14px; line-height: 1.45; }
+    .section-head { display: flex; justify-content: space-between; gap: 28px; align-items: end; margin-bottom: 20px; }
+    .section-head h2 { margin-bottom: 0; font-size: clamp(30px, 4vw, 48px); letter-spacing: -.04em; }
+    .section-head > p { max-width: 440px; margin-bottom: 4px; color: var(--ink-soft); line-height: 1.55; }
+    .journey { padding: clamp(24px, 3vw, 36px); border: 1px solid var(--line); border-radius: 22px; background: var(--white); box-shadow: var(--shadow); }
+    .steps { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: 22px; border: 1px solid var(--line); border-radius: 13px; overflow: hidden; }
+    .step { position: relative; min-height: 116px; padding: 16px 14px 15px; border: 0; border-right: 1px solid var(--line); background: white; color: var(--ink); text-align: left; cursor: pointer; }
+    .step:last-child { border-right: 0; }
+    .step:hover { background: #f3f7f4; }
+    .step[aria-selected="true"] { background: var(--green); color: white; }
+    .step-no { display: block; margin-bottom: 19px; color: #7d8981; font: 600 10px var(--mono); letter-spacing: .07em; }
+    .step[aria-selected="true"] .step-no, .step[aria-selected="true"] small { color: #cfe1d5; }
+    .step b { display: block; margin-bottom: 4px; font-size: 14px; }
+    .step small { display: block; color: #68766e; font-size: 11.5px; line-height: 1.35; }
+    .stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 22px; }
+    .stage-main, .stage-side { min-height: 350px; padding: clamp(22px, 3vw, 34px); border-radius: 15px; }
+    .stage-main { background: #edf3ef; }
+    .stage-side { background: #f6f3ec; border: 1px solid var(--line); }
+    .stage-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid currentColor; border-radius: 999px; font: 650 10px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+    .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .pill.known { color: var(--green); }
+    .pill.derived { color: var(--blue); }
+    .pill.assumed { color: var(--amber); border-style: dashed; }
+    .pill.modelled { color: var(--violet); border-style: dashed; }
+    .pill.restricted { color: var(--rust); }
+    .pill.missing { color: #66716b; }
+    .stage h3 { max-width: 670px; margin-bottom: 14px; font-size: clamp(26px, 3.5vw, 42px); line-height: 1.08; letter-spacing: -.035em; }
+    .answer { max-width: 680px; margin-bottom: 26px; color: var(--ink-soft); font-size: 17px; line-height: 1.6; }
+    .boundary { display: grid; grid-template-columns: 90px 1fr; gap: 14px; padding-top: 18px; border-top: 1px solid #cbd9cf; }
+    .boundary strong { color: var(--rust); font: 650 10px var(--mono); text-transform: uppercase; letter-spacing: .065em; }
+    .boundary p { margin: 0; color: #3f5047; font-size: 14px; line-height: 1.5; }
+    .stage-side h3 { margin-bottom: 17px; font-size: 18px; letter-spacing: -.015em; }
+    .handoff-list { display: grid; gap: 10px; margin: 0 0 23px; padding: 0; list-style: none; }
+    .handoff-list li { position: relative; padding: 0 0 10px 19px; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 14px; line-height: 1.4; }
+    .handoff-list li::before { content: "→"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+    .module-link { display: inline-flex; color: var(--green); font-weight: 750; text-decoration: none; }
+    .evidence-toggle { width: 100%; margin-top: 22px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 10px; background: white; color: var(--ink); text-align: left; cursor: pointer; font-weight: 720; }
+    .evidence-toggle span { float: right; color: var(--green); }
+    .evidence { display: none; margin-top: 12px; padding: 22px; border: 1px solid var(--line); border-radius: 13px; background: white; }
+    .evidence.open { display: block; }
+    .evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .evidence-item h4 { margin: 0 0 6px; color: #758178; font: 650 10px var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+    .evidence-item p { margin: 0; font-size: 13px; line-height: 1.48; }
+    .decision { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: 14px; margin-top: 56px; }
+    .decision-intro, .actions { padding: clamp(24px, 3.5vw, 38px); border-radius: var(--radius); }
+    .decision-intro { background: var(--green-dark); color: #dbe9df; }
+    .decision-intro h2 { color: white; font-size: clamp(30px, 4vw, 48px); letter-spacing: -.04em; }
+    .decision-intro p { margin-bottom: 0; color: #bed0c3; line-height: 1.55; }
+    .actions { background: white; border: 1px solid var(--line); }
+    .actions h3 { margin-bottom: 18px; font-size: 18px; }
+    .action { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 13px; align-items: start; padding: 14px 0; border-top: 1px solid var(--line); }
+    .action-no { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--mint); color: var(--green); font: 700 10px var(--mono); }
+    .action strong { display: block; margin: 2px 0 3px; font-size: 14px; }
+    .action small { color: var(--ink-soft); line-height: 1.4; }
+    .owner { padding: 5px 8px; border-radius: 999px; background: #f4f1e9; color: #59665f; font: 600 9px var(--mono); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+    .legend { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .legend-label { margin-right: 8px; align-self: center; color: #6f7b73; font: 650 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+    footer { padding: 28px 0 48px; color: #647168; font-size: 12px; }
+    @media (max-width: 980px) {
+      .hero, .stage, .decision { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(3, 1fr); }
+      .step:nth-child(3) { border-right: 0; }
+      .step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 24px, 1240px); }
+      .prototype-bar .shell, header .shell, .section-head { align-items: flex-start; flex-direction: column; }
+      h1 { font-size: clamp(46px, 16vw, 68px); }
+      .journey { padding: 12px; }
+      .steps { grid-template-columns: 1fr; }
+      .step { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .step:last-child { border-bottom: 0; }
+      .step-no { display: inline-block; width: 32px; margin: 0 4px 0 0; }
+      .step b { display: inline; }
+      .step small { margin: 5px 0 0 39px; }
+      .stage-main, .stage-side { min-height: auto; }
+      .evidence-grid { grid-template-columns: 1fr; }
+      .action { grid-template-columns: 34px 1fr; }
+      .owner { grid-column: 2; justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="prototype-bar">
+    <div class="shell"><span>Information-design prototype</span><span>Illustrative content · not a recommendation</span></div>
+  </div>
+  <header>
+    <div class="shell">
+      <div class="brand"><span class="brand-mark">A</span> Achim · Data gap to decision</div>
+      <span class="state">Requires investigation</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="kicker">Connected example · Klybeck</p>
+        <h1>A signal is <em>not yet a site.</em></h1>
+        <p class="lead">The map can show where to look. The connected case shows what is known, what is assumed and what must happen before anybody can recommend building.</p>
+      </div>
+      <aside class="case-card" aria-label="Case summary">
+        <p class="kicker">Current case</p>
+        <h2>Klybeck street edge</h2>
+        <dl class="case-facts">
+          <div><dt>Why here</dt><dd>High sealing and low canopy make the area worth investigating.</dd></div>
+          <div><dt>Candidate</dt><dd>Kerbside rain garden.</dd></div>
+          <div><dt>Status</dt><dd>Evidence-gated exploration.</dd></div>
+          <div><dt>Not proven</dt><dd>Buildability, infiltration, drainage and utilities.</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section aria-labelledby="journey-title">
+      <div class="section-head">
+        <div><p class="kicker">The decision journey</p><h2 id="journey-title">Follow the evidence, not the interface</h2></div>
+        <p>Each module owns one question. The connected case preserves the answer, provenance, limitations and next handoff.</p>
+      </div>
+
+      <div class="journey">
+        <div class="steps" role="tablist" aria-label="Connected-case stages">
+          <button class="step" role="tab" aria-selected="true" data-stage="0"><span class="step-no">01</span><b>Signal</b><small>Why look here?</small></button>
+          <button class="step" role="tab" aria-selected="false" data-stage="1"><span class="step-no">02</span><b>Evidence</b><small>What do we know?</small></button>
+          <button class="step" role="tab" aria-selected="false" data-stage="2"><span class="step-no">03</span><b>Gate</b><small>What blocks us?</small></button>
+          <button class="step" role="tab" aria-selected="false" data-stage="3"><span class="step-no">04</span><b>Observe</b><small>What can we verify?</small></button>
+          <button class="step" role="tab" aria-selected="false" data-stage="4"><span class="step-no">05</span><b>Explore</b><small>What might change?</small></button>
+          <button class="step" role="tab" aria-selected="false" data-stage="5"><span class="step-no">06</span><b>Decide</b><small>What happens next?</small></button>
+        </div>
+
+        <div class="stage" aria-live="polite">
+          <article class="stage-main">
+            <div class="stage-meta" id="stage-meta"></div>
+            <p class="kicker" id="stage-question"></p>
+            <h3 id="stage-title"></h3>
+            <p class="answer" id="stage-answer"></p>
+            <div class="boundary"><strong>Boundary</strong><p id="stage-boundary"></p></div>
+          </article>
+          <aside class="stage-side">
+            <p class="kicker">Output to the next stage</p>
+            <h3 id="stage-output-title"></h3>
+            <ul class="handoff-list" id="stage-output"></ul>
+            <a class="module-link" id="stage-link" href="#">Inspect responsible module →</a>
+          </aside>
+        </div>
+
+        <button class="evidence-toggle" type="button" aria-expanded="false" aria-controls="evidence-panel">Inspect evidence record <span>＋</span></button>
+        <div class="evidence" id="evidence-panel">
+          <div class="evidence-grid">
+            <div class="evidence-item"><h4>Source</h4><p id="evidence-source"></p></div>
+            <div class="evidence-item"><h4>Validation</h4><p id="evidence-validation"></p></div>
+            <div class="evidence-item"><h4>Permitted use</h4><p id="evidence-use"></p></div>
+            <div class="evidence-item"><h4>Limitation</h4><p id="evidence-limit"></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="decision" aria-labelledby="decision-title">
+      <div class="decision-intro">
+        <p class="kicker">Bounded decision</p>
+        <h2 id="decision-title">Investigate. Do not recommend construction.</h2>
+        <p>The system has done useful work when every uncertainty becomes either a named request, a field check, a specialist test or a reason to stop.</p>
+      </div>
+      <div class="actions">
+        <p class="kicker">Next actions</p>
+        <h3>What would unlock the next decision?</h3>
+        <div class="action"><span class="action-no">01</span><div><strong>Request utility clearance</strong><small>Confirm whether the assumed planting strip conflicts with subsurface networks.</small></div><span class="owner">Network operator</span></div>
+        <div class="action"><span class="action-no">02</span><div><strong>Confirm drainage routing</strong><small>Establish the actual inlet, connection and safe overflow route.</small></div><span class="owner">Drainage / GEP owner</span></div>
+        <div class="action"><span class="action-no">03</span><div><strong>Test infiltration</strong><small>Measure site conditions; do not infer infiltration from surface appearance.</small></div><span class="owner">Project specialist</span></div>
+        <div class="action"><span class="action-no">04</span><div><strong>Run a bounded Rain Walk</strong><small>Record visible surface conditions with provenance and review history.</small></div><span class="owner">Field team</span></div>
+        <div class="legend"><span class="legend-label">Evidence language</span><span class="pill known">Known</span><span class="pill derived">Derived</span><span class="pill assumed">Assumed</span><span class="pill modelled">Modelled</span><span class="pill restricted">Restricted</span><span class="pill missing">Missing</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell">Design prototype only. The final page will derive this presentation from the versioned connected-case contract.</div></footer>
+
+  <script>
+    (function () {
+      var stages = [
+        {
+          question: 'Why look here?',
+          title: 'Klybeck presents a signal worth investigating.',
+          answer: 'High sealing and low canopy can identify an area where sponge-city measures deserve attention. That is a prioritisation signal—not proof that a particular kerb can be rebuilt.',
+          states: ['known', 'derived'],
+          boundary: 'District-scale candidate scores must not become invented street geometry, soil, drainage or utility facts.',
+          outputTitle: 'A candidate with identity',
+          output: ['Place name and coordinates', 'Source references', 'Constraints and explicit evidence questions'],
+          link: '../index.html#modules',
+          source: 'Candidate-site context and source-labelled area data.',
+          validation: 'Identity and location can be checked; candidate ranking remains screening context.',
+          use: 'Prioritise where to investigate.',
+          limit: 'Cannot establish street-scale feasibility.'
+        },
+        {
+          question: 'What kind of knowledge do we have?',
+          title: 'The same blank field can mean very different things.',
+          answer: 'Some evidence is open but not yet joined. Some is derived from source data. Some exists behind a gatekeeper. Other evidence can only be established through fieldwork or specialist testing.',
+          states: ['known', 'restricted', 'missing'],
+          boundary: 'A relevant dataset is not automatically structurally compatible, analytically valid or suitable for engineering.',
+          outputTitle: 'An evidence classification',
+          output: ['Evidence class and provenance', 'Permitted use and limitation', 'Gatekeeper or lawful access route'],
+          link: '../index.html#modules',
+          source: 'Data Charter indicators and source register.',
+          validation: 'Source and access state are explicit; analytical fitness remains claim-specific.',
+          use: 'Explain, screen or request evidence.',
+          limit: 'Does not make missing evidence favourable.'
+        },
+        {
+          question: 'What blocks a real intervention decision?',
+          title: 'Visible space is not buildable space.',
+          answer: 'A street edge may look physically available while utilities, ownership, drainage and infiltration remain unresolved. Street X-Ray turns those unknowns into named blockers.',
+          states: ['known', 'assumed', 'restricted'],
+          boundary: 'Surface imagery cannot reveal utilities, groundwater clearance, contamination or infiltration performance.',
+          outputTitle: 'A gated investigation',
+          output: ['Utility clearance request', 'Drainage-routing request', 'Infiltration test requirement'],
+          link: '../../street-xray/',
+          source: 'Street evidence profile with sourced context and explicit hypotheses.',
+          validation: 'Claims remain separated into known, assumed and blocked.',
+          use: 'Define what must be checked before design.',
+          limit: 'Not a buildability or suitability assessment.'
+        },
+        {
+          question: 'What can a person responsibly verify?',
+          title: 'A field visit can add evidence without pretending to see underground.',
+          answer: 'A Rain Walk can record curbs, drains, surfaces, planting and visible obstructions. The record keeps its source, confidence and review history.',
+          states: ['observed', 'missing'],
+          boundary: 'This prototype contains an observation plan—not fabricated observations from a visit that never happened.',
+          outputTitle: 'A bounded observation plan',
+          output: ['Prompts for visible conditions', 'Photo and location provenance', 'Review state and unresolved subsurface questions'],
+          link: '../index.html#modules',
+          source: 'Rain Walk observation schema and review model.',
+          validation: 'Only completed, attributable observations may become observed evidence.',
+          use: 'Add reviewable surface evidence.',
+          limit: 'Cannot replace specialist subsurface investigation.'
+        },
+        {
+          question: 'What change is worth exploring?',
+          title: 'A kerbside rain garden explains a connected water pathway.',
+          answer: 'The catalogue proposes a candidate mechanism. Street Lab can show that planting alone is insufficient: runoff must enter, storage must exist, soil must permit infiltration and overflow still needs a safe route.',
+          states: ['assumed', 'modelled'],
+          boundary: 'The 384 m² footprint is assumed. 20 mm over that footprint equals 7.68 m³ of rainfall—not retained capacity or proven performance.',
+          outputTitle: 'An illustrative mechanism',
+          output: ['Candidate intervention and dependencies', 'Synthetic storm scenario', 'Model limits and unresolved evidence'],
+          link: '../index.html#modules',
+          source: 'Sponge Catalogue plus typed Street Lab scenario.',
+          validation: 'Water accounting may be internally conserved while inputs remain illustrative.',
+          use: 'Teach mechanism and reveal dependencies.',
+          limit: 'Cannot validate site performance or engineering feasibility.'
+        },
+        {
+          question: 'What is the next defensible move?',
+          title: 'Proceed to investigation—not construction.',
+          answer: 'The connected case can justify attention, identify a mechanism worth exploring and name the evidence required next. It cannot turn those findings into an engineering recommendation.',
+          states: ['known', 'restricted', 'missing'],
+          boundary: 'Any conflict in utility, drainage, ownership or infiltration evidence may pause or exclude the intervention.',
+          outputTitle: 'A bounded decision packet',
+          output: ['Why investigate', 'Who must supply or test what', 'Proceed, pause or exclude criteria'],
+          link: '../index.html#modules',
+          source: 'Connected-case decision state and claim trace.',
+          validation: 'Every action refers back to a blocker and required evidence.',
+          use: 'Coordinate the next investigation step.',
+          limit: 'Status remains requires-investigation.'
+        }
+      ];
+
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('.step'));
+      var toggle = document.querySelector('.evidence-toggle');
+      var panel = document.getElementById('evidence-panel');
+      function stateClass(state) { return state === 'observed' ? 'derived' : state; }
+      function render(index) {
+        var stage = stages[index];
+        buttons.forEach(function (button, buttonIndex) {
+          button.setAttribute('aria-selected', String(index === buttonIndex));
+          button.tabIndex = index === buttonIndex ? 0 : -1;
+        });
+        document.getElementById('stage-meta').innerHTML = stage.states.map(function (state) {
+          return '<span class="pill ' + stateClass(state) + '">' + state + '</span>';
+        }).join('');
+        document.getElementById('stage-question').textContent = stage.question;
+        document.getElementById('stage-title').textContent = stage.title;
+        document.getElementById('stage-answer').textContent = stage.answer;
+        document.getElementById('stage-boundary').textContent = stage.boundary;
+        document.getElementById('stage-output-title').textContent = stage.outputTitle;
+        document.getElementById('stage-output').innerHTML = stage.output.map(function (item) { return '<li>' + item + '</li>'; }).join('');
+        document.getElementById('stage-link').href = stage.link;
+        document.getElementById('evidence-source').textContent = stage.source;
+        document.getElementById('evidence-validation').textContent = stage.validation;
+        document.getElementById('evidence-use').textContent = stage.use;
+        document.getElementById('evidence-limit').textContent = stage.limit;
+      }
+      buttons.forEach(function (button, index) {
+        button.addEventListener('click', function () { render(index); });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          var next = event.key === 'ArrowRight' ? (index + 1) % buttons.length : (index - 1 + buttons.length) % buttons.length;
+          render(next);
+          buttons[next].focus();
+        });
+      });
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        toggle.querySelector('span').textContent = open ? '＋' : '−';
+        panel.classList.toggle('open', !open);
+      });
+      render(0);
+    })();
+  </script>
+</body>
+</html>
