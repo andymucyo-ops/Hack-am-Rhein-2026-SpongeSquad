@@ -1,24 +1,27 @@
-# SpongeSquad workstreams
+# SpongeSquad owner buckets
 
-This branch is a shared assembly space. Each workstream can develop inside its own folder without changing another workstream's files.
+The shared website is a neutral entrance to five independent workspaces. Each
+owner can change the page in their own folder. Integration is a later, explicit
+decision rather than the default.
 
-| Folder | Responsibility | Current owner |
-| --- | --- | --- |
-| `basel-site-scoping-tool/` | Andy's existing hot-spot finder and site-scoping application | Andy |
-| `frontend/` | Shared product frontend and integration-ready UI contributions | Frontend |
-| `data/` | Datasets, transformations, schemas and provenance | Data / map workstream |
-| `explainer-videos-context/` | Explanations, context, video assets and supporting information | Bala Chandar Muppala |
-| `presentation-story/` | Demo narrative, pitch, presentation and slides | Mary |
-| `wrapper/` | Shared shell and Achim's existing prototypes, Street Lab and architecture | Achim |
+| Published page | Source file | Owner | Scope |
+| --- | --- | --- | --- |
+| `andy/` | `wrapper/site/basel-site-scoping-tool/bucket/index.html` | Andy | Data, site scoping, maps and provenance |
+| `simon/` | `frontend/bucket/index.html` | Simon | Frontend, interaction and visual artefacts |
+| `bala/` | `explainer-videos-context/bucket/index.html` | Bala Chandar Muppala | Explanations, videos, claims and context |
+| `mary/` | `presentation-story/bucket/index.html` | Mary | Pitch, slides, script and demo order |
+| `achim/` | `wrapper/achim/index.html` | Achim | End-to-end journey, evidence gaps, participation, state and integration |
 
 ## Working rule
 
-Keep active work inside the relevant folder or feature branch. Existing feature branches remain unchanged. Bring work together through documented inputs and outputs; do not silently rewrite another workstream's implementation.
+- Change only your bucket and its assets.
+- Treat another bucket as an external input.
+- Connect buckets through a documented input/output contract.
+- Do not turn a visual concept, candidate score or missing value into an
+  unsupported result.
+- The earlier connected group narrative remains at `archive/group-story-v1/`.
 
-Each workstream folder now also contains an `index.html` drop-in page. The
-shared landing page links these stable folder routes; teams can replace their
-placeholder cards when they expose a working entry point.
+## Build
 
-## Website
-
-`npm start` builds and serves the shared website (see [README.md](README.md)). Every row above has a page there. Workstream pages are configured in `integration/routes.json`; replace your folder's `index.html` when you have a stable entry point.
+Run `npm start` in `wrapper/`. The wrapper stages the owner pages, builds the
+working modules and publishes one static `wrapper/dist/` directory.

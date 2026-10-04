@@ -17,8 +17,8 @@
     <section class="section plain">
       <div class="wrap">
         <p class="eyebrow">Team</p>
-        <h1>Five people, <i>one connected story</i></h1>
-        <p class="lead">Where each contribution lives, what the weekend plan was, and how to replace a placeholder with real work.</p>
+        <h1>Five people, <i>five independent workspaces</i></h1>
+        <p class="lead">Where each contribution lives, what the weekend plan was, and how each owner can replace a template without changing someone else’s work.</p>
         <div class="actions">
           <a class="button" href="#workstreams">Workstreams</a>
           <a class="button" href="#plan">Weekend plan</a>
@@ -32,8 +32,8 @@
     <section class="section white" id="workstreams">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">Workstreams</p><h2>Every folder has a page</h2></div>
-          <p>Status comes from <code>integration/routes.json</code>. Template pages are marked and belong to their owners.</p>
+          <div><p class="eyebrow">Workspaces</p><h2>Every owner has a bucket</h2></div>
+          <p>Status comes from <code>integration/routes.json</code>. The shared site links the buckets but does not merge their claims or implementations.</p>
         </div>
         <div class="ws-list" data-workstreams><noscript><p>Enable JavaScript to list the workstreams, or read <a href="workstreams/">WORKSTREAMS.md</a>.</p></noscript></div>
       </div>
@@ -125,8 +125,8 @@
     <section class="section white" id="contribute">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">Contribute</p><h2>Replace a placeholder tomorrow</h2></div>
-          <p>Each workstream owns its folder. The website only links stable entry points.</p>
+          <div><p class="eyebrow">Contribute</p><h2>Replace your bucket when ready</h2></div>
+          <p>Each owner controls one source page. The website stages those pages without combining their internals.</p>
         </div>
         <div class="grid-2">
           <article class="panel">
@@ -135,11 +135,11 @@
             <p class="small">Installs missing dependencies, builds every module and serves the site at <code>http://localhost:4173/</code>. After editing only shell pages or docs, run <code>npm run build:shell</code> and reload.</p>
           </article>
           <article class="panel">
-            <h3>Replace your page</h3>
+            <h3>Replace your bucket page</h3>
             <ol class="small">
-              <li>Edit your folder's <code>index.html</code>, for example <code>explainer-videos-context/index.html</code>. Keep the header and footer slots and the script tags.</li>
+              <li>Edit the <code>bucket/index.html</code> inside your folder. Achim's page is <code>wrapper/achim/index.html</code>.</li>
               <li>Put assets such as videos or images next to it and list them in the build if they need copying.</li>
-              <li>Change your workstream's <code>status</code> in <code>integration/routes.json</code>.</li>
+              <li>Change your workspace's <code>status</code> in <code>integration/routes.json</code>.</li>
               <li>A new app is added under <code>modules</code> in the same file.</li>
             </ol>
           </article>

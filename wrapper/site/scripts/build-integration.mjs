@@ -298,6 +298,14 @@ function copyShell() {
     const depth = ws.folder.split('/').filter(Boolean).length;
     write(file, expandIncludes(read(file), file, '../'.repeat(depth)));
   }
+  // Preserve the first-generation routes as compatibility pages. They are no
+  // longer the owner buckets, but working modules and old bookmarks link them.
+  for (const folder of ['frontend/', 'data/', 'explainer-videos-context/', 'presentation-story/', 'wrapper/']) {
+    const file = `${folder}index.html`;
+    if (!existsSync(join(root, file))) continue;
+    const depth = folder.split('/').filter(Boolean).length;
+    write(file, expandIncludes(read(file), file, '../'.repeat(depth)));
+  }
   cpSync(join(root, 'team/observatory/data/weekend.json'), join(dist, 'team/weekend.json'));
 }
 

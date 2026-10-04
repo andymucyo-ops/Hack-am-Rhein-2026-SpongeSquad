@@ -1,5 +1,5 @@
 {
-  "_comment": "Single source of truth for the SpongeSquad website. The build reads `modules` to compile each app into dist/, and every page reads `stages`, `sections` and `workstreams` to draw navigation. Paths are relative to the site root, so the site works under any subpath. To replace a placeholder, edit the workstream's own index.html and update its `status` here.",
+  "_comment": "Single source of truth for the SpongeSquad website. The shared landing page links five independent owner buckets. The archived group story and Achim's end-to-end journey keep using `stages`; `modules` controls the static build.",
   "stages": [
     {
       "id": "find",
@@ -52,99 +52,84 @@
   ],
   "workstreams": [
     {
-      "folder": "basel-site-scoping-tool/",
+      "folder": "wrapper/site/basel-site-scoping-tool/bucket/",
       "owner": "Andy",
-      "title": "Site scoping and hot-spot finder",
-      "page": "find/",
+      "title": "Data and mapping",
+      "page": "andy/",
       "app": "basel-site-scoping-tool/",
-      "status": "live",
-      "summary": "React and Leaflet map, dataset catalogue, provisional scoring, shortlist and comparison."
-    },
-    {
-      "folder": "wrapper/street-workspace/",
-      "owner": "Achim",
-      "title": "Street Lab",
-      "page": "lab/",
-      "app": "wrapper/street-workspace/",
-      "status": "live",
-      "summary": "Typed synthetic street, rain-garden intervention, conserved water balance and React/SVG view."
-    },
-    {
-      "folder": "wrapper/prototypes/sponge-street/",
-      "owner": "Achim",
-      "title": "Sponge Street explainer (early prototype)",
-      "page": "wrapper/prototypes/sponge-street/",
-      "status": "live",
-      "summary": "Standalone explainer with seven intervention tracks and twelve guided states."
-    },
-    {
-      "folder": "wrapper/street-xray/",
-      "owner": "Achim",
-      "title": "Street X-Ray evidence gate",
-      "page": "view/?m=street-xray",
-      "status": "live",
-      "summary": "One study point: what is known, what is only a hypothesis, and what must be unlocked before design."
-    },
-    {
-      "folder": "wrapper/street-workspace/public/rain-walk/",
-      "owner": "Achim",
-      "title": "Rain Walk (street evidence campaign)",
-      "page": "view/?m=rain-walk",
-      "status": "live",
-      "summary": "Demo campaign for recording street observations with review history and an evidence passport. Synthetic, browser-local."
-    },
-    {
-      "folder": "wrapper/data-charter-map/",
-      "owner": "Achim",
-      "title": "Data Charter map",
-      "page": "wrapper/data-charter-map/",
-      "status": "live",
-      "summary": "City-wide evidence charter: what Basel publishes, what is inferred and what is missing."
-    },
-    {
-      "folder": "wrapper/",
-      "owner": "Achim",
-      "title": "Wrapper and integration",
-      "page": "wrapper/",
-      "status": "live",
-      "summary": "Shared shell, contracts, architecture records and integration of the modules."
+      "status": "partial",
+      "summary": "Site scoping, heat and water signals, datasets, spatial analysis and provenance."
     },
     {
       "folder": "frontend/",
       "owner": "Simon",
-      "title": "Visual Street Lab",
-      "page": "frontend/",
+      "title": "Frontend and interaction",
+      "page": "simon/",
       "app": "wrapper/frontend/v1/",
-      "status": "live",
-      "summary": "Wrapper-owned integration copy of Simon's visual street, connected to qualitative WorldState effects."
-    },
-    {
-      "folder": "data/",
-      "owner": "Andy",
-      "title": "Data and provenance",
-      "page": "data/",
       "status": "partial",
-      "summary": "Datasets, schemas, transformations and provenance for the map and the street."
+      "summary": "Visual language, interaction ideas, interface components and frontend experiments."
     },
     {
       "folder": "explainer-videos-context/",
       "owner": "Bala Chandar Muppala",
       "title": "Explainers and context",
-      "page": "explainer-videos-context/",
-      "status": "live",
-      "shellPage": true,
-      "summary": "Standalone video playground with Bala's current Riehen explainer and evidence cuts."
+      "page": "bala/",
+      "status": "partial",
+      "summary": "Videos, contextual explanations, facts, claims and source notes."
     },
     {
       "folder": "presentation-story/",
       "owner": "Mary",
       "title": "Presentation and story",
-      "page": "presentation-story/",
+      "page": "mary/",
       "status": "partial",
-      "summary": "Demo narrative and slides. The Canva deck is linked; the story page is a template."
+      "summary": "Pitch, slide deck, speaker flow, demo order and the final five-minute story."
+    },
+    {
+      "folder": "wrapper/",
+      "owner": "Achim",
+      "title": "Evidence-to-decision systems",
+      "page": "achim/",
+      "status": "live",
+      "summary": "End-to-end journey, data-gap logic, citizen participation, contracts, state models and working prototypes."
     }
   ],
   "modules": [
+    {
+      "id": "andy-bucket",
+      "source": "basel-site-scoping-tool/bucket",
+      "output": "andy",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "simon-bucket",
+      "source": "frontend/bucket",
+      "output": "simon",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "bala-bucket",
+      "source": "explainer-videos-context/bucket",
+      "output": "bala",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "mary-bucket",
+      "source": "presentation-story/bucket",
+      "output": "mary",
+      "build": "copy",
+      "files": ["index.html"]
+    },
+    {
+      "id": "achim-bucket",
+      "source": "wrapper/achim",
+      "output": "achim",
+      "build": "copy",
+      "files": ["index.html"]
+    },
     {
       "id": "bala-explainers",
       "source": "explainer-videos-context",

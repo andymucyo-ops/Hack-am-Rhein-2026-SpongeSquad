@@ -68,26 +68,20 @@
   function renderHeader() {
     var slot = document.getElementById('site-header');
     if (!slot) return;
-    var stage = currentStage();
     var nav = [{ id: 'home', label: 'Overview', path: '' }]
-      .concat([{ id: 'journey', label: 'Demo journey', path: 'find/' }])
-      .concat(routes.sections)
-      .concat([{ id: 'workstreams', label: 'Workstreams', path: 'team/#workstreams' }]);
-    var journeyIds = routes.stages.map(function (s) { return s.id; }).concat(['lab']);
+      .concat(routes.workstreams.map(function (w) {
+        return { id: w.owner.split(' ')[0].toLowerCase(), label: w.owner.split(' ')[0], path: w.page };
+      }))
+      .concat([{ id: 'archive', label: 'Archive', path: 'archive/group-story-v1/' }]);
     var navHtml = nav.map(function (item) {
-      var active = item.id === section || (item.id === 'journey' && journeyIds.indexOf(section) >= 0) || (item.id === 'workstreams' && section === 'workstream');
+      var active = item.id === section;
       return '<a href="' + esc(root + item.path) + '"' + (active ? ' aria-current="page"' : '') + '>' + esc(item.label) + '</a>';
-    }).join('');
-    var steps = routes.stages.map(function (s, i) {
-      var current = s.id === stage;
-      return (i ? '<i aria-hidden="true">→</i>' : '') + '<a data-stage="' + esc(s.id) + '" href="' + esc(withCandidate(s.path)) + '"' + (current ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + esc(s.label) + '</a>';
     }).join('');
     slot.outerHTML =
       '<a class="skip" href="#main">Skip to content</a>' +
       '<header class="site-header">' +
       '<div class="header-row"><a class="brand" href="' + esc(root) + '"><span class="brand-mark" aria-hidden="true">SQ</span><span><b>SpongeSquad</b><small>BASEL · HACK AM RHEIN 2026</small></span></a>' +
-      '<nav class="main-nav" aria-label="Site">' + navHtml + '</nav></div>' +
-      '<div class="journey-bar"><div class="journey-row"><nav class="stepper" aria-label="Demo journey">' + steps + '</nav><span class="candidate-chip" id="candidate-chip" hidden></span></div></div>' +
+      '<nav class="main-nav" aria-label="Workspaces">' + navHtml + '</nav></div>' +
       '</header>';
     updateCandidateChip();
   }
@@ -123,8 +117,8 @@
     if (!slot) return;
     slot.outerHTML = '<footer class="site-footer"><div class="wrap">' +
       '<span>SpongeSquad · Hack am Rhein 2026 · Basel-Stadt</span>' +
-      '<span>Prototype for discussion. Candidate values and the example street are illustrative, not measurements. ' +
-      '<a href="' + esc(root + 'research/') + '">Sources &amp; limitations</a> · <a href="' + esc(root + 'team/') + '">Team</a></span>' +
+      '<span>Independent team workspaces. Connections are explicit, not assumed. ' +
+      '<a href="' + esc(root + 'research/') + '">Sources &amp; limitations</a> · <a href="' + esc(root + 'archive/group-story-v1/') + '">Archive</a></span>' +
       '</div></footer>';
   }
 

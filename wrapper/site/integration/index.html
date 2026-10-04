@@ -3,127 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SpongeSquad: from Basel heat-and-water signals to one inspectable sponge-city street, with the evidence and unknowns kept visible." />
-  <title>SpongeSquad · Make Basel a Sponge</title>
+  <meta name="description" content="SpongeSquad at Hack am Rhein 2026: independent team workspaces around the Sponge City challenge." />
+  <title>SpongeSquad · Hack am Rhein 2026</title>
   <link rel="stylesheet" href="assets/site.css" />
   <script src="assets/routes.js" defer></script>
   <script src="assets/site.js" defer></script>
   <script src="assets/workstreams.js" defer></script>
-  <script src="assets/visual-entry.js" defer></script>
 </head>
 <body>
   <div id="site-header"></div>
   <main id="main">
     <section class="hero">
-      <div class="wrap hero-grid visual-hero-grid">
+      <div class="wrap hero-grid">
         <div>
-          <p class="eyebrow">Make Basel a Sponge · Hack am Rhein 2026</p>
-          <h1>Basel can map heat and heavy rain. <i>Deciding what to change on a street is the hard part.</i></h1>
-          <p class="lead">Heat and rain information exists, but it is read in separate places. SpongeSquad connects it into one path. Find a place worth investigating and see what is known about it. Then test one sponge-city change on an example street, and name what must be established before anyone can decide.</p>
+          <p class="eyebrow">Hack am Rhein 2026 · Sponge City challenge</p>
+          <h1>How could Basel <i>hold water, reduce heat and make better local decisions?</i></h1>
+          <p class="lead">SpongeSquad is exploring the challenge through data, visual interaction, explanation, storytelling and an end-to-end decision prototype. Each contribution now has its own independent workspace.</p>
           <div class="actions">
-            <a class="button primary" href="find/">Start the demo <span aria-hidden="true">→</span></a>
-            <a class="button" href="wrapper/frontend/v1/">Explore the visual street</a>
-            <a class="button" href="research/">Sources &amp; Research</a>
+            <a class="button primary" href="#workspaces">Open the workspaces <span aria-hidden="true">↓</span></a>
+            <a class="button" href="archive/group-story-v1/">View the archived group story</a>
           </div>
         </div>
-        <figure class="visual-entry" data-visual-entry>
-          <div class="visual-entry-bar">
-            <span><i aria-hidden="true"></i> Interactive visual prototype</span>
-            <a href="wrapper/frontend/v1/">Open full screen <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="visual-entry-screen">
-            <iframe src="wrapper/frontend/v1/?embed=1" title="Interactive Sponge City street by Simon, connected to WorldState" loading="eager"></iframe>
-          </div>
-          <figcaption>Choose weather and interventions to explore the illustrated street. WorldState returns qualitative prototype effects and identifies concepts it cannot model yet.</figcaption>
-        </figure>
+        <aside class="panel">
+          <p class="eyebrow">Shared website</p>
+          <h2>One entrance. Five buckets.</h2>
+          <p>The landing page stays neutral. Each person can build inside their own folder without rewriting someone else’s work. Connections can be agreed later.</p>
+          <p class="small"><span class="label neutral">Modular by default</span></p>
+        </aside>
       </div>
     </section>
 
-    <section class="section white">
+    <section class="section white" id="workspaces">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">The problem</p><h2>Signals exist. The decision path does not.</h2></div>
-          <p>Three observations from the team's research. Each one links to its source and states its evidence class.</p>
+          <div><p class="eyebrow">Team workspaces</p><h2>Choose a bucket</h2></div>
+          <p>Every page is owned from its contributor’s folder. A template can be replaced without changing the shared landing page.</p>
         </div>
-        <div class="grid-3">
-          <article class="panel">
-            <span class="label source">Published</span>
-            <h3 style="margin-top:12px">The signals exist, separately</h3>
-            <p class="small">Basel publishes an urban climate analysis, a tree cadastre with daily updates, LiDAR canopy cover and official land cover. Federal overland-flow hazard maps are also open. They answer different questions in different places.</p>
-            <a class="small" href="research/data-charter/">Data Charter: what Basel publishes →</a>
-          </article>
-          <article class="panel">
-            <span class="label illustrative">Derived · not validated</span>
-            <h3 style="margin-top:12px">Most sealed ground is not street</h3>
-            <p class="small">The team overlaid open land cover and parcels. Of about 1,650 ha of sealed ground in Basel-Stadt, about 18 % lies on public street space (Allmend) and 82 % on other parcels. This is a screening figure computed by the team, not an official statistic.</p>
-            <a class="small" href="research/sponge-catalogue/">Sponge catalogue: method and limits →</a>
-          </article>
-          <article class="panel">
-            <span class="label missing">Gated or unmeasured</span>
-            <h3 style="margin-top:12px">The deciding facts are hard to reach</h3>
-            <p class="small">The sewer network, gully points and utility depths were not found as open data. Local infiltration capacity has to be tested on site. Without them, no street design can move beyond an illustration.</p>
-            <a class="small" href="research/gatekeepers/">Who holds the missing evidence →</a>
-          </article>
-        </div>
+        <div class="ws-list" data-workstreams><noscript><p><a href="team/">Open the workspace directory.</a></p></noscript></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div><p class="eyebrow">The demo journey</p><h2>Six questions, one path</h2></div>
-          <p>Each stage answers one question and says plainly what works now, what is illustrative and what is still missing.</p>
-        </div>
-        <nav class="journey" aria-label="Demo stages">
-          <a href="find/"><span class="n">01 · Andy's site scoping</span><b>Find</b><p>Where in Basel might a heat-and-water intervention be worth investigating?</p></a>
-          <a href="understand/"><span class="n">02 · Evidence and unknowns</span><b>Understand</b><p>What is known about the selected place, and what is not?</p></a>
-          <a href="lab/#design"><span class="n">03 · Street Lab</span><b>Design</b><p>What can change, and which measures depend on one another?</p></a>
-          <a href="lab/#test"><span class="n">04 · Street Lab</span><b>Test</b><p>How might rainwater move differently after the change?</p></a>
-          <a href="lab/#see"><span class="n">05 · Street Lab and explainers</span><b>See</b><p>Can a person see and follow the changed street system?</p></a>
-          <a href="decide/"><span class="n">06 · Actors and evidence</span><b>Decide</b><p>Who can act, what evidence is required, and how could a proposal advance?</p></a>
-        </nav>
-      </div>
-    </section>
-
-    <section class="section white">
-      <div class="wrap">
-        <div class="section-head">
-          <div><p class="eyebrow">Status tonight</p><h2>What is real, what is illustrative</h2></div>
-          <p>The demo is honest about its claim level: it explains a mechanism and organises evidence. It does not assess a real site.</p>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Stage</th><th>Works now</th><th>Illustrative</th><th>Still missing</th></tr></thead>
-            <tbody>
-              <tr><td><b>Find</b></td><td>Basel map, dataset catalogue, provisional scoring, shortlist and comparison</td><td>Candidate locations and all indicator values</td><td>Spatial join of official heat, land-cover, canopy and runoff layers</td></tr>
-              <tr><td><b>Understand</b></td><td>Candidate evidence leads, unknowns and constraints; city-wide data availability</td><td>Screening hypothesis per candidate</td><td>Site-level observations of surfaces, trees, drainage, utilities and ownership</td></tr>
-              <tr><td><b>Design · Test · See</b></td><td>Rain garden, runoff connection, minute-by-minute water balance, tested for conservation</td><td>The 60 × 30 m street, storage and infiltration values</td><td>Calibrated hydrology, real geometry, a second intervention</td></tr>
-              <tr><td><b>Decide</b></td><td>Actors, gatekeepers, verified Basel rules and programmes, open questions</td><td>Team proposals for levers</td><td>Basel approval procedures for unsealing, infiltration and tree pits</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div><p class="eyebrow">Team</p><h2>Where each contribution lives</h2></div>
-          <p>Every workstream has a page. Placeholder pages are marked and can be replaced by their owners.</p>
-        </div>
-        <div class="ws-list" data-workstreams><noscript><p><a href="team/">Open the Team page.</a></p></noscript></div>
-      </div>
-    </section>
-
-    <section class="section white">
-      <div class="wrap">
-        <p class="eyebrow">How to read this site</p>
-        <div class="grid-4">
-          <div><span class="label works">Works now</span><p class="small" style="margin-top:8px">Runs in this prototype and can be demonstrated.</p></div>
-          <div><span class="label illustrative">Illustrative</span><p class="small" style="margin-top:8px">A placeholder or assumption that explains a mechanism. It is not a measurement.</p></div>
-          <div><span class="label missing">Missing</span><p class="small" style="margin-top:8px">Evidence or work that does not exist yet, or that we could not access.</p></div>
-          <div><span class="label source">Source</span><p class="small" style="margin-top:8px">Links to the published source or research note behind a statement.</p></div>
-        </div>
+      <div class="wrap grid-2">
+        <article class="panel">
+          <span class="label source">Challenge</span>
+          <h3 style="margin-top:10px">Make the sponge-city principle actionable</h3>
+          <p class="small">Explore where water and heat pressures matter, what interventions might help, what evidence is available, and what still needs to be learned before a real decision.</p>
+        </article>
+        <article class="panel">
+          <span class="label neutral">Archive</span>
+          <h3 style="margin-top:10px">The connected group prototype is preserved</h3>
+          <p class="small">The earlier Find → Understand → Design → Test → See → Decide story remains available as a dated snapshot. It is no longer presented as the single shared product.</p>
+          <p class="small"><a href="archive/group-story-v1/">Open group story v1 →</a></p>
+        </article>
       </div>
     </section>
   </main>
