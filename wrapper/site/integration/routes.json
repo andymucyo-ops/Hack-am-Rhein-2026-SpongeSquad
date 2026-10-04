@@ -112,10 +112,11 @@
     {
       "folder": "frontend/",
       "owner": "Simon",
-      "title": "Frontend",
+      "title": "Visual Street Lab",
       "page": "frontend/",
-      "status": "placeholder",
-      "summary": "Shared product interface. Template page until the frontend exposes an entry point."
+      "app": "wrapper/frontend/v1/",
+      "status": "live",
+      "summary": "Wrapper-owned integration copy of Simon's visual street, connected to qualitative WorldState effects."
     },
     {
       "folder": "data/",
@@ -143,6 +144,20 @@
     }
   ],
   "modules": [
+    {
+      "id": "simon-visual-lab",
+      "source": "wrapper/frontend/v1",
+      "output": "wrapper/frontend/v1",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "main.js",
+        "worldstate-adapter.js",
+        "style.css",
+        "assets",
+        "README.md"
+      ]
+    },
     {
       "id": "site-scoping",
       "source": "basel-site-scoping-tool",

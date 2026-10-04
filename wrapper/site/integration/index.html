@@ -9,54 +9,32 @@
   <script src="assets/routes.js" defer></script>
   <script src="assets/site.js" defer></script>
   <script src="assets/workstreams.js" defer></script>
+  <script src="assets/visual-entry.js" defer></script>
 </head>
 <body>
   <div id="site-header"></div>
   <main id="main">
     <section class="hero">
-      <div class="wrap hero-grid">
+      <div class="wrap hero-grid visual-hero-grid">
         <div>
           <p class="eyebrow">Make Basel a Sponge · Hack am Rhein 2026</p>
           <h1>Basel can map heat and heavy rain. <i>Deciding what to change on a street is the hard part.</i></h1>
           <p class="lead">Heat and rain information exists, but it is read in separate places. SpongeSquad connects it into one path. Find a place worth investigating and see what is known about it. Then test one sponge-city change on an example street, and name what must be established before anyone can decide.</p>
           <div class="actions">
             <a class="button primary" href="find/">Start the demo <span aria-hidden="true">→</span></a>
-            <a class="button" href="lab/">Go straight to the Street Lab</a>
+            <a class="button" href="wrapper/frontend/v1/">Explore the visual street</a>
             <a class="button" href="research/">Sources &amp; Research</a>
           </div>
         </div>
-        <figure class="diagram" style="margin:0">
-          <svg viewBox="0 0 520 300" role="img" aria-labelledby="dia-title dia-desc">
-            <title id="dia-title">Schematic street section</title>
-            <desc id="dia-desc">Rain falls on a roof and a street. In the sealed street all water runs to the sewer. With a connected rain garden, water is held and soaks into the soil, and only the overflow reaches the sewer.</desc>
-            <rect x="0" y="0" width="520" height="300" fill="#f7f9f6"/>
-            <g stroke="#9cbfd0" stroke-width="2" stroke-linecap="round" opacity=".8">
-              <line x1="60" y1="18" x2="52" y2="40"/><line x1="120" y1="12" x2="112" y2="34"/><line x1="200" y1="20" x2="192" y2="42"/>
-              <line x1="280" y1="14" x2="272" y2="36"/><line x1="360" y1="20" x2="352" y2="42"/><line x1="440" y1="12" x2="432" y2="34"/>
-            </g>
-            <rect x="20" y="70" width="120" height="110" fill="#e4e9e2" stroke="#b9c4ba"/>
-            <text x="80" y="128" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5d6b62">ROOF</text>
-            <line x1="140" y1="90" x2="140" y2="180" stroke="#7f8e85" stroke-width="3"/>
-            <rect x="140" y="180" width="60" height="14" fill="#d8ddd6"/>
-            <rect x="200" y="176" width="90" height="22" rx="4" fill="#8fbf8f" stroke="#5f9a68"/>
-            <circle cx="225" cy="168" r="14" fill="#6fa97a"/><circle cx="262" cy="164" r="17" fill="#5f9a68"/>
-            <text x="245" y="214" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#2f6b45">RAIN GARDEN</text>
-            <rect x="290" y="186" width="210" height="10" fill="#b5bab4"/>
-            <text x="395" y="180" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5d6b62">STREET</text>
-            <rect x="0" y="198" width="520" height="102" fill="#e9e1d3"/>
-            <text x="16" y="292" font-family="DM Mono, monospace" font-size="10" fill="#8a7a5c">SOIL</text>
-            <rect x="380" y="236" width="120" height="18" rx="9" fill="#cfd5cf" stroke="#9ea89f"/>
-            <text x="440" y="249" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#4d5a51">SEWER</text>
-            <g fill="none" stroke="#2f7fa6" stroke-width="2.5" stroke-linecap="round">
-              <path d="M140 182 C170 186 190 186 205 186"/>
-              <path d="M330 190 C310 190 300 190 290 189"/>
-              <path d="M245 198 L245 240" stroke-dasharray="4 5"/>
-              <path d="M288 196 C320 230 350 244 380 245"/>
-            </g>
-            <text x="252" y="258" font-family="DM Sans, sans-serif" font-size="11" fill="#2f5d68">soaks in</text>
-            <text x="300" y="270" font-family="DM Sans, sans-serif" font-size="11" fill="#2f5d68">overflow only</text>
-          </svg>
-          <figcaption class="tiny" style="margin-top:8px">Schematic. The Street Lab tests this connection on a synthetic example street, not a surveyed Basel site.</figcaption>
+        <figure class="visual-entry" data-visual-entry>
+          <div class="visual-entry-bar">
+            <span><i aria-hidden="true"></i> Interactive visual prototype</span>
+            <a href="wrapper/frontend/v1/">Open full screen <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="visual-entry-screen">
+            <iframe src="wrapper/frontend/v1/?embed=1" title="Interactive Sponge City street by Simon, connected to WorldState" loading="eager"></iframe>
+          </div>
+          <figcaption>Choose weather and interventions to explore the illustrated street. WorldState returns qualitative prototype effects and identifies concepts it cannot model yet.</figcaption>
         </figure>
       </div>
     </section>

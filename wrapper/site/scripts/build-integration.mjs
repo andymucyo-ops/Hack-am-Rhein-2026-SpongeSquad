@@ -107,6 +107,7 @@ function sourceRepoPath(path) {
 // slug, repo path, section (research|team), group (for listing)
 const DOCS = [
   ["repository-map", "wrapper/docs/REPOSITORY-MAP.md", "team", "architecture"],
+  ["component-ownership", "wrapper/docs/COMPONENT-OWNERSHIP.md", "team", "architecture"],
   ["atlas-decision-canvas", "wrapper/evidence-atlas/docs/DECISION-CANVAS.md", "research", "team"],
   ["atlas-governance-and-measurement", "wrapper/evidence-atlas/docs/GOVERNANCE-AND-MEASUREMENT.md", "research", "team"],
   ["atlas-monitoring-data-stack", "wrapper/evidence-atlas/docs/MONITORING-DATA-STACK.md", "research", "team"],
