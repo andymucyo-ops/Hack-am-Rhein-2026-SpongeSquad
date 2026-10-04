@@ -35,8 +35,8 @@
       "question": "What kind of evidence do we have?",
       "contribution": "Evidence is marked as known, derived, assumed, modelled, restricted or missing.",
       "boundary": "A relevant dataset is not automatically valid for the intended decision.",
-      "url": "stage.html#classify",
-      "demoUrl": "stage.html#classify",
+      "url": "stage.html?view=classify#classify",
+      "demoUrl": "stage.html?view=classify#classify",
       "status": "working"
     },
     {
@@ -61,8 +61,8 @@
       "question": "What can people responsibly verify?",
       "contribution": "A provenance-bearing field observation plan with review history.",
       "boundary": "Surface observation cannot reveal underground utilities or infiltration performance.",
-      "url": "../wrapper/street-workspace/public/rain-walk/index.html",
-      "demoUrl": "../wrapper/street-workspace/public/rain-walk/index.html",
+      "url": "../wrapper/street-workspace/rain-walk/index.html",
+      "demoUrl": "../wrapper/street-workspace/rain-walk/index.html",
       "status": "working-demo"
     },
     {
@@ -87,8 +87,8 @@
       "question": "What is the next defensible action?",
       "contribution": "A bounded decision packet linking claims, gaps, gatekeepers and actions.",
       "boundary": "The current state is investigation, not a recommendation to construct.",
-      "url": "stage.html#decide",
-      "demoUrl": "stage.html#decide",
+      "url": "stage.html?view=decide#decide",
+      "demoUrl": "stage.html?view=decide#decide",
       "artifactUrl": "../wrapper/achim/index.html#case",
       "status": "contract-v1"
     }

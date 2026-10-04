@@ -76,7 +76,7 @@
       "owner": "Observation",
       "purpose": "Turn local observation into a provenance-bearing field note.",
       "boundary": "Surface observation cannot reveal underground conditions.",
-      "url": "../wrapper/street-workspace/public/rain-walk/index.html"
+      "url": "../wrapper/street-workspace/rain-walk/index.html"
     },
     {
       "id": "charter",
@@ -85,7 +85,7 @@
       "owner": "Evidence classification",
       "purpose": "Mark what is known, derived, assumed, modelled, restricted or missing.",
       "boundary": "A relevant dataset is not automatically valid for a decision.",
-      "url": "stage.html#classify"
+      "url": "stage.html?view=classify#classify"
     },
     {
       "id": "case",
@@ -94,7 +94,7 @@
       "owner": "Next action",
       "purpose": "Connect claims, gaps, gatekeepers and actions into one bounded case.",
       "boundary": "The current state is investigation, not a recommendation to construct.",
-      "url": "stage.html#decide"
+      "url": "stage.html?view=decide#decide"
     },
     {
       "id": "scoping",

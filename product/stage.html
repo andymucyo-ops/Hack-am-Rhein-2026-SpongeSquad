@@ -26,7 +26,7 @@
   </main>
   <script>
     (async function(){
-      const id=(location.hash||'#classify').slice(1);
+      const id=(location.hash||('#'+new URLSearchParams(location.search).get('view'))||'#classify').slice(1);
       const manifest=await fetch('data/product-manifest.json').then(r=>r.json());
       const stage=manifest.stages.find(item=>item.id===id)||manifest.stages[0];
       document.title=stage.tool+' · SpongeSquad';

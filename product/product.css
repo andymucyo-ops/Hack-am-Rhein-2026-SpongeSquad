@@ -6,3 +6,8 @@
 .problem h1 { font-size: clamp(40px, 4.8vw, 68px); margin-bottom: 20px; }
 .vision-links { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
 @media (max-width: 900px) { header { grid-template-columns: 1fr auto; gap: 10px; } nav { display: flex; flex-wrap: wrap; grid-column: 1 / -1; grid-row: 2; gap: 10px 20px; } nav a { font-size: 12px; } }
+
+/* Presentation module rail: scrollable without a heavy browser scrollbar. */
+.tabs { scrollbar-width: none; overscroll-behavior-inline: contain; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }

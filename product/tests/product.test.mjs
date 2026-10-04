@@ -20,6 +20,10 @@ test('Simon is the centerpiece and all live modules stay bounded', () => {
   assert.equal(showcase.modules.length, 14);
   for (const id of ['heat', 'scoping', 'lab', 'atlas', 'charter-map', 'catalogue', 'decisions']) assert.ok(showcase.modules.some(module => module.id === id));
   assert.equal(showcase.modules[0].id, 'simon');
+  const rainWalk = showcase.modules.find((module) => module.id === 'rainwalk');
+  assert.equal(rainWalk.url, '../wrapper/street-workspace/rain-walk/index.html');
+  const stageUrls = ['charter', 'case'].map((id) => showcase.modules.find((module) => module.id === id).url);
+  assert.equal(new Set(stageUrls).size, 2, 'stage modules need distinct iframe URLs');
   for (const module of showcase.modules) {
     assert.ok(module.owner);
     assert.ok(module.purpose);
