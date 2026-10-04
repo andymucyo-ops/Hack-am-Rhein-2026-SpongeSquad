@@ -19,7 +19,8 @@ test('every stage preserves ownership, boundary and a relative module URL', () =
   for (const stage of manifest.stages) {
     assert.ok(stage.owner, `${stage.id} needs an owner`);
     assert.ok(stage.boundary, `${stage.id} needs an evidence boundary`);
-    assert.match(stage.url, /^\.\.\//, `${stage.id} must use a subpath-safe relative URL`);
+    assert.doesNotMatch(stage.url, /^\//, `${stage.id} must use a subpath-safe relative URL`);
+    assert.doesNotMatch(stage.demoUrl, /^\//, `${stage.id} demo must use a subpath-safe relative URL`);
   }
 });
 

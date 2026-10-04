@@ -102,6 +102,7 @@
       "build": "copy",
       "files": [
         "index.html",
+        "stage.html",
         "product.css",
         "app.js",
         "package.json",

@@ -1,12 +1,12 @@
 (function () {
   const manifestUrl = 'data/product-manifest.json';
   const fallbackStages = [
-    { id: 'find', number: '01', verb: 'Find', owner: 'Andy', tool: 'Site Scoping', question: 'Where should we investigate?', contribution: 'A candidate signal with identity, sources and explicit evidence questions.', boundary: 'A screening score does not establish street geometry, soil, utilities or feasibility.', url: '../find/', status: 'ready-for-andy-port' },
-    { id: 'classify', number: '02', verb: 'Classify', owner: 'Achim', tool: 'Data Charter', question: 'What kind of evidence do we have?', contribution: 'Evidence is marked as known, derived, assumed, modelled, restricted or missing.', boundary: 'A relevant dataset is not automatically valid for the intended decision.', url: '../view/?m=data-charter', status: 'working' },
-    { id: 'gate', number: '03', verb: 'Gate', owner: 'Achim', tool: 'Street X-Ray', question: 'What prevents a real decision?', contribution: 'Visible context, hypotheses, blockers, gatekeepers and next evidence actions.', boundary: 'Visible space is not automatically buildable space.', url: '../view/?m=street-xray', status: 'working-slice' },
-    { id: 'observe', number: '04', verb: 'Observe', owner: 'Achim + citizens', tool: 'Rain Walk', question: 'What can people responsibly verify?', contribution: 'A provenance-bearing field observation plan with review history.', boundary: 'Surface observation cannot reveal underground utilities or infiltration performance.', url: '../view/?m=rain-walk', status: 'working-demo' },
-    { id: 'explore', number: '05', verb: 'Explore', owner: 'Simon + Achim', tool: 'Visual Street + Street Lab', question: 'What could change, and how might it work?', contribution: 'A visual intervention concept and an illustrative, deterministic water pathway.', boundary: 'The scenario explains a mechanism; it does not validate engineering performance.', url: '../lab/', status: 'working-mvp' },
-    { id: 'decide', number: '06', verb: 'Decide', owner: 'Team', tool: 'Connected Case', question: 'What is the next defensible action?', contribution: 'A bounded decision packet linking claims, gaps, gatekeepers and actions.', boundary: 'The current state is investigation, not a recommendation to construct.', url: '../achim/#case', status: 'contract-v1' }
+    { id: 'find', number: '01', verb: 'Find', owner: 'Andy', tool: 'Site Scoping', question: 'Where should we investigate?', contribution: 'A candidate signal with identity, sources and explicit evidence questions.', boundary: 'A screening score does not establish street geometry, soil, utilities or feasibility.', url: 'contributions/andy/current/index.html', demoUrl: 'contributions/andy/current/index.html', status: 'ready-for-andy-port' },
+    { id: 'classify', number: '02', verb: 'Classify', owner: 'Achim', tool: 'Data Charter', question: 'What kind of evidence do we have?', contribution: 'Evidence is marked as known, derived, assumed, modelled, restricted or missing.', boundary: 'A relevant dataset is not automatically valid for the intended decision.', url: 'stage.html#classify', demoUrl: 'stage.html#classify', status: 'working' },
+    { id: 'gate', number: '03', verb: 'Gate', owner: 'Achim', tool: 'Street X-Ray', question: 'What prevents a real decision?', contribution: 'Visible context, hypotheses, blockers, gatekeepers and next evidence actions.', boundary: 'Visible space is not automatically buildable space.', url: '../wrapper/street-xray/index.html', demoUrl: '../wrapper/street-xray/index.html', status: 'working-slice' },
+    { id: 'observe', number: '04', verb: 'Observe', owner: 'Achim + citizens', tool: 'Rain Walk', question: 'What can people responsibly verify?', contribution: 'A provenance-bearing field observation plan with review history.', boundary: 'Surface observation cannot reveal underground utilities or infiltration performance.', url: '../wrapper/street-workspace/public/rain-walk/index.html', demoUrl: '../wrapper/street-workspace/public/rain-walk/index.html', status: 'working-demo' },
+    { id: 'explore', number: '05', verb: 'Explore', owner: 'Simon + Achim', tool: 'Visual Street + Street Lab', question: 'What could change, and how might it work?', contribution: 'A visual intervention concept and an illustrative, deterministic water pathway.', boundary: 'The scenario explains a mechanism; it does not validate engineering performance.', url: '../frontend/v1/index.html', demoUrl: '../frontend/v1/index.html', status: 'working-mvp' },
+    { id: 'decide', number: '06', verb: 'Decide', owner: 'Team', tool: 'Connected Case', question: 'What is the next defensible action?', contribution: 'A bounded decision packet linking claims, gaps, gatekeepers and actions.', boundary: 'The current state is investigation, not a recommendation to construct.', url: 'stage.html#decide', demoUrl: 'stage.html#decide', status: 'contract-v1' }
   ];
 
   const state = { stages: fallbackStages, selected: 0 };
@@ -76,7 +76,7 @@
     document.getElementById('demo-boundary').textContent = stage.boundary;
     document.getElementById('demo-state').textContent = `${stage.owner} · ${stage.status.replaceAll('-', ' ')}`;
     demoOpen.href = stage.url;
-    demoFrame.src = stage.url;
+    demoFrame.src = stage.demoUrl || stage.url;
     demoFrame.title = `${stage.tool}: ${stage.question}`;
   }
 
