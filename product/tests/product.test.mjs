@@ -6,6 +6,26 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(join(root, 'data/product-manifest.json'), 'utf8'));
+const showcase = JSON.parse(readFileSync(join(root, 'data/showcase-manifest.json'), 'utf8'));
+
+test('showcase follows the four-part five-minute presentation', () => {
+  assert.equal(showcase.contract, 'spongesquad-showcase/v1');
+  assert.deepEqual(showcase.chapters.map(({ id, seconds }) => [id, seconds]), [
+    ['problem', 45], ['understanding', 45], ['demo', 165], ['vision', 45]
+  ]);
+  assert.equal(showcase.chapters.reduce((sum, chapter) => sum + chapter.seconds, 0), 300);
+});
+
+test('Simon is the centerpiece and all seven modules stay bounded', () => {
+  assert.equal(showcase.modules.length, 7);
+  assert.equal(showcase.modules[0].id, 'simon');
+  for (const module of showcase.modules) {
+    assert.ok(module.owner);
+    assert.ok(module.purpose);
+    assert.ok(module.boundary);
+    assert.doesNotMatch(module.url, /^\//);
+  }
+});
 
 test('product manifest exposes the bounded six-stage journey', () => {
   assert.equal(manifest.contract, 'spongesquad-product/v1');
