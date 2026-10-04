@@ -23,14 +23,27 @@
   },
   "heatwave": {
     "ponding_mm": 0,
-    "surface_temp_c": 57,
+    "surface_temp_c": 40.23967190000002,
     "temp_floor_c": 22,
     "ponding_scale_mm": 50,
-    "source": "frontend-default",
+    "source": "Landsat-derived daytime land-surface temperature at Tellplatz",
     "notes": [
       "Game baseline copied from frontend/v1/main.js.",
-      "Intervention effects are game estimates."
-    ]
+      "Intervention effects are game estimates.",
+      "Landsat-derived daytime land-surface temperature at Tellplatz, dates 2021-06-01 through 2025-08-31, not air temperature and not the official Basel heat-island intensity."
+    ],
+    "date": "2025-08-31T23:59:59Z"
   },
-  "history": []
+  "history": [
+    {
+      "weather": "heatwave",
+      "field": "surface_temp_c",
+      "old": {
+        "surface_temp_c": 57,
+        "source": "frontend-default",
+        "date": null
+      },
+      "replaced_on": "2026-10-04"
+    }
+  ]
 }

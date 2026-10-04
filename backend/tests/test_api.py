@@ -48,6 +48,23 @@ def test_baseline_weather():
     assert response.json()["source"] == "frontend-default"
 
 
+def test_observed_heatwave_baseline_and_seeded_mild_baseline():
+    mild = client.get("/api/baseline", params={"weather": "mild"}).json()
+    heatwave = client.get("/api/baseline", params={"weather": "heatwave"}).json()
+    assert mild["surface_temp_c"] == 31
+    assert mild["source"] == "frontend-default"
+    assert heatwave["surface_temp_c"] == 40.23967190000002
+    assert heatwave["source"] == "Landsat-derived daytime land-surface temperature at Tellplatz"
+    assert "not air temperature and not the official Basel heat-island intensity" in heatwave["notes"][-1]
+
+
+def test_evaluate_matches_local_formula_for_sample_inputs():
+    response = client.post("/api/evaluate", json={"weather": "heatwave", "selected": {"apartments": "green roof", "street": "permeable paving blocks"}})
+    assert response.status_code == 200
+    assert response.json()["ponding"] == 0
+    assert response.json()["temp"] == 54.3
+
+
 def test_evaluate_preflight_allows_localhost():
     response = client.options(
         "/api/evaluate",

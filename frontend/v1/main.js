@@ -115,7 +115,8 @@ async function loadApiData(){
   const catalogue=results[0];
   if(!catalogueMatches(catalogue)||results.slice(1).some(b=>!b||!WEATHER_MODES.includes(b.weather))){setApiStatus('offline');return}
   for(const remoteSection of catalogue.sections){const localSection=SECTIONS[remoteSection.id];remoteSection.options.forEach((remote,index)=>Object.assign(localSection.options[index],{stormMm:remote.stormMm,coolC:remote.coolC,info:remote.info,source:remote.source,evidence:remote.evidence}))}
-  results.slice(1).forEach(b=>{state.baselines[b.weather]={ponding:b.ponding_mm,surfaceTemp:b.surface_temp_c,tempFloor:b.temp_floor_c,pondingScale:b.ponding_scale_mm}});
+  results.slice(1).forEach(b=>{state.baselines[b.weather]={ponding:b.ponding_mm,surfaceTemp:b.surface_temp_c,tempFloor:b.temp_floor_c,pondingScale:b.ponding_scale_mm,source:b.source,notes:b.notes}});
+  updateBaselineNote();
   setApiStatus('live');
 }
 
@@ -283,8 +284,9 @@ function drawRain(dt){
   for(let i=splashes.length-1;i>=0;i--)if(splashes[i].a<=0)splashes.splice(i,1);
 }
 function setWeather(w){
-  state.weather=w;document.querySelectorAll('.weather-btn').forEach(b=>{const on=b.dataset.weather===w;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});resetClouds(w==='rainstorm');if(w==='rainstorm'){lightning=0;lightningWait=3+Math.random()*5}updateMetrics();queueEvaluate();
+  state.weather=w;document.querySelectorAll('.weather-btn').forEach(b=>{const on=b.dataset.weather===w;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});resetClouds(w==='rainstorm');if(w==='rainstorm'){lightning=0;lightningWait=3+Math.random()*5}updateBaselineNote();updateMetrics();queueEvaluate();
 }
+function updateBaselineNote(){const node=document.querySelector('#baselineNote');const notes=state.baselines[state.weather]?.notes||[];if(node){node.textContent=notes[notes.length-1]||'';node.hidden=!notes.length}}
 function performanceValues(weather=state.weather,selected=state.selected){
   let stormReduction=0,cooling=0;
   for(const s of ORDER){const o=option(s,selected[s]||'unchanged');stormReduction+=o.stormMm;cooling+=o.coolC}

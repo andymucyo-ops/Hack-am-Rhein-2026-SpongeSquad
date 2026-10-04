@@ -24,8 +24,8 @@ curl http://localhost:8000/api/health
 `GET /api/catalogue`
 
 Returns `{ "sections": [...] }` in the exact frontend order. Every option has
-the frontend `id`, `label`, `file`, `stormMm`, `coolC` and `info`, plus
-`source: "game-estimate"` and an empty `evidence` list.
+the frontend `id`, `label`, `file`, `stormMm`, `coolC` and `info`, plus a
+`source` and structured `evidence` metadata when an opened source supports it.
 
 ```text
 curl http://localhost:8000/api/catalogue
@@ -66,13 +66,18 @@ curl http://localhost:8000/api/site
 ## Data provenance
 
 The intervention `stormMm` and `coolC` values are game estimates copied from
-the finished frontend. The seeded weather baselines are frontend defaults,
-not engineering calculations. The repository also contains an optional,
-real Landsat satellite-derived daytime land-surface-temperature baseline, but
-it is not air temperature or official Basel heat-island intensity.
+the finished frontend. Where evidence is present, it reports the source's
+original metric; most runoff percentages and temperature measurements are not
+directly comparable to the game's mm of reduced peak ponding or degrees C of
+reduced peak hard-surface temperature. The seeded mild and rainstorm baselines
+are frontend defaults, not engineering calculations. The optional observed
+heatwave baseline is Landsat-derived daytime land-surface temperature at
+Tellplatz, dates 2021-06-01 through 2025-08-31, not air temperature and not
+the official Basel heat-island intensity. It uses the Tellplatz median and
+keeps the replaced default in `baseline.json` history.
 
-The opt-in command below promotes its Tellplatz median to the mild and
-heatwave baseline, recording the previous values in `baseline.json` history:
+The opt-in command below promotes its Tellplatz median to the heatwave
+baseline, recording the previous value in `baseline.json` history:
 
 ```text
 python backend/scripts/build_baseline.py --use-observed-lst

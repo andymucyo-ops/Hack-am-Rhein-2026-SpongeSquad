@@ -28,14 +28,22 @@ def build(use_observed_lst: bool = False) -> dict:
         return data
     value, source, observed_date = observed_temperature()
     history = data.setdefault("history", [])
-    for weather in ("mild", "heatwave"):
+    for weather in ("heatwave",):
         old = {key: data[weather].get(key) for key in ("surface_temp_c", "source", "date")}
         history.append({"weather": weather, "field": "surface_temp_c", "old": old, "replaced_on": date.today().isoformat()})
         data[weather]["surface_temp_c"] = value
-        data[weather]["source"] = source
+        data[weather]["source"] = "Landsat-derived daytime land-surface temperature at Tellplatz"
         data[weather]["date"] = observed_date
-        data[weather]["notes"].append("Promoted from the optional Landsat observed thermal context by build_baseline.py.")
+        data[weather]["notes"].append(
+            f"Landsat-derived daytime land-surface temperature at Tellplatz, dates {observed_period()}, "
+            "not air temperature and not the official Basel heat-island intensity."
+        )
     return data
+
+
+def observed_period() -> str:
+    period = json.loads(LANDSAT.read_text())["period"]
+    return f"{period['start'][:10]} through {period['end'][:10]}"
 
 
 def main() -> None:
