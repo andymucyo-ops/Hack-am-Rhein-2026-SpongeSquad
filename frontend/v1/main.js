@@ -1,6 +1,8 @@
 const LOGICAL_W = 1920;
 const LOGICAL_H = 1150;
 const ORDER = ['apartments','sidewalk','street','parking lot'];
+const API_BASE = new URLSearchParams(location.search).get('api') || 'http://localhost:8000';
+const WEATHER_MODES = ['mild','rainstorm','heatwave'];
 
 // Game-balancing estimates, not hydraulic/thermal engineering calculations.
 // stormMm = approximate reduction in peak surface ponding during the demo storm.
@@ -44,7 +46,7 @@ const FALLBACK_LINEUP_Y = {
 const state={
   weather:'mild',displayScale:.60,darkMode:false,
   selected:{},coords:FALLBACK_COORDS,lineupY:FALLBACK_LINEUP_Y,
-  images:new Map(),nodes:new Map(),ready:false
+  images:new Map(),nodes:new Map(),ready:false,apiStatus:'offline',baselines:{},evaluateTimer:null,evaluateRequest:0
 };
 ORDER.forEach(s=>state.selected[s]='unchanged');
 
@@ -62,16 +64,44 @@ function setHoverInfo(section,id){
   const o=option(section,id);
   const title=document.querySelector('#hoverTitle');
   const text=document.querySelector('#hoverText');
+  const source=document.querySelector('#hoverSource');
   if(!title||!text)return;
   title.textContent=o.label;
+  if(source){source.textContent=o.source?formatSource(o.source):'';source.hidden=!o.source}
   text.textContent=o.info||'';
 }
+function formatSource(source){return source.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
 function resetHoverInfo(){
   const title=document.querySelector('#hoverTitle');
   const text=document.querySelector('#hoverText');
+  const source=document.querySelector('#hoverSource');
   if(!title||!text)return;
   title.textContent='Hover over an intervention';
+  if(source){source.textContent='';source.hidden=true}
   text.textContent='Each option changes how this street section stores water, infiltrates rainfall or reduces heat.';
+}
+
+async function apiGet(path){
+  try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{signal:controller.signal,cache:'no-store'});clearTimeout(timer);if(!response.ok)return null;return await response.json()}catch(err){return null}
+}
+async function apiPost(path,body){
+  try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:controller.signal});clearTimeout(timer);if(!response.ok)return null;return await response.json()}catch(err){return null}
+}
+function setApiStatus(status){
+  state.apiStatus=status;const node=document.querySelector('#apiStatus');
+  if(node){node.textContent=status==='live'?'Live data':'Offline demo values';node.classList.toggle('live',status==='live')}
+}
+function catalogueMatches(data){
+  if(!data||!Array.isArray(data.sections)||data.sections.length!==ORDER.length)return false;
+  return ORDER.every((section,index)=>{const remote=data.sections[index];const local=SECTIONS[section];return remote&&remote.id===section&&Array.isArray(remote.options)&&remote.options.length===local.options.length&&remote.options.every((o,i)=>o.id===local.options[i].id)})
+}
+async function loadApiData(){
+  const results=await Promise.all([apiGet('/api/catalogue'),...WEATHER_MODES.map(weather=>apiGet(`/api/baseline?weather=${weather}`))]);
+  const catalogue=results[0];
+  if(!catalogueMatches(catalogue)||results.slice(1).some(b=>!b||!WEATHER_MODES.includes(b.weather))){setApiStatus('offline');return}
+  for(const remoteSection of catalogue.sections){const localSection=SECTIONS[remoteSection.id];remoteSection.options.forEach((remote,index)=>Object.assign(localSection.options[index],{stormMm:remote.stormMm,coolC:remote.coolC,info:remote.info,source:remote.source,evidence:remote.evidence}))}
+  results.slice(1).forEach(b=>{state.baselines[b.weather]={ponding:b.ponding_mm,surfaceTemp:b.surface_temp_c,tempFloor:b.temp_floor_c,pondingScale:b.ponding_scale_mm}});
+  setApiStatus('live');
 }
 
 async function readCoordinates(){
@@ -180,7 +210,7 @@ function swap(section,id){
   if(state.selected[section]===id)return;
   const previous=state.selected[section];state.selected[section]=id;const n=state.nodes.get(section);
   if(n){n.old={id:previous,alpha:1};n.fade=0;const t=target(section);n.tx=t.x;n.ty=t.y}
-  document.querySelectorAll('.choice-btn').forEach(b=>{if(b.dataset.section===section)b.classList.toggle('active',b.dataset.option===id)});updateMetrics();
+  document.querySelectorAll('.choice-btn').forEach(b=>{if(b.dataset.section===section)b.classList.toggle('active',b.dataset.option===id)});updateMetrics();queueEvaluate();
 }
 
 const clouds=[];const drops=[];const streams=[];const splashes=[];let lightning=0;let lightningWait=4+Math.random()*5;let stormBandOffset=0;
@@ -238,24 +268,45 @@ function drawRain(dt){
   for(let i=splashes.length-1;i>=0;i--)if(splashes[i].a<=0)splashes.splice(i,1);
 }
 function setWeather(w){
-  state.weather=w;document.querySelectorAll('.weather-btn').forEach(b=>{const on=b.dataset.weather===w;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});resetClouds(w==='rainstorm');if(w==='rainstorm'){lightning=0;lightningWait=3+Math.random()*5}updateMetrics();
+  state.weather=w;document.querySelectorAll('.weather-btn').forEach(b=>{const on=b.dataset.weather===w;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});resetClouds(w==='rainstorm');if(w==='rainstorm'){lightning=0;lightningWait=3+Math.random()*5}updateMetrics();queueEvaluate();
 }
-function performanceValues(){
+function performanceValues(weather=state.weather,selected=state.selected){
   let stormReduction=0,cooling=0;
-  for(const s of ORDER){const o=option(s,state.selected[s]);stormReduction+=o.stormMm;cooling+=o.coolC}
-  const basePonding=state.weather==='rainstorm'?46:0;
-  const baseSurfaceTemp=state.weather==='heatwave'?57:state.weather==='rainstorm'?23:31;
+  for(const s of ORDER){const o=option(s,selected[s]||'unchanged');stormReduction+=o.stormMm;cooling+=o.coolC}
+  const baseline=state.baselines[weather];
+  const basePonding=baseline?baseline.ponding:(weather==='rainstorm'?46:0);
+  const baseSurfaceTemp=baseline?baseline.surfaceTemp:(weather==='heatwave'?57:weather==='rainstorm'?23:31);
+  const floor=baseline?baseline.tempFloor:(weather==='rainstorm'?16:22);
   return {
     ponding:Math.max(0,Math.round(basePonding-stormReduction)),
-    temp:Math.max(state.weather==='rainstorm'?16:22,Math.round((baseSurfaceTemp-cooling)*10)/10)
+    temp:Math.max(floor,Math.round((baseSurfaceTemp-cooling)*10)/10)
   };
 }
-function updateMetrics(){
-  const m=performanceValues();
+function updateMetrics(metrics=performanceValues()){
+  const m=metrics;
   document.querySelector('#floodValue').textContent=`${m.ponding} mm`;
   document.querySelector('#heatValue').textContent=`${m.temp.toFixed(1)}°C`;
-  document.querySelector('#floodBar').style.width=Math.min(100,m.ponding/50*100)+'%';
+  const scale=state.baselines[state.weather]?.pondingScale||50;
+  document.querySelector('#floodBar').style.width=Math.min(100,m.ponding/scale*100)+'%';
   document.querySelector('#heatBar').style.width=Math.min(100,Math.max(0,(m.temp-15)/45*100))+'%';
+}
+function queueEvaluate(){clearTimeout(state.evaluateTimer);state.evaluateTimer=setTimeout(evaluateSelection,100)}
+async function evaluateSelection(){
+  const request=++state.evaluateRequest;const result=await apiPost('/api/evaluate',{weather:state.weather,selected:state.selected});
+  if(request!==state.evaluateRequest)return;
+  if(result&&typeof result.ponding==='number'&&typeof result.temp==='number')updateMetrics({ponding:result.ponding,temp:result.temp});
+}
+async function verifyApiResults(){
+  const scenarios=[
+    {weather:'mild',selected:{street:'permeable asphalt'}},
+    {weather:'rainstorm',selected:{'parking lot':'retention pools',sidewalk:'street tree + permeatable pavement + bioswale (vegetated drainage strip)'}},
+    {weather:'heatwave',selected:{apartments:'green-blue roof','parking lot':'native vegetation'}}
+  ];
+  for(const scenario of scenarios){
+    const remote=await apiPost('/api/evaluate',scenario);if(!remote)continue;
+    const local=performanceValues(scenario.weather,scenario.selected);
+    console.assert(remote.ponding===local.ponding&&remote.temp===local.temp,'API/local metric mismatch',scenario,remote,local);
+  }
 }
 
 function drawBackground(dt){
@@ -299,7 +350,7 @@ function enableScroll(){
   },{passive:false});
 }
 async function init(){
-  buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(.60);resetClouds(false);setWeather('mild');updateMetrics();enableScroll();requestAnimationFrame(render);
+  await loadApiData();buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(.60);resetClouds(false);setWeather('mild');updateMetrics();queueEvaluate();if(state.apiStatus==='live')verifyApiResults();enableScroll();requestAnimationFrame(render);
   const parsed=await readCoordinates();state.coords=parsed.coords;state.lineupY=parsed.lineupY;
   const failures=await loadAssets();setupNodes();state.ready=true;
   const loading=document.querySelector('#loading');
