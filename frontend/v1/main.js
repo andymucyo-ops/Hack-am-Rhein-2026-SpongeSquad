@@ -3,6 +3,7 @@ const LOGICAL_H = 1150;
 const ORDER = ['apartments','sidewalk','street','parking lot'];
 const API_BASE = new URLSearchParams(location.search).get('api') || 'http://localhost:8000';
 const WEATHER_MODES = ['mild','rainstorm','heatwave'];
+const warnedApiPaths=new Set();
 
 // Game-balancing estimates, not hydraulic/thermal engineering calculations.
 // stormMm = approximate reduction in peak surface ponding during the demo storm.
@@ -81,11 +82,20 @@ function resetHoverInfo(){
   text.textContent='Each option changes how this street section stores water, infiltrates rainfall or reduces heat.';
 }
 
+function warnApiFailure(path,status,body){
+  if(warnedApiPaths.has(path))return;warnedApiPaths.add(path);console.warn(`API request failed: ${path}`,{status,body});
+}
 async function apiGet(path){
-  try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{signal:controller.signal,cache:'no-store'});clearTimeout(timer);if(!response.ok)return null;return await response.json()}catch(err){return null}
+  try{
+    const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{signal:controller.signal,cache:'no-store'});clearTimeout(timer);
+    const body=await response.text();if(!response.ok){warnApiFailure(path,response.status,body);return null}return JSON.parse(body);
+  }catch(err){warnApiFailure(path,'network',err.message);return null}
 }
 async function apiPost(path,body){
-  try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:controller.signal});clearTimeout(timer);if(!response.ok)return null;return await response.json()}catch(err){return null}
+  try{
+    const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:controller.signal});clearTimeout(timer);
+    const responseBody=await response.text();if(!response.ok){warnApiFailure(path,response.status,responseBody);return null}return JSON.parse(responseBody);
+  }catch(err){warnApiFailure(path,'network',err.message);return null}
 }
 function setApiStatus(status){
   state.apiStatus=status;const node=document.querySelector('#apiStatus');

@@ -38,6 +38,45 @@ def test_baseline_weather():
     assert response.json()["source"] == "frontend-default"
 
 
+def test_evaluate_preflight_allows_localhost():
+    response = client.options(
+        "/api/evaluate",
+        headers={
+            "Origin": "http://localhost:8080",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:8080"
+
+
+def test_evaluate_preflight_allows_loopback_address():
+    response = client.options(
+        "/api/evaluate",
+        headers={
+            "Origin": "http://127.0.0.1:8080",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://127.0.0.1:8080"
+
+
+def test_evaluate_preflight_rejects_external_origin():
+    response = client.options(
+        "/api/evaluate",
+        headers={
+            "Origin": "https://evil.example",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+    )
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers
+
+
 def test_evaluate_and_unknown_ids_are_422():
     response = client.post("/api/evaluate", json={"weather": "rainstorm", "selected": {"parking lot": "retention pools", "sidewalk": "street tree + permeatable pavement + bioswale (vegetated drainage strip)"}})
     assert response.status_code == 200

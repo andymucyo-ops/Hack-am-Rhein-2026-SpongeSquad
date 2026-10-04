@@ -10,7 +10,7 @@ from .schemas import BaselineResponse, CatalogueResponse, EvaluateRequest, Evalu
 app = FastAPI(title="Make Basel a Sponge backend", version="1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"http://localhost(:\d+)?$",
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
