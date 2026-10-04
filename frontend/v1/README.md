@@ -8,6 +8,17 @@ python3 -m http.server 8080
 
 Then open `http://localhost:8080`.
 
+## Connecting to the backend
+
+Run the API in one terminal and the frontend in another:
+
+```bash
+cd backend && uvicorn app.main:app --reload
+cd frontend/v1 && python3 -m http.server 8080
+```
+
+The frontend requests the catalogue, weather baselines, and evaluations from `http://localhost:8000`. If the API is unreachable or returns an incompatible catalogue, it automatically uses the embedded demo values and remains fully usable. An alternate API URL can be supplied with `?api=http://localhost:8000`.
+
 Changes in v5:
 - assembled layout only
 - normal wheel / trackpad gestures always scroll the page vertically
