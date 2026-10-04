@@ -101,6 +101,23 @@ sources:
     licence: null
     access_status: PARTIAL
     limitations: "Collection is confirmed in capabilities but was not interpreted beyond the mandatory sources."
+  - short_name: landsat_observed_lst
+    official_title: "Landsat Collection 2 Level-2 surface temperature"
+    role: optional context
+    dataset_identifier: landsat-c2-l2
+    metadata_url: https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2
+    service_type: Microsoft Planetary Computer STAC API
+    endpoint: https://planetarycomputer.microsoft.com/api/stac/v1
+    layer_name: null
+    geometry_type: raster
+    expected_crs: scene-specific projected CRS
+    relevant_fields: [lwir11, qa_pixel, raster:bands]
+    data_status: observed satellite LST
+    licence: null
+    access_status: PASS
+    blocking: false
+    type: observed satellite LST
+    limitations: "Optional satellite-derived daytime land-surface-temperature baseline; not air temperature or official Basel heat-island intensity. Thermal pixels are coarse relative to the 12.5 ha AOI."
 
 decision:
   status: GO

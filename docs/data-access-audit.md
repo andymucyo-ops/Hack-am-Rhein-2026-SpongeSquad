@@ -34,6 +34,51 @@ series measurements. The numerical official `Wärmeinseleffekt` source remains
 `UNAVAILABLE` / not retrieved as numerical values. It must not be changed to
 `PASS`.
 
+## Landsat observed thermal context (optional)
+
+This optional feasibility test does not affect the MVP `GO` decision. It uses
+the Microsoft Planetary Computer STAC API collection `landsat-c2-l2` and
+Landsat 8 and 9 scenes intersecting Tellplatz. The query covered June 1 through
+August 31 in each of the last five complete years (2021–2025), with scene
+cloud cover below 20%. No relaxation to 40% was needed. The output is labelled
+**satellite-derived daytime land-surface-temperature baseline**.
+
+For each scene, the `lwir11` surface-temperature asset and `qa_pixel` asset
+were identified from the returned STAC item. Asset metadata verified scale
+`0.00341802`, offset `149.0`, nodata `0`, and units `kelvin`; values were
+converted to degrees Celsius. Assets were signed at read time and only the
+AOI and reference-ring windows were read. Signed URLs and rasters were not
+stored.
+
+The QA mask excluded Landsat Collection 2 `QA_PIXEL` bits 0 (fill), 1
+(dilated cloud), 2 (cirrus), 3 (cloud), 4 (cloud shadow), and 5 (snow/ice).
+A scene was accepted only when both areas had valid pixels, the AOI valid
+fraction was at least 50%, and observed values were within -50 to 80 degrees
+C. The 50% threshold is a conservative minimum for area-level statistics,
+avoiding a scene whose AOI statistic is dominated by masked pixels.
+
+The 500 m to 1,500 m reference ring was generated around the AOI in EPSG:2056,
+excluding the AOI, and written to
+`data/processed/audit/heat/landsat_reference_ring.geojson`. There were 38
+candidate scenes, 37 usable scenes and 1 rejected scene (zero valid AOI
+pixels). Aggregation uses the median of scene-level medians, not pooled
+pixels:
+
+| Measure | Baseline | Scene range |
+|---|---:|---:|
+| Tellplatz LST | 40.24 °C | 30.94–48.54 °C |
+| Reference-ring LST | 39.59 °C | 30.56–47.49 °C |
+| Relative anomaly (AOI minus ring) | 0.66 °C | -0.95–2.02 °C |
+
+The optional test status is `PASS` because at least three scenes were accepted,
+calibration metadata was verified, QA masking was applied and statistics were
+computed. Landsat LST is not air temperature and is not Basel's official
+heat-island intensity. Thermal pixels are coarse relative to the 12.5 ha AOI,
+so these results support no street-level or parcel-level claims. Scene and
+baseline evidence is in `data/processed/audit/heat/landsat_scene_metrics.json`
+and `landsat_heat_baseline.json`; the reproducible script is
+`scripts/extract_landsat_heat.py`.
+
 ## Tellplatz result
 
 The AOI is valid and covers 125,322.12 m2 / 12.5322 ha. Five source polygons
