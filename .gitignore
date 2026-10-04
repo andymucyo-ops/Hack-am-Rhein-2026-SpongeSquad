@@ -2,3 +2,14 @@
 .DS_Store
 hackamrhein-kit/
 random/
+
+# python generated files
+scripts/__pycache__/
+tests/__pycache__/
+*.pyc
+
+# Local audit environments and uncommitted large geodata
+.venv/
+*.tif
+*.tiff
+*.gpkg
