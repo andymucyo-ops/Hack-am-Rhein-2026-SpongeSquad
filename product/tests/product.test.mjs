@@ -60,3 +60,18 @@ test('Andy has a documented replacement boundary', () => {
   assert.match(handoff, /identity-context-only/);
   assert.match(handoff, /Unknown values stay unknown/);
 });
+
+test('Andy contribution includes static backend data and Tellplatz handoff bridge', () => {
+  const contribution = join(root, 'contributions/andy/current');
+  const catalogue = JSON.parse(readFileSync(join(contribution, 'data/catalogue.json'), 'utf8'));
+  const baseline = JSON.parse(readFileSync(join(contribution, 'data/baseline.json'), 'utf8'));
+  const backend = join(root, '..', 'backend', 'data');
+  assert.equal(catalogue.sections.length, 4);
+  assert.equal(baseline.heatwave.source, 'Landsat-derived daytime land-surface temperature at Tellplatz');
+  if (existsSync(join(backend, 'catalogue.json'))) {
+    assert.deepEqual(catalogue, JSON.parse(readFileSync(join(backend, 'catalogue.json'), 'utf8')));
+    assert.deepEqual(baseline, JSON.parse(readFileSync(join(backend, 'baseline.json'), 'utf8')));
+  }
+  assert.equal(existsSync(join(contribution, 'candidate-handoff.js')), true);
+  assert.match(readFileSync(join(contribution, 'candidate-handoff.js'), 'utf8'), /candidate-site-context/);
+});

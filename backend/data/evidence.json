@@ -1,0 +1,43 @@
+{
+  "apartments": {
+    "green roof": [
+      {
+        "claim": "Extensive and intensive green roofs can reduce runoff by 60 to 100 percent, respectively.",
+        "value_or_range": "60 to 100",
+        "unit": "%",
+        "metric": "runoff reduction",
+        "citation": "U.S. EPA, 2025, Using Green Roofs to Reduce Heat Islands",
+        "url": "https://www.epa.gov/heatislands/using-green-roofs-reduce-heat-islands",
+        "note": "The source reports runoff percentage, not the game's mm of reduced peak surface ponding; not directly comparable.",
+        "consistency": "not comparable",
+        "consistency_reason": "The game value is 5 mm and has no event depth or roof design basis for conversion to percent runoff."
+      },
+      {
+        "claim": "The surface temperature of green roofs can be 56°F lower than those of conventional roofs.",
+        "value_or_range": "56",
+        "unit": "°F",
+        "metric": "peak roof surface temperature reduction",
+        "citation": "U.S. EPA, 2025, Using Green Roofs to Reduce Heat Islands",
+        "url": "https://www.epa.gov/heatislands/using-green-roofs-reduce-heat-islands",
+        "note": "This is roof surface temperature and the game uses °C reduction at the hottest hard surface; the units and measured surfaces differ.",
+        "consistency": "above range",
+        "consistency_reason": "56°F is about 31.1°C, greater than the game's 1.6°C estimate, though the source and game contexts are not identical."
+      }
+    ]
+  },
+  "sidewalk": {
+    "street tree + permeatable pavement + bioswale (vegetated drainage strip)": [
+      {
+        "claim": "On average, urban forests were 3.0°F (1.6°C) cooler than urban non-green areas.",
+        "value_or_range": "1.6",
+        "unit": "°C",
+        "metric": "surface and air temperature reduction",
+        "citation": "U.S. EPA, 2026, Benefits of Trees and Vegetation",
+        "url": "https://www.epa.gov/heatislands/benefits-trees-and-vegetation",
+        "note": "This supports the tree component but reports an urban-forest average, not the game's peak hard-surface temperature reduction; not directly comparable.",
+        "consistency": "below range",
+        "consistency_reason": "The source's 1.6°C average is below the game's 4.3°C estimate, and the source measures urban forests rather than one sidewalk intervention."
+      }
+    ]
+  }
+}

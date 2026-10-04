@@ -1,0 +1,197 @@
+{
+  "sections": [
+    {
+      "id": "apartments",
+      "title": "Apartments",
+      "subtitle": "Roof sponge area",
+      "options": [
+        {
+          "id": "unchanged",
+          "label": "Unchanged",
+          "file": "apartments/unchanged.png",
+          "stormMm": 0,
+          "coolC": 0,
+          "info": "The existing roof is the baseline: rain runs off quickly and the roof stores more solar heat than a vegetated surface.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "green roof",
+          "label": "Green roof",
+          "file": "apartments/green roof.png",
+          "stormMm": 5,
+          "coolC": 1.6,
+          "info": "A planted roof holds part of each rainfall event in its substrate and vegetation. Evapotranspiration also lowers roof temperatures during hot weather.",
+          "source": "literature-supported",
+          "evidence": [
+            {
+              "claim": "Extensive and intensive green roofs can reduce runoff by 60 to 100 percent, respectively.",
+              "value_or_range": "60 to 100",
+              "unit": "%",
+              "metric": "runoff reduction",
+              "citation": "U.S. EPA, 2025, Using Green Roofs to Reduce Heat Islands",
+              "url": "https://www.epa.gov/heatislands/using-green-roofs-reduce-heat-islands",
+              "note": "The source reports runoff percentage, not the game's mm of reduced peak surface ponding; not directly comparable.",
+              "consistency": "not comparable",
+              "consistency_reason": "The game value is 5 mm and has no event depth or roof design basis for conversion to percent runoff."
+            },
+            {
+              "claim": "The surface temperature of green roofs can be 56°F lower than those of conventional roofs.",
+              "value_or_range": "56",
+              "unit": "°F",
+              "metric": "peak roof surface temperature reduction",
+              "citation": "U.S. EPA, 2025, Using Green Roofs to Reduce Heat Islands",
+              "url": "https://www.epa.gov/heatislands/using-green-roofs-reduce-heat-islands",
+              "note": "This is roof surface temperature and the game uses °C reduction at the hottest hard surface; the units and measured surfaces differ.",
+              "consistency": "above range",
+              "consistency_reason": "56°F is about 31.1°C, greater than the game's 1.6°C estimate, though the source and game contexts are not identical."
+            }
+          ]
+        },
+        {
+          "id": "green-blue roof",
+          "label": "Blue-green roof",
+          "file": "apartments/green-blue roof.png",
+          "stormMm": 8,
+          "coolC": 1.3,
+          "info": "A blue-green roof adds temporary water storage to a planted roof. It delays runoff for longer while still providing vegetation, evaporation and habitat.",
+          "source": "game-estimate",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "sidewalk",
+      "title": "Sidewalk",
+      "subtitle": "Sponge area",
+      "options": [
+        {
+          "id": "unchanged",
+          "label": "Unchanged",
+          "file": "sidewalk/unchanged.png",
+          "stormMm": 0,
+          "coolC": 0,
+          "info": "The conventional sidewalk is mostly sealed, so rainfall has little access to soil and root space.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "street tree + permeatable pavement + bioswale (vegetated drainage strip)",
+          "label": "Tree + permeable paving + bioswale",
+          "file": "sidewalk/street tree + permeatable pavement + bioswale (vegetated drainage strip).png",
+          "stormMm": 10,
+          "coolC": 4.3,
+          "info": "Permeable paving admits runoff while the bioswale stores and filters it in planted soil. The street tree adds shade, interception and evapotranspiration while gaining a larger, wetter rooting volume.",
+          "source": "literature-supported",
+          "evidence": [
+            {
+              "claim": "On average, urban forests were 3.0°F (1.6°C) cooler than urban non-green areas.",
+              "value_or_range": "1.6",
+              "unit": "°C",
+              "metric": "surface and air temperature reduction",
+              "citation": "U.S. EPA, 2026, Benefits of Trees and Vegetation",
+              "url": "https://www.epa.gov/heatislands/benefits-trees-and-vegetation",
+              "note": "This supports the tree component but reports an urban-forest average, not the game's peak hard-surface temperature reduction; not directly comparable.",
+              "consistency": "below range",
+              "consistency_reason": "The source's 1.6°C average is below the game's 4.3°C estimate, and the source measures urban forests rather than one sidewalk intervention."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "street",
+      "title": "Street",
+      "subtitle": "Surface + detention",
+      "options": [
+        {
+          "id": "unchanged",
+          "label": "Unchanged",
+          "file": "street/unchanged.png",
+          "stormMm": 0,
+          "coolC": 0,
+          "info": "Conventional asphalt sheds water rapidly from the carriageway and stores substantial heat in summer.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "permeable asphalt",
+          "label": "Permeable asphalt",
+          "file": "street/permeable asphalt.png",
+          "stormMm": 9,
+          "coolC": 0.6,
+          "info": "Open-graded asphalt lets rainfall pass through the road surface. A coarse stone detention layer beneath stores water temporarily before slow infiltration or controlled release.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "permeable paving blocks",
+          "label": "Permeable paving blocks",
+          "file": "street/permeable paving blocks.png",
+          "stormMm": 11,
+          "coolC": 1.1,
+          "info": "Water passes through porous joints and voids between paving blocks into a detention layer below. This creates temporary subsurface storage without giving up the usable street surface.",
+          "source": "game-estimate",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "id": "parking lot",
+      "title": "Parking lot",
+      "subtitle": "Large sponge area",
+      "options": [
+        {
+          "id": "unchanged",
+          "label": "Unchanged",
+          "file": "parking lot/unchanged.png",
+          "stormMm": 0,
+          "coolC": 0,
+          "info": "The sealed parking lot is the baseline: nearly all rainfall becomes runoff and the large hard surface heats strongly in sunshine.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "constructed wetland",
+          "label": "Constructed wetland",
+          "file": "parking lot/constructed wetland.png",
+          "stormMm": 16,
+          "coolC": 2.4,
+          "info": "A constructed wetland holds stormwater in shallow planted basins. Wetland vegetation and soils slow, filter and biologically treat runoff while creating habitat.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "retention pools",
+          "label": "Retention ponds",
+          "file": "parking lot/retention pools.png",
+          "stormMm": 18,
+          "coolC": 1.8,
+          "info": "Retention ponds give stormwater a dedicated place to collect instead of flooding streets. They attenuate the peak flow and can release or infiltrate water gradually after the storm.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "floodable park",
+          "label": "Floodable park",
+          "file": "parking lot/floodable park.png",
+          "stormMm": 14,
+          "coolC": 2.8,
+          "info": "A floodable park is normal public space most of the time, but its lower areas safely accept water during cloudbursts. One piece of land therefore serves both recreation and temporary flood storage.",
+          "source": "game-estimate",
+          "evidence": []
+        },
+        {
+          "id": "native vegetation",
+          "label": "Native habitat",
+          "file": "parking lot/native vegetation.png",
+          "stormMm": 10,
+          "coolC": 3.4,
+          "info": "De-sealing the parking area and restoring locally appropriate vegetation gives rainfall access to living soil. The result improves infiltration, cooling and habitat at the same time.",
+          "source": "game-estimate",
+          "evidence": []
+        }
+      ]
+    }
+  ]
+}

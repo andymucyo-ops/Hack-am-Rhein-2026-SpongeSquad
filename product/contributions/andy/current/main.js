@@ -1,7 +1,7 @@
 const LOGICAL_W = 1920;
 const LOGICAL_H = 1150;
 const ORDER = ['apartments','sidewalk','street','parking lot'];
-const API_BASE = new URLSearchParams(location.search).get('api') || 'http://localhost:8000';
+const API_BASE = new URLSearchParams(location.search).get('api') || '';
 const WEATHER_MODES = ['mild','rainstorm','heatwave'];
 const warnedApiPaths=new Set();
 
@@ -91,12 +91,14 @@ function warnApiFailure(path,status,body){
   if(warnedApiPaths.has(path))return;warnedApiPaths.add(path);console.warn(`API request failed: ${path}`,{status,body});
 }
 async function apiGet(path){
+  if(!API_BASE)return null;
   try{
     const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{signal:controller.signal,cache:'no-store'});clearTimeout(timer);
     const body=await response.text();if(!response.ok){warnApiFailure(path,response.status,body);return null}return JSON.parse(body);
   }catch(err){warnApiFailure(path,'network',err.message);return null}
 }
 async function apiPost(path,body){
+  if(!API_BASE)return null;
   try{
     const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),2000);const response=await fetch(`${API_BASE}${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:controller.signal});clearTimeout(timer);
     const responseBody=await response.text();if(!response.ok){warnApiFailure(path,response.status,responseBody);return null}return JSON.parse(responseBody);
@@ -104,19 +106,33 @@ async function apiPost(path,body){
 }
 function setApiStatus(status){
   state.apiStatus=status;const node=document.querySelector('#apiStatus');
-  if(node){node.textContent=status==='live'?'Live data':'Offline demo values';node.classList.toggle('live',status==='live')}
+  if(node){node.textContent=status==='live'?'Live API data':status==='static'?'Bundled data':'Offline demo values';node.classList.toggle('live',status==='live'||status==='static')}
 }
 function catalogueMatches(data){
   if(!data||!Array.isArray(data.sections)||data.sections.length!==ORDER.length)return false;
   return ORDER.every((section,index)=>{const remote=data.sections[index];const local=SECTIONS[section];return remote&&remote.id===section&&Array.isArray(remote.options)&&remote.options.length===local.options.length&&remote.options.every((o,i)=>o.id===local.options[i].id)})
 }
+function applyCatalogue(catalogue){
+  for(const remoteSection of catalogue.sections){const localSection=SECTIONS[remoteSection.id];remoteSection.options.forEach((remote,index)=>Object.assign(localSection.options[index],{stormMm:remote.stormMm,coolC:remote.coolC,info:remote.info,source:remote.source,evidence:remote.evidence}))}
+}
+function applyBaselines(data){
+  WEATHER_MODES.forEach(weather=>{const b=data[weather];state.baselines[weather]={ponding:b.ponding_mm,surfaceTemp:b.surface_temp_c,tempFloor:b.temp_floor_c,pondingScale:b.ponding_scale_mm,source:b.source,notes:b.notes}});
+  updateBaselineNote();
+}
 async function loadApiData(){
+  if(!API_BASE){
+    try{
+      const [catalogueResponse,baselineResponse]=await Promise.all([fetch('./data/catalogue.json',{cache:'no-store'}),fetch('./data/baseline.json',{cache:'no-store'})]);
+      if(!catalogueResponse.ok||!baselineResponse.ok)throw new Error('bundled backend data unavailable');
+      const catalogue=await catalogueResponse.json();const baseline=await baselineResponse.json();
+      if(!catalogueMatches(catalogue)||WEATHER_MODES.some(weather=>!baseline[weather]))throw new Error('bundled backend data incompatible');
+      applyCatalogue(catalogue);applyBaselines(baseline);setApiStatus('static');return;
+    }catch(err){console.warn('Using embedded demo values:',err);setApiStatus('offline');return}
+  }
   const results=await Promise.all([apiGet('/api/catalogue'),...WEATHER_MODES.map(weather=>apiGet(`/api/baseline?weather=${weather}`))]);
   const catalogue=results[0];
   if(!catalogueMatches(catalogue)||results.slice(1).some(b=>!b||!WEATHER_MODES.includes(b.weather))){setApiStatus('offline');return}
-  for(const remoteSection of catalogue.sections){const localSection=SECTIONS[remoteSection.id];remoteSection.options.forEach((remote,index)=>Object.assign(localSection.options[index],{stormMm:remote.stormMm,coolC:remote.coolC,info:remote.info,source:remote.source,evidence:remote.evidence}))}
-  results.slice(1).forEach(b=>{state.baselines[b.weather]={ponding:b.ponding_mm,surfaceTemp:b.surface_temp_c,tempFloor:b.temp_floor_c,pondingScale:b.ponding_scale_mm,source:b.source,notes:b.notes}});
-  updateBaselineNote();
+  applyCatalogue(catalogue);applyBaselines(Object.fromEntries(results.slice(1).map(b=>[b.weather,b])));
   setApiStatus('live');
 }
 

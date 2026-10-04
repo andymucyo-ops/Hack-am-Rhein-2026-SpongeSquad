@@ -11,7 +11,7 @@
 <body>
 <div id="app">
   <header class="topbar">
-    <div class="brand"><div class="eyebrow">SpongeSquad presents</div><h1>Turn Basel Into a Sponge</h1></div>
+    <div class="brand"><div class="eyebrow">SpongeSquad presents</div><h1>Turn Basel Into a Sponge</h1><span class="api-status" id="apiStatus">Offline demo values</span><small class="baseline-note" id="baselineNote"></small></div>
     <div class="center-tools">
       <div class="segmented weather-toggle" role="group" aria-label="Weather">
         <button class="weather-btn active" data-weather="mild" aria-pressed="true"><span>☁</span>Mild</button>
@@ -39,7 +39,9 @@
       <section class="scene-frame" id="sceneFrame">
         <div id="pixiMount" aria-label="Interactive dissected sponge-city street"></div>
         <aside class="hover-info" id="hoverInfo" aria-live="polite">
-          <strong id="hoverTitle">Hover over an intervention</strong>
+           <strong id="hoverTitle">Hover over an intervention</strong>
+           <small id="hoverSource"></small>
+           <small id="hoverEvidence"></small>
           <span id="hoverText">Each option changes how this street section stores water, infiltrates rainfall or reduces heat.</span>
         </aside>
         <div class="loading" id="loading">Loading street assets…</div>

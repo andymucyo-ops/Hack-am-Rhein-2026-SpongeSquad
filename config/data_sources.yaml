@@ -1,0 +1,128 @@
+sources:
+  - short_name: heat
+    official_title: "Wärmeinseleffekt [K]"
+    role: optional
+    dataset_identifier: KL_Waermeinseleffekt
+    metadata_url: https://www.bs.ch/bvd/grundbuch-und-vermessungsamt/geo/geodaten/geodienste
+    service_type: "GeoPackage ordered locally; WMS provenance"
+    endpoint: data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg
+    layer_name: fokusgebiet_hitzeentwicklung
+    geometry_type: Polygon
+    expected_crs: EPSG:2056
+    relevant_fields: [FID, Id_Fokusgebiet, Art]
+    data_status: inferred
+    licence: null
+    access_status: UNAVAILABLE
+    blocking: false
+    required_for: optional numerical thermal context
+    local_path: data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg
+    local_value_field: null
+    local_unit: null
+    local_model_year: null
+    limitations: "The delivered file is a focus-area polygon layer, not a numerical heat-island layer. Numeric fields are identifiers; Art contains planning categories. The prior WMS provenance remains display-only/non-analytical: https://wms.geo.bs.ch/, layer KL_Waermeinseleffekt."
+    provenance_wms:
+      endpoint: https://wms.geo.bs.ch/
+      layer_name: KL_Waermeinseleffekt
+      access_status: UNAVAILABLE
+  - short_name: land_cover
+    official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Bodenbedeckung"
+    role: blocking
+    dataset_identifier: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [Bodenbedeckungsart, ID]
+    data_status: measured
+    licence: CC BY 4.0
+    access_status: PASS
+    limitations: "Current service data are dynamic; classes are retained without a sealed-surface mapping."
+  - short_name: trees
+    official_title: "Baumkataster: Baumbestand"
+    role: blocking
+    dataset_identifier: "100052"
+    metadata_url: https://data.bs.ch/explore/dataset/100052/
+    service_type: Opendatasoft Explore API
+    endpoint: https://data.bs.ch/api/explore/v2.1/catalog/datasets/100052/records
+    layer_name: null
+    geometry_type: Point
+    expected_crs: EPSG:4326
+    relevant_fields: [ba_baumnr, ba_art, ba_baumalter, ba_gemeinde, ba_gruppe]
+    data_status: measured
+    licence: CC BY 4.0 + OpenStreetMap
+    access_status: PASS
+    limitations: "Inventory covers trees maintained by Stadtgärtnerei Basel and Gemeinde Riehen; public/managed inventory, not all trees."
+  - short_name: runoff
+    official_title: "Gefährdungskarte Oberflächenabfluss"
+    role: blocking
+    dataset_identifier: ch.bafu.gefaehrdungskarte-oberflaechenabfluss
+    metadata_url: https://www.geo.admin.ch/en/geodata
+    service_type: WMS + STAC download
+    endpoint: https://wms.geo.admin.ch/
+    layer_name: ch.bafu.gefaehrdungskarte-oberflaechenabfluss
+    geometry_type: raster
+    expected_crs: EPSG:2056
+    relevant_fields: [hazard class]
+    data_status: modelled
+    licence: null
+    access_status: PASS
+    limitations: "WMS JSON GetFeatureInfo returned analytical hazard geometries for sampled points, with empty responses representing valid no-hazard points. Official STAC also exposes canton-wide GDB downloads; the 37.6 MB Basel file was not downloaded because the WMS geometry was sufficient for this small audit. Returned geometries have no class attribute."
+  - short_name: focus_areas
+    official_title: Fokusgebiete Stadtklimakonzept
+    role: contextual
+    dataset_identifier: ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.fokusgebiet_hitzeentwicklung_fgsk
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [ID Fokusgebiet, Art]
+    data_status: inferred
+    licence: null
+    access_status: PASS
+    type: categorical planning classification
+    focus_fraction_tellplatz: 0.874252
+    limitations: "Planning context only; not a numerical heat-intensity layer."
+  - short_name: einzelobjekte
+    official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Einzelobjekt"
+    role: optional
+    dataset_identifier: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    metadata_url: https://api.geo.bs.ch/ogc/v1/wfs3/collections/ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    service_type: OGC API - Features
+    endpoint: https://api.geo.bs.ch/ogc/v1/wfs3
+    layer_name: ch.bs.av_bodenbedeckung_einzelobjekte_avbe.einzelobjekt_flaechenelement
+    geometry_type: Polygon
+    expected_crs: EPSG:4326
+    relevant_fields: [object class]
+    data_status: measured
+    licence: null
+    access_status: PARTIAL
+    limitations: "Collection is confirmed in capabilities but was not interpreted beyond the mandatory sources."
+  - short_name: landsat_observed_lst
+    official_title: "Landsat Collection 2 Level-2 surface temperature"
+    role: optional context
+    dataset_identifier: landsat-c2-l2
+    metadata_url: https://planetarycomputer.microsoft.com/api/stac/v1/collections/landsat-c2-l2
+    service_type: Microsoft Planetary Computer STAC API
+    endpoint: https://planetarycomputer.microsoft.com/api/stac/v1
+    layer_name: null
+    geometry_type: raster
+    expected_crs: scene-specific projected CRS
+    relevant_fields: [lwir11, qa_pixel, raster:bands]
+    data_status: observed satellite LST
+    licence: null
+    access_status: PASS
+    blocking: false
+    type: observed satellite LST
+    limitations: "Optional satellite-derived daytime land-surface-temperature baseline; not air temperature or official Basel heat-island intensity. Thermal pixels are coarse relative to the 12.5 ha AOI."
+
+decision:
+  status: GO
+  reason: "Official focus-area classification establishes site relevance; land-cover, tree and runoff data provide the required local baseline."
+
+gates:
+  site_selection: PASS
+  data_foundation: PASS
