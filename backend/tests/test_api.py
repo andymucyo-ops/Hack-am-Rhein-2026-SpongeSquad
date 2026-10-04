@@ -20,6 +20,16 @@ def test_catalogue_round_trips_frontend_sections_and_options():
         assert expected_section["title"] == actual_section["title"]
         assert expected_section["subtitle"] == actual_section["subtitle"]
         assert [option["id"] for option in expected_section["options"]] == [option["id"] for option in actual_section["options"]]
+        for expected_option, actual_option in zip(expected_section["options"], actual_section["options"]):
+            assert actual_option["stormMm"] == expected_option["stormMm"]
+            assert actual_option["coolC"] == expected_option["coolC"]
+            if actual_option["evidence"]:
+                assert actual_option["source"] == "literature-supported"
+                for evidence in actual_option["evidence"]:
+                    assert evidence["url"]
+                    assert evidence["citation"]
+            else:
+                assert actual_option["source"] == "game-estimate"
 
 
 def test_health_and_site():

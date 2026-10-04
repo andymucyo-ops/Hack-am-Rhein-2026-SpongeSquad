@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "frontend/v1/main.js"
 OUTPUT = ROOT / "backend/data/catalogue.json"
+EVIDENCE = ROOT / "backend/data/evidence.json"
 ORDER = ["apartments", "sidewalk", "street", "parking lot"]
 
 
@@ -17,7 +18,8 @@ def js_string(value: str) -> str:
     return ast.literal_eval(value)
 
 
-def parse_sections(source: str) -> dict:
+def parse_sections(source: str, evidence: dict | None = None) -> dict:
+    evidence = evidence or {}
     sections = {}
     section_pattern = re.compile(
         r"(?P<key>'parking lot'|apartments|sidewalk|street)\s*:\s*\{"
@@ -38,15 +40,17 @@ def parse_sections(source: str) -> dict:
         for option in option_pattern.finditer(match.group("options")):
             storm = float(option.group("storm"))
             cool = float(option.group("cool"))
+            option_id = js_string("'" + option.group("id") + "'")
+            option_evidence = evidence.get(key, {}).get(option_id, [])
             options.append({
-                "id": js_string("'" + option.group("id") + "'"),
+                "id": option_id,
                 "label": js_string("'" + option.group("label") + "'"),
                 "file": js_string("'" + option.group("file") + "'"),
                 "stormMm": int(storm) if storm.is_integer() else storm,
                 "coolC": int(cool) if cool.is_integer() else cool,
                 "info": js_string("'" + option.group("info") + "'"),
-                "source": "game-estimate",
-                "evidence": [],
+                "source": "literature-supported" if option_evidence else "game-estimate",
+                "evidence": option_evidence,
             })
         if not options:
             raise ValueError(f"no options parsed for {key}")
@@ -57,7 +61,7 @@ def parse_sections(source: str) -> dict:
 
 
 def main() -> None:
-    catalogue = parse_sections(SOURCE.read_text())
+    catalogue = parse_sections(SOURCE.read_text(), json.loads(EVIDENCE.read_text()))
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n")
 

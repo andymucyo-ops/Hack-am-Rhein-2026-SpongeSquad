@@ -7,6 +7,18 @@ from pydantic import BaseModel, Field
 Weather = Literal["mild", "rainstorm", "heatwave"]
 
 
+class Evidence(BaseModel):
+    claim: str
+    value_or_range: str
+    unit: str
+    metric: str
+    citation: str
+    url: str
+    note: str
+    consistency: Literal["within range", "below range", "above range", "not comparable"] | None = None
+    consistency_reason: str | None = None
+
+
 class Option(BaseModel):
     id: str
     label: str
@@ -15,7 +27,7 @@ class Option(BaseModel):
     coolC: float
     info: str
     source: str
-    evidence: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
 
 
 class Section(BaseModel):

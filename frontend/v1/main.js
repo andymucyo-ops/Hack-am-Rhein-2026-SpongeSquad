@@ -69,6 +69,9 @@ function setHoverInfo(section,id){
   if(!title||!text)return;
   title.textContent=o.label;
   if(source){source.textContent=o.source?formatSource(o.source):'';source.hidden=!o.source}
+  const evidence=document.querySelector('#hoverEvidence');
+  const first=o.evidence?.[0];
+  if(evidence){evidence.replaceChildren();if(first){evidence.append(document.createTextNode(first.citation+' '));const link=document.createElement('a');link.href=first.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Source';evidence.append(link)}evidence.hidden=!first}
   text.textContent=o.info||'';
 }
 function formatSource(source){return source.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
@@ -79,6 +82,8 @@ function resetHoverInfo(){
   if(!title||!text)return;
   title.textContent='Hover over an intervention';
   if(source){source.textContent='';source.hidden=true}
+  const evidence=document.querySelector('#hoverEvidence');
+  if(evidence){evidence.replaceChildren();evidence.hidden=true}
   text.textContent='Each option changes how this street section stores water, infiltrates rainfall or reduces heat.';
 }
 
