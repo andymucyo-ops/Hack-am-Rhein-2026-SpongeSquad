@@ -1,0 +1,36 @@
+{
+  "mild": {
+    "ponding_mm": 0,
+    "surface_temp_c": 31,
+    "temp_floor_c": 22,
+    "ponding_scale_mm": 50,
+    "source": "frontend-default",
+    "notes": [
+      "Game baseline copied from frontend/v1/main.js.",
+      "Intervention effects are game estimates."
+    ]
+  },
+  "rainstorm": {
+    "ponding_mm": 46,
+    "surface_temp_c": 23,
+    "temp_floor_c": 16,
+    "ponding_scale_mm": 50,
+    "source": "frontend-default",
+    "notes": [
+      "Game baseline copied from frontend/v1/main.js.",
+      "No documented design-storm value was found in repository data."
+    ]
+  },
+  "heatwave": {
+    "ponding_mm": 0,
+    "surface_temp_c": 57,
+    "temp_floor_c": 22,
+    "ponding_scale_mm": 50,
+    "source": "frontend-default",
+    "notes": [
+      "Game baseline copied from frontend/v1/main.js.",
+      "Intervention effects are game estimates."
+    ]
+  },
+  "history": []
+}
