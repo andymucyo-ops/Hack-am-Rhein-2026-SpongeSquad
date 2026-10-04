@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sqlite3
 import sys
 import xml.etree.ElementTree as ET
 from collections import defaultdict
@@ -16,7 +17,8 @@ import requests
 import yaml
 from pyproj import Transformer
 from shapely.geometry import Point, Polygon, shape, mapping
-from shapely.ops import transform
+from shapely.ops import transform, unary_union
+from shapely import wkb
 
 ROOT = Path(__file__).resolve().parents[1]
 AOI_KML = ROOT / "data/raw_data/tellPlatz-coordinates.kml"
@@ -30,6 +32,8 @@ COVER = "ch.bs.av_bodenbedeckung_einzelobjekte_avbe.bodenbedeckung"
 FOCUS = "ch.bs.fokusgebiet_hitzeentwicklung_fgsk"
 HEAT_WMS = "https://wms.geo.bs.ch/"
 RUNOFF_WMS = "https://wms.geo.admin.ch/"
+HEAT_GPKG = ROOT / "data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg"
+HEAT_EVIDENCE = EVIDENCE / "heat"
 
 
 def load_aoi(path: Path = AOI_KML):
@@ -251,6 +255,124 @@ def inspect_capabilities(url, layer):
                       for node in target.iter() if node.attrib.get("{http://www.w3.org/1999/xlink}href")]}
 
 
+def gpkg_geometry(blob):
+    """Decode a GeoPackage geometry blob, including its optional envelope."""
+    if not blob or blob[:2] != b"GP":
+        raise ValueError("not a GeoPackage geometry blob")
+    envelope_sizes = {0: 0, 1: 32, 2: 48, 3: 48, 4: 64}
+    envelope_code = (blob[3] >> 1) & 0x07
+    return wkb.loads(blob[8 + envelope_sizes.get(envelope_code, 0):])
+
+
+def heat_value_field(columns):
+    """Select no field unless its name documents a heat measurement/value."""
+    excluded = re.compile(r"(?:fid|id|identifier|coord|x|y|date|year|class|code)", re.I)
+    candidate = re.compile(r"(?:heat|wärme|waerme|temperature|temp|value|wert)", re.I)
+    for column in columns:
+        name = column["name"]
+        if column["type"].upper() in ("REAL", "DOUBLE", "FLOAT", "NUMERIC", "INTEGER") and candidate.search(name) and not excluded.search(name):
+            return name
+    return None
+
+
+def inspect_heat_gpkg(path=HEAT_GPKG):
+    """Inventory GeoPackage contents without altering the immutable source."""
+    path = Path(path)
+    connection = sqlite3.connect(path)
+    try:
+        contents = [dict(zip(("table_name", "data_type", "identifier", "description", "last_change", "min_x", "min_y", "max_x", "max_y", "srs_id"), row))
+                    for row in connection.execute("select table_name,data_type,identifier,description,last_change,min_x,min_y,max_x,max_y,srs_id from gpkg_contents")]
+        layers = []
+        for item in contents:
+            table = item["table_name"]
+            columns = [{"name": row[1], "type": row[2], "notnull": bool(row[3]), "primary_key": bool(row[5])}
+                       for row in connection.execute(f'pragma table_info("{table}")')]
+            geometry = connection.execute("select column_name,geometry_type_name,srs_id,z,m from gpkg_geometry_columns where table_name=?", (table,)).fetchone()
+            count = connection.execute(f'select count(*) from "{table}"').fetchone()[0]
+            distinct = {}
+            for column in columns:
+                if column["type"].upper() in ("TEXT", "INTEGER") and column["name"].lower() in ("art", "class", "klasse", "category", "kategorie"):
+                    distinct[column["name"]] = [{"value": row[0], "count": row[1]} for row in connection.execute(
+                        f'select "{column["name"]}",count(*) from "{table}" group by "{column["name"]}"')]
+            layers.append({"table_name": table, "data_type": item["data_type"], "identifier": item["identifier"],
+                           "description": item["description"], "extent": [item["min_x"], item["min_y"], item["max_x"], item["max_y"]],
+                           "srs_id": item["srs_id"], "geometry": {"column": geometry[0], "type": geometry[1], "srs_id": geometry[2]} if geometry else None,
+                           "feature_count": count, "columns": columns, "distinct_categorical_values": distinct,
+                           "candidate_heat_value_field": heat_value_field(columns)})
+        metadata_tables = [row[0] for row in connection.execute("select name from sqlite_master where type='table' and name like '%metadata%'")]
+        sqlite_tables = [row[0] for row in connection.execute("select name from sqlite_master where type='table' order by name")]
+        tile_matrix_sets = []
+        tile_matrices = []
+        if "gpkg_tile_matrix_set" in sqlite_tables:
+            tile_matrix_sets = [dict(zip(("table_name", "srs_id", "min_x", "min_y", "max_x", "max_y"), row))
+                                for row in connection.execute("select table_name,srs_id,min_x,min_y,max_x,max_y from gpkg_tile_matrix_set")]
+        if "gpkg_tile_matrix" in sqlite_tables:
+            tile_matrices = [dict(zip(("table_name", "zoom_level", "matrix_width", "matrix_height", "tile_width", "tile_height", "pixel_x_size", "pixel_y_size"), row))
+                             for row in connection.execute("select table_name,zoom_level,matrix_width,matrix_height,tile_width,tile_height,pixel_x_size,pixel_y_size from gpkg_tile_matrix")]
+        spatial_refs = [dict(zip(("srs_id", "organization", "organization_coordsys_id", "definition", "description"), row))
+                        for row in connection.execute("select srs_id,organization,organization_coordsys_id,definition,description from gpkg_spatial_ref_sys")]
+        try:
+            source_file = str(path.relative_to(ROOT))
+        except ValueError:
+            source_file = str(path)
+        return {"source_file": source_file, "file_size_bytes": path.stat().st_size,
+                "sqlite_tables": sqlite_tables, "contents": layers, "metadata_tables": metadata_tables,
+                "tile_matrix_sets": tile_matrix_sets, "tile_matrices": tile_matrices, "spatial_ref_systems": spatial_refs}
+    finally:
+        connection.close()
+
+
+def audit_local_heat(path, aoi2056, evidence_dir=HEAT_EVIDENCE):
+    """Clip the delivered vector source and prove whether it contains heat values."""
+    inventory = inspect_heat_gpkg(path)
+    evidence_dir = Path(evidence_dir)
+    evidence_dir.mkdir(parents=True, exist_ok=True)
+    (evidence_dir / "heat_gpkg_inventory.json").write_text(json.dumps(inventory, indent=2, ensure_ascii=False) + "\n")
+    layer = next((item for item in inventory["contents"] if item["data_type"] == "features"), None)
+    if not layer or not layer["geometry"]:
+        summary = {"source_file": inventory["source_file"], "source_layer": None, "source_type": "unknown", "status": "FAIL",
+                   "crs": None, "unit": None, "model_year": None, "resolution": None, "value_field": None,
+                   "feature_or_pixel_count": None, "valid_value_count": None, "null_or_nodata_count": None,
+                   "coverage_area_m2": None, "coverage_fraction": None, "mean_heat_island_k": None,
+                   "area_weighted_mean_heat_island_k": None, "median_heat_island_k": None, "minimum_heat_island_k": None,
+                   "maximum_heat_island_k": None, "class_areas_m2": {}, "class_fractions": {},
+                   "limitations": ["No readable feature layer was found."]}
+        (evidence_dir / "heat_summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+        return summary
+    table = layer["table_name"]
+    columns = [column["name"] for column in layer["columns"]]
+    clipped = []
+    connection = sqlite3.connect(path)
+    try:
+        for row in connection.execute(f'select "geometry", "Art", "FID", "Id_Fokusgebiet" from "{table}"'):
+            geometry = gpkg_geometry(row[0])
+            intersection = geometry.intersection(aoi2056)
+            if not intersection.is_empty:
+                clipped.append({"type": "Feature", "geometry": mapping(intersection),
+                                "properties": {"Art": row[1], "FID": row[2], "Id_Fokusgebiet": row[3]}})
+    finally:
+        connection.close()
+    write_geojson(evidence_dir / "tellplatz_heat_clipped.geojson", clipped)
+    class_areas = defaultdict(float)
+    for feature in clipped:
+        class_areas[str(feature["properties"].get("Art"))] += shape(feature["geometry"]).area
+    coverage = unary_union([shape(feature["geometry"]) for feature in clipped]).area if clipped else 0.0
+    summary = {"source_file": inventory["source_file"], "source_layer": table, "source_type": "categorical", "status": "FAIL",
+               "source": "delivered official local GeoPackage",
+               "indicator": "Fokusgebiete Stadtklimakonzept, not a numerical heat indicator", "crs": "EPSG:2056", "unit": None,
+               "model_year": None, "resolution": None, "value_field": None, "feature_or_pixel_count": layer["feature_count"],
+               "valid_value_count": 0, "null_or_nodata_count": None, "coverage_area_m2": coverage,
+               "coverage_fraction": coverage / aoi2056.area if aoi2056.area else None, "mean_heat_island_k": None,
+               "area_weighted_mean_heat_island_k": None, "median_heat_island_k": None, "minimum_heat_island_k": None,
+               "maximum_heat_island_k": None, "class_areas_m2": dict(class_areas),
+               "class_fractions": {key: value / aoi2056.area for key, value in class_areas.items()},
+               "limitations": ["The only numeric fields are FID and Id_Fokusgebiet identifiers.",
+                              "Art contains planning categories Erhalten, Fokus, Verbessern and übriges Gebiet, not heat intensity.",
+                              "No unit, model year, resolution, heat value field or metadata tables are present."]}
+    (evidence_dir / "heat_summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    return summary
+
+
 def save_metadata(name, response, extra=None):
     record = {"url": response.url, "status_code": response.status_code,
               "content_type": response.headers.get("content-type"), "body_excerpt": response.text[:1000]}
@@ -280,7 +402,21 @@ def main():
                "runoff": {"status": "FAIL", "exposed_fraction": None, "classes": {}, "sample_count": 0,
                           "analytical_value_count": 0, "no_hazard_count": 0, "unqueryable_count": 0,
                           "source": "ch.bafu.gefaehrdungskarte-oberflaechenabfluss"},
-               "focus": {"status": "FAIL", "intersects": False, "source": FOCUS}}
+                "focus": {"status": "FAIL", "intersects": False, "source": FOCUS}}
+    if HEAT_GPKG.exists():
+        baseline_path = EVIDENCE / "baseline_metrics.json"
+        if baseline_path.exists():
+            metrics = json.loads(baseline_path.read_text())
+        metrics["generated_at"] = generated
+        metrics["heat"] = audit_local_heat(HEAT_GPKG, geom2056)
+        status_table = metrics.setdefault("status_table", {})
+        status_table["AOI"] = "PASS"
+        status_table["Wärmeinseleffekt"] = metrics["heat"]["status"]
+        (EVIDENCE / "baseline_metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False) + "\n")
+        print(f"AOI                    {status_table.get('AOI', 'PASS')}")
+        print(f"Wärmeinseleffekt       {status_table['Wärmeinseleffekt']}")
+        print("Local heat audit complete; remote source probes skipped")
+        return 0
     if args.offline:
         (EVIDENCE / "baseline_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")
         print("AOI PASS (offline)")

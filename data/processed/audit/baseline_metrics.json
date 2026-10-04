@@ -1,6 +1,6 @@
 {
   "area_id": "tellplatz",
-  "generated_at": "2026-10-04T05:03:37.571120+00:00",
+  "generated_at": "2026-10-04T05:56:01.647725+00:00",
   "aoi": {
     "area_m2": 125322.12182409748,
     "area_ha": 12.532212182409749,
@@ -17,16 +17,58 @@
       1268688.84401803
     ]
   },
+  "decision": {
+    "status": "GO",
+    "reason": "Official focus-area classification establishes site relevance; land-cover, tree and runoff data provide the required local baseline."
+  },
+  "heat_relevance": {
+    "status": "PASS",
+    "source": "fokusgebiet_hitzeentwicklung",
+    "type": "categorical planning classification",
+    "focus_fraction": 0.874252
+  },
+  "numerical_heat": {
+    "status": "UNAVAILABLE",
+    "blocking": false,
+    "value": null,
+    "required_for": "optional numerical thermal context",
+    "reason": "The official WMS and downloaded focus-area GeoPackage do not expose numerical heat values."
+  },
   "heat": {
-    "status": "FAIL",
-    "mean_heat_island_k": null,
-    "min_heat_island_k": null,
-    "max_heat_island_k": null,
-    "sample_count": 25,
-    "valid_value_count": 0,
+    "source_file": "data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg",
+    "source_layer": "fokusgebiet_hitzeentwicklung",
+    "source_type": "categorical",
+    "status": "UNAVAILABLE",
+    "source": "delivered official local GeoPackage",
+    "indicator": "Fokusgebiete Stadtklimakonzept, not a numerical heat indicator",
+    "crs": "EPSG:2056",
     "unit": null,
-    "method": "25-point EPSG:2056 grid; WMS GetFeatureInfo JSON plus all declared formats at center",
-    "source": "KL_Waermeinseleffekt"
+    "model_year": null,
+    "resolution": null,
+    "value_field": null,
+    "feature_or_pixel_count": 976,
+    "valid_value_count": 0,
+    "null_or_nodata_count": null,
+    "coverage_area_m2": 125322.12182409684,
+    "coverage_fraction": 0.9999999999999949,
+    "mean_heat_island_k": null,
+    "area_weighted_mean_heat_island_k": null,
+    "median_heat_island_k": null,
+    "minimum_heat_island_k": null,
+    "maximum_heat_island_k": null,
+    "class_areas_m2": {
+      "übriges Gebiet": 15758.958752146118,
+      "Fokus": 109563.16307195071
+    },
+    "class_fractions": {
+      "übriges Gebiet": 0.12574762159122585,
+      "Fokus": 0.8742523784087689
+    },
+    "limitations": [
+      "The only numeric fields are FID and Id_Fokusgebiet identifiers.",
+      "Art contains planning categories Erhalten, Fokus, Verbessern and übriges Gebiet, not heat intensity.",
+      "No unit, model year, resolution, heat value field or metadata tables are present."
+    ]
   },
   "land_cover": {
     "status": "PASS",
@@ -95,10 +137,15 @@
   },
   "status_table": {
     "AOI": "PASS",
-    "Wärmeinseleffekt": "FAIL",
+    "Official heat-planning relevance": "PASS",
+    "Official numerical heat intensity": "UNAVAILABLE",
     "Bodenbedeckung": "PASS",
     "Baumkataster": "PASS",
     "Oberflächenabfluss": "PASS",
-    "Fokusgebiete": "PASS"
+    "Fokusgebiete": "PASS",
+    "Einzelobjekte": "PARTIAL",
+    "Site-selection gate": "PASS",
+    "Data-foundation gate": "PASS",
+    "Overall MVP decision": "GO"
   }
 }

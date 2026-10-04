@@ -1,70 +1,147 @@
 # Tellplatz Data-Access Audit
 
-**Execution:** 2026-10-04T05:03:37Z (UTC)
+**Local heat re-audit:** 2026-10-04T05:55:14Z (UTC)
 
 ## Decision
 
-**NO-GO for the numerical MVP.** The original NO-GO was provisional because heat/runoff were hardcoded to `FAIL`, `has_numeric_wms_value()` was unused, and only one or two points were queried. This final time-boxed investigation derives statuses from parsed responses. Runoff now passes through analytical WMS geometries; heat still fails because no numerical heat attribute or coverage was found.
+**Overall MVP decision: `GO`.** Tellplatz is a relevant heat-adaptation
+prototype area because the official `fokusgebiet_hitzeentwicklung` planning
+layer classifies 87.4252% of its 12.5322 ha analysis area as `Fokus`. The
+project has the local data required for a scenario-based MVP: land cover,
+public-tree inventory, surface-runoff exposure and spatial planning context.
 
-## AOI
+The numerical official heat layer is not available programmatically. This is
+non-blocking: the planning classification establishes official site relevance,
+but does not quantify heat intensity.
 
-The actual `data/raw_data/tellPlatz-coordinates.kml` contains one valid non-empty Polygon. It was normalized to `data/processed/tellplatz_aoi.geojson` in EPSG:4326.
+## What the GeoPackage represents
 
-| Measure | Value |
-|---|---:|
-| Area | 125,322.12 m2 / 12.5322 ha |
-| EPSG:4326 bbox | 7.58896256, 47.56521014, 7.59427502, 47.56880560 |
-| EPSG:2056 bbox | 2611313.55, 1268289.07, 2611713.33, 1268688.84 |
+The `fokusgebiet_hitzeentwicklung` GeoPackage is an official spatial planning
+classification from Basel-Stadt's climate concept. It identifies areas
+according to heat-development planning priorities. Its `Art` field contains
+categories such as `Fokus`, `Verbessern`, `Erhalten` and `übriges Gebiet`.
 
-## Corrected source results
+It is not:
 
-| Source | Method | Status | Result | Evidence |
-|---|---|---|---|---|
-| Wärmeinseleffekt | GeoBS WMS `https://wms.geo.bs.ch/`, `KL_Waermeinseleffekt` | **FAIL** | Capabilities report queryable layer, EPSG:2056, WMS 1.1.1/1.3.0, and seven GetFeatureInfo formats. All 25 EPSG:2056 grid requests returned an empty `properties` object; 0/25 numerical values. | `heat_capabilities.json`, `heat_format_probes.json`, `heat_grid_results.json` |
-| Amtliche Vermessung Bodenbedeckung | GeoBS OGC API Features bbox request | **PASS** | 657 bbox features, 526 clipped features. Existing class areas and percentages preserved. | `land_cover_clipped.geojson`, `land_cover_response.json` |
-| Baumkataster | Basel Opendatasoft exact-polygon query | **PASS** | 172 inventoried trees; 13.7246 trees/ha. | `trees_clipped.geojson`, `trees_response.json` |
-| Gefährdungskarte Oberflächenabfluss | Federal WMS JSON GetFeatureInfo, EPSG:2056, 25-point grid | **PASS** | 6 points returned analytical hazard polygon geometries; 19 returned valid empty FeatureCollections meaning no hazard at those points; 0 unqueryable responses. Union clipped to Tellplatz: 20,119.04 m2, exposed fraction 0.160539 (16.0539%). WMS properties contain no hazard class. | `runoff_capabilities.json`, `runoff_format_probes.json`, `runoff_grid_results.json`, `runoff_hazard_clipped.geojson` |
-| Fokusgebiete Stadtklimakonzept | GeoBS OGC API Features bbox request | **PASS** | 6 bbox features, 5 clipped/intersecting polygons. Context only, not numerical heat. | `focus_areas_clipped.geojson`, `focus_response.json` |
-| Amtliche Vermessung Einzelobjekte | Collection confirmed in OGC API capabilities; no interpretation request | **PARTIAL** | Collection is discoverable but optional classes were not audited further. | `config/data_sources.yaml` |
+- a measured temperature dataset;
+- a numerical urban-heat-island raster;
+- evidence of a specific temperature difference; or
+- a ranking of Basel's hottest neighbourhoods.
 
-## Capabilities and formats
+The official planning classification establishes relevance but does not
+contain measured temperature values, heat intensity, uncertainty or time
+series measurements. The numerical official `Wärmeinseleffekt` source remains
+`UNAVAILABLE` / not retrieved as numerical values. It must not be changed to
+`PASS`.
 
-Both WMS capabilities documents returned HTTP 200 and advertised WMS 1.1.1 and 1.3.0. Both target layers were marked `queryable=1`.
+## Tellplatz result
 
-Heat GetFeatureInfo formats: `text/plain`, `text/html`, `text/xml`, `application/vnd.ogc.gml`, `application/vnd.ogc.gml/3.1.1`, `application/json`, and `application/geo+json`. The layer advertises CRS:84, EPSG:4326, EPSG:4258, EPSG:3857, and EPSG:2056, plus a legend URL. All declared formats were probed at the grid center under both WMS versions. They returned no named numerical value.
+The AOI is valid and covers 125,322.12 m2 / 12.5322 ha. Five source polygons
+intersect Tellplatz and cover the AOI completely. The clipped source
+categories are:
 
-Runoff GetFeatureInfo formats: `application/json`, `application/json; subtype=geojson`, `application/vnd.ogc.gml`, `text/plain`, `text/xml`, and GML XML variants. The layer advertises EPSG:2056 and other CRSs, a GeoCAT metadata URL, and a legend URL. JSON responses returned either actual polygon geometry or an empty FeatureCollection. The geometry is analytical, but its properties do not include a hazard class or depth.
+| Source category | Area | AOI fraction |
+|---|---:|---:|
+| `Fokus` | 109,563.16 m2 | 87.4252% |
+| `übriges Gebiet` | 15,758.96 m2 | 12.5748% |
 
-## Alternate access
+Tellplatz was selected as a relevant heat-adaptation prototype area because
+87.4252% of its 12.5322 ha analysis area lies within the official `Fokus`
+category of Basel-Stadt's heat-development planning layer. This planning
+classification establishes official relevance but does not quantify heat
+intensity.
 
-No heat download, WCS, OGC API Coverages, or matching GeoBS STAC collection was linked by the official GeoBS capabilities/service inventory. The only heat link discovered was the legend.
+## How the Tellplatz AOI was selected
 
-The official runoff GeoCAT metadata links to the federal STAC collection:
-`https://data.geo.admin.ch/api/stac/v1/collections/ch.bafu.gefaehrdungskarte-oberflaechenabfluss/items`.
-It exposes official downloads, including the Basel EPSG:2056 FileGDB ZIP:
-`https://data.geo.admin.ch/ch.bafu.gefaehrdungskarte-oberflaechenabfluss/gefaehrdungskarte-oberflaechenabfluss_bs/gefaehrdungskarte-oberflaechenabfluss_bs_2056.gdb.zip`.
-The file is 37.6 MB and was not downloaded because the bounded WMS geometry request already produced the required small Tellplatz evidence. No speculative endpoint was used.
+The initial qualitative, evidence-based shortlist contained three candidate
+areas:
 
-## Existing baseline metrics
+1. Tellplatz and surrounding blocks in Gundeldingen.
+2. Wiesenplatz-Klybeckstrasse in Klybeck.
+3. Feldbergstrasse-Matthäusstrasse in Matthäus.
 
-Land-cover classes remain separate; no sealed fraction was inferred. Tree and focus-area results are unchanged. The corrected heat/runoff metrics are in `data/processed/audit/baseline_metrics.json`:
+This was not a numerical ranking of Basel heat pixels. Candidates were
+compared using:
 
-- Heat: 25 points, 0 valid numerical values, no unit, status `FAIL`.
-- Runoff: 25 points, 6 analytical geometries, 19 valid no-hazard responses, exposed fraction 0.160539, status `PASS`.
+| Criterion | Meaning |
+|---|---|
+| Official heat-planning relevance | Whether the location belongs to an area identified by Basel-Stadt as requiring heat-adaptation attention. |
+| Small-area suitability | Whether a compact neighbourhood-sized AOI could be defined for an MVP. |
+| Local data availability | Whether land cover, trees, buildings, runoff and planning layers could be spatially joined. |
+| Intervention relevance | Whether common sponge-city interventions could plausibly be represented in the area. |
+| Technical simplicity | Whether data could be clipped and aggregated without building a city-wide pipeline. |
+| Demo clarity | Whether the location could support a clear before/after prototype narrative. |
 
-## Email request and uncertainty
+### Tellplatz / Gundeldingen
 
-Email ordering is still required for the heat source. Request a numerical current heat-island GeoTIFF, preferably EPSG:2056, with units, acquisition/model year, nodata value, resolution, metadata, and licence.
+- Strong official heat-planning relevance.
+- Compact and recognisable neighbourhood area.
+- Straightforward AOI definition.
+- Good overlap with usable land-cover, tree and runoff data.
+- Strong fit for a simple scenario-based MVP.
+- Selected as the final AOI.
 
-Runoff access is no longer blocked. If the MVP requires official hazard classes or depth rather than the returned unclassified hazard geometry, use the documented federal EPSG:2056 FileGDB/STAC download or request the equivalent clipped GeoPackage with class definitions and metadata.
+### Wiesenplatz / Klybeck
 
-The remaining heat uncertainty is whether a non-public or unpublished numerical raster exists outside the documented GeoBS WMS/service links. No numerical heat value was claimed from rendered output, IDs, coordinates, or HTTP status codes.
+- Strong planning relevance.
+- Good urban-transformation narrative.
+- Suitable available environmental data.
+- More complex because a custom neighbourhood boundary and larger development context would be needed.
+
+### Feldbergstrasse / Matthäus
+
+- Strong heat-adaptation relevance in a dense urban setting.
+- Good potential for street-tree and depaving scenarios.
+- Less straightforward AOI definition and prototype narrative than Tellplatz.
+
+Tellplatz was selected because it offered the best combination of official
+relevance, accessible data, manageable scope and demo clarity, not because it
+was proven to have the highest temperature.
+
+## What must not be claimed
+
+The project must not claim that:
+
+- Tellplatz is Basel's hottest neighbourhood;
+- Tellplatz is one of the three objectively hottest locations;
+- the `Fokus` category corresponds to a known temperature threshold;
+- the GeoPackage measures air or surface temperature; or
+- Tellplatz has a specific heat anomaly based on this GeoPackage.
+
+## Source and gate statuses
+
+| Component | Status |
+|---|---|
+| AOI geometry | `PASS` |
+| Official heat-planning relevance | `PASS` |
+| Official numerical heat intensity | `UNAVAILABLE`, non-blocking |
+| Bodenbedeckung | `PASS` |
+| Baumkataster | `PASS` |
+| Surface runoff | `PASS` |
+| Einzelobjekte | `PARTIAL`, optional |
+| Site-selection gate | `PASS` |
+| Data-foundation gate | `PASS` |
+| Overall MVP decision | `GO` |
+
+The MVP can justify Tellplatz, describe existing land cover and public trees,
+quantify surface-runoff exposure, construct intervention scenarios from local
+spatial data, and later apply transparent literature-derived intervention
+coefficients.
+
+## Evidence
+
+- `data/processed/audit/heat/heat_gpkg_inventory.json`
+- `data/processed/audit/heat/heat_summary.json`
+- `data/processed/audit/heat/tellplatz_heat_clipped.geojson`
+- `data/processed/audit/baseline_metrics.json`
+
+The immutable source GeoPackage was not modified, renamed, reprojected or
+duplicated. The local audit uses it without live network requests.
 
 ## Reproduction
 
 ```text
 /tmp/hack-am-rhein-audit/bin/python scripts/audit_data_access.py
 /tmp/hack-am-rhein-audit/bin/pytest -q
+/tmp/hack-am-rhein-audit/bin/python -m py_compile scripts/audit_data_access.py tests/test_data_audit.py
 ```
-
-The script exits successfully while reporting ordinary source failures. It uses timeouts and records ordinary remote failures as source statuses.

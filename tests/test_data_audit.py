@@ -1,9 +1,12 @@
 from pathlib import Path
+import json
+import sqlite3
 import sys
 
 import pytest
 from pyproj import Transformer
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
+from shapely import wkb
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
 import audit_data_access as audit
@@ -82,3 +85,39 @@ def test_unavailable_endpoint_is_graceful():
 def test_aoi_contains_known_interior_point():
     geom = audit.load_aoi()
     assert geom.covers(Point(7.5916, 47.567))
+
+
+def test_delivered_gpkg_inventory_rejects_identifier_fields_as_heat_values():
+    inventory = audit.inspect_heat_gpkg()
+    layer = inventory["contents"][0]
+    assert layer["data_type"] == "features"
+    assert layer["geometry"]["type"] == "POLYGON"
+    assert layer["candidate_heat_value_field"] is None
+    assert layer["feature_count"] == 976
+
+
+def test_local_categorical_fixture_is_clipped_and_fails_heat(tmp_path):
+    path = tmp_path / "fixture.gpkg"
+    connection = sqlite3.connect(path)
+    connection.executescript("""
+        create table gpkg_contents (table_name text, data_type text, identifier text, description text,
+          last_change text, min_x real, min_y real, max_x real, max_y real, srs_id integer);
+        create table gpkg_geometry_columns (table_name text, column_name text, geometry_type_name text,
+          srs_id integer, z integer, m integer);
+        create table gpkg_spatial_ref_sys (srs_name text, srs_id integer, organization text,
+          organization_coordsys_id integer, definition text, description text);
+        create table sample (FID integer primary key, geometry blob, Id_Fokusgebiet integer, Art text);
+    """)
+    polygon = Polygon([(2611300, 1268300), (2611400, 1268300), (2611400, 1268400), (2611300, 1268400), (2611300, 1268300)])
+    blob = b"GP\x00\x00\x00\x00\x00\x00" + wkb.dumps(polygon)
+    connection.execute("insert into gpkg_contents values ('sample','features','sample','', '',2611300,1268300,2611400,1268400,2056)")
+    connection.execute("insert into gpkg_geometry_columns values ('sample','geometry','POLYGON',2056,0,0)")
+    connection.execute("insert into sample values (1,?,?,?)", (blob, 99, "Fokus"))
+    connection.commit(); connection.close()
+    aoi = Polygon([(2611300, 1268300), (2611350, 1268300), (2611350, 1268350), (2611300, 1268350), (2611300, 1268300)])
+    summary = audit.audit_local_heat(path, aoi, tmp_path / "evidence")
+    assert summary["status"] == "FAIL"
+    assert summary["value_field"] is None
+    assert summary["class_areas_m2"]["Fokus"] == 2500
+    clipped = json.loads((tmp_path / "evidence/tellplatz_heat_clipped.geojson").read_text())
+    assert len(clipped["features"]) == 1

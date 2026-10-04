@@ -1,19 +1,29 @@
 sources:
   - short_name: heat
     official_title: "Wärmeinseleffekt [K]"
-    role: blocking
+    role: optional
     dataset_identifier: KL_Waermeinseleffekt
     metadata_url: https://www.bs.ch/bvd/grundbuch-und-vermessungsamt/geo/geodaten/geodienste
-    service_type: WMS
-    endpoint: https://wms.geo.bs.ch/
-    layer_name: KL_Waermeinseleffekt
-    geometry_type: raster
+    service_type: "GeoPackage ordered locally; WMS provenance"
+    endpoint: data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg
+    layer_name: fokusgebiet_hitzeentwicklung
+    geometry_type: Polygon
     expected_crs: EPSG:2056
-    relevant_fields: [numerical heat value]
-    data_status: modelled
+    relevant_fields: [FID, Id_Fokusgebiet, Art]
+    data_status: inferred
     licence: null
-    access_status: FAIL
-    limitations: "Capabilities mark the layer queryable and advertise JSON/GML/XML/text formats, but all 25 grid responses and all declared formats contained no numerical heat attribute. GeoBS STAC exposed no matching heat collection or download link."
+    access_status: UNAVAILABLE
+    blocking: false
+    required_for: optional numerical thermal context
+    local_path: data/raw_data/heat/basel_stadt_waermeinseleffekt_current_epsg2056.gpkg
+    local_value_field: null
+    local_unit: null
+    local_model_year: null
+    limitations: "The delivered file is a focus-area polygon layer, not a numerical heat-island layer. Numeric fields are identifiers; Art contains planning categories. The prior WMS provenance remains display-only/non-analytical: https://wms.geo.bs.ch/, layer KL_Waermeinseleffekt."
+    provenance_wms:
+      endpoint: https://wms.geo.bs.ch/
+      layer_name: KL_Waermeinseleffekt
+      access_status: UNAVAILABLE
   - short_name: land_cover
     official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Bodenbedeckung"
     role: blocking
@@ -73,6 +83,8 @@ sources:
     data_status: inferred
     licence: null
     access_status: PASS
+    type: categorical planning classification
+    focus_fraction_tellplatz: 0.874252
     limitations: "Planning context only; not a numerical heat-intensity layer."
   - short_name: einzelobjekte
     official_title: "Amtliche Vermessung Bodenbedeckung & Einzelobjekte - Einzelobjekt"
@@ -89,3 +101,11 @@ sources:
     licence: null
     access_status: PARTIAL
     limitations: "Collection is confirmed in capabilities but was not interpreted beyond the mandatory sources."
+
+decision:
+  status: GO
+  reason: "Official focus-area classification establishes site relevance; land-cover, tree and runoff data provide the required local baseline."
+
+gates:
+  site_selection: PASS
+  data_foundation: PASS
