@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SpongeSquad frontend workstream." />
-  <title>Frontend · SpongeSquad</title>
+  <meta name="description" content="Simon's interactive SpongeSquad Visual Street Lab." />
+  <title>Visual Street Lab · SpongeSquad</title>
   <link rel="stylesheet" href="../assets/site.css" />
   <script src="../assets/routes.js" defer></script>
   <script src="../assets/site.js" defer></script>
@@ -16,32 +16,37 @@
       <div class="wrap hero-grid" style="align-items:end">
         <div>
           <p class="eyebrow">Workstream · frontend/</p>
-          <h1>Product interface</h1>
-          <p class="lead">Shared UI components, routes and layout work that the journey can adopt.</p>
+          <h1>Visual Street Lab</h1>
+          <p class="lead">An interactive cutaway street for exploring how roofs, sidewalks, roads and parking areas can retain water and reduce heat.</p>
+          <div class="actions">
+            <a class="button primary" href="../frontend/v1/">Open the full experience <span aria-hidden="true">→</span></a>
+            <a class="button" href="../">See it on the landing page</a>
+          </div>
         </div>
         <aside class="panel">
           <p class="eyebrow">Workstream owner</p>
           <h3>Simon · Frontend</h3>
-          <p class="small">Integration-ready interface work. Domain logic and datasets stay in their owning folders.</p>
-          <p><span class="label placeholder">Template page</span></p>
+          <p class="small">The visual experience stays in Simon's workstream and is published by the shared website without moving or duplicating its source.</p>
+          <p><span class="label works">Live artefact</span></p>
         </aside>
       </div>
     </section>
     <section class="section">
       <div class="wrap">
         <div class="grid-3">
-          <article class="panel dashed"><span class="label missing">Not yet in the repository</span><h3 style="margin-top:10px">Frontend entry point</h3><p class="small">No renderable frontend has been committed to <code>frontend/</code> yet. When one exists, link or embed it here and add it as a module in <code>integration/routes.json</code>.</p></article>
-          <article class="panel"><span class="label works">Available to reuse</span><h3 style="margin-top:10px">Shared site styles</h3><p class="small">The website uses one stylesheet and one navigation script: <code>integration/assets/site.css</code> and <code>site.js</code>. Components can adopt the same colour tokens.</p></article>
-          <article class="panel"><span class="label works">Live</span><h3 style="margin-top:10px">Current journey</h3><p class="small">The demo path already runs from Find to Decide. Interface improvements can start from any stage page.</p><p class="small"><a href="../find/">Open the journey</a></p></article>
+          <article class="panel"><span class="label works">Works now</span><h3 style="margin-top:10px">Interactive street</h3><p class="small">Choose among nine sponge measures across four street areas and switch between mild, rainstorm and heatwave conditions.</p></article>
+          <article class="panel"><span class="label illustrative">Illustrative</span><h3 style="margin-top:10px">Visual estimates</h3><p class="small">Ponding and temperature values are game estimates for comparison. They are not calibrated engineering predictions or site evidence.</p></article>
+          <article class="panel"><span class="label works">Integrated</span><h3 style="margin-top:10px">Visual entry point</h3><p class="small">A compact mode now runs on the landing page while the full artefact remains available here.</p><p class="small"><a href="../find/">Continue with a Basel candidate →</a></p></article>
         </div>
       </div>
     </section>
     <section class="section white">
       <div class="wrap">
-        <div class="panel dashed">
-          <span class="label placeholder">For the owner</span>
-          <h3 style="margin-top:10px">Replace this page</h3>
-          <p class="small">This file is <code>frontend/index.html</code>. Edit or replace it freely; keep the two slot <code>div</code>s and the script tags so the site header and footer stay. Then set your <code>status</code> in <code>integration/routes.json</code> and run <code>npm run build:shell</code>.</p>
+        <div class="panel">
+          <span class="label source">Source boundary</span>
+          <h3 style="margin-top:10px">Presentation, not site assessment</h3>
+          <p class="small">The visual lab explains possible interventions. The shared journey remains responsible for candidate context, evidence, unknowns and decision pathways.</p>
+          <p class="tiny"><code>frontend/v1/</code> is the canonical source. The wrapper stages it only during the website build.</p>
         </div>
       </div>
     </section>

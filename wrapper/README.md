@@ -19,7 +19,11 @@ Deployable static output is `wrapper/dist/`; no deployment is performed here.
   Sources & Research and Team pages. `routes.json` controls the journey.
 - `site/research/`, `site/team/`: imported source material and migration record.
 - `site/frontend/`, `site/data/`, `site/explainer-videos-context/`,
-  `site/presentation-story/`: integration templates, not changes to teammates' folders.
+  `site/presentation-story/`: workstream pages in the shared shell. Simon's page
+  is live; the remaining placeholders stay owned by their workstreams.
+- `../frontend/v1/`: Simon's canonical Visual Street Lab. The build stages it
+  without moving the source, publishes the full artefact at `frontend/v1/`, and
+  embeds its compact `?embed=1` mode on the landing page.
 - `site/basel-site-scoping-tool/`: unchanged snapshot from fork commit `74826d7`.
   Current group main has no runnable Andy app. This snapshot supplies FIND and
   candidate fixtures; its provenance is in `site/research/MIGRATION.md`.

@@ -1,6 +1,8 @@
 const LOGICAL_W = 1920;
 const LOGICAL_H = 1150;
 const ORDER = ['apartments','sidewalk','street','parking lot'];
+const EMBED_MODE = new URLSearchParams(window.location.search).get('embed') === '1';
+document.body.classList.toggle('embed-mode', EMBED_MODE);
 
 // Game-balancing estimates, not hydraulic/thermal engineering calculations.
 // stormMm = approximate reduction in peak surface ponding during the demo storm.
@@ -167,7 +169,7 @@ function setTheme(dark){
 }
 function initTheme(){
   let dark=false;
-  try{dark=localStorage.getItem('sponge-theme')==='dark'}catch{}
+  if(!EMBED_MODE)try{dark=localStorage.getItem('sponge-theme')==='dark'}catch{}
   setTheme(dark);
 }
 function bindTop(){
@@ -299,7 +301,7 @@ function enableScroll(){
   },{passive:false});
 }
 async function init(){
-  buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(.60);resetClouds(false);setWeather('mild');updateMetrics();enableScroll();requestAnimationFrame(render);
+  buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(EMBED_MODE ? .40 : .60);resetClouds(false);setWeather('mild');updateMetrics();enableScroll();requestAnimationFrame(render);
   const parsed=await readCoordinates();state.coords=parsed.coords;state.lineupY=parsed.lineupY;
   const failures=await loadAssets();setupNodes();state.ready=true;
   const loading=document.querySelector('#loading');

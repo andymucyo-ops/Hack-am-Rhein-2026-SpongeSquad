@@ -112,10 +112,11 @@
     {
       "folder": "frontend/",
       "owner": "Simon",
-      "title": "Frontend",
+      "title": "Visual Street Lab",
       "page": "frontend/",
-      "status": "placeholder",
-      "summary": "Shared product interface. Template page until the frontend exposes an entry point."
+      "app": "frontend/v1/",
+      "status": "live",
+      "summary": "Interactive cutaway street with selectable sponge measures and mild, rainstorm and heatwave modes."
     },
     {
       "folder": "data/",
@@ -143,6 +144,19 @@
     }
   ],
   "modules": [
+    {
+      "id": "simon-visual-lab",
+      "source": "frontend/v1",
+      "output": "frontend/v1",
+      "build": "copy",
+      "files": [
+        "index.html",
+        "main.js",
+        "style.css",
+        "assets",
+        "README.md"
+      ]
+    },
     {
       "id": "site-scoping",
       "source": "basel-site-scoping-tool",
