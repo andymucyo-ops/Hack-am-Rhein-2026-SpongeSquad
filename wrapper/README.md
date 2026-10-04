@@ -19,8 +19,11 @@ Deployable static output is `wrapper/dist/`; no deployment is performed here.
   Sources & Research and Team pages. `routes.json` controls the journey.
 - `site/research/`, `site/team/`: imported source material and migration record.
 - `site/frontend/`, `site/data/`, `site/explainer-videos-context/`,
-  `site/presentation-story/`: workstream pages in the shared shell. Simon's page
-  is live; the remaining placeholders stay owned by their workstreams.
+  `site/presentation-story/`: workstream pages in the shared shell. Simon's and
+  Bala's pages are live; the remaining placeholders stay owned by their workstreams.
+- `../explainer-videos-context/playground.html`: Bala's standalone explainer
+  workspace. The build stages the declared HTML and video files and embeds the
+  playground at `explainer-videos-context/` without rewriting the owner file.
 - `frontend/v1/`: wrapper-owned integration copy of Simon's Visual Street Lab,
   connected to WorldState and published at `wrapper/frontend/v1/`. Simon's
   original `../frontend/v1/` files remain untouched.

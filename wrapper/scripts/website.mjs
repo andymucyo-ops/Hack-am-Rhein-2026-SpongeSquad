@@ -6,6 +6,9 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const stage=root+'.site-workspace';
 mkdirSync(stage,{recursive:true});
 cpSync(root+'site',stage,{recursive:true});
+// Workstream-owned media stays in its repository folder. Stage a read-only
+// copy so the wrapper can publish the declared playground assets.
+cpSync(root+'../explainer-videos-context',stage+'/explainer-videos-context',{recursive:true});
 for(const name of ['street-workspace','street-xray','data-charter-map','sponge-catalogue','prototypes','docs','evidence-atlas','experiments','frontend']){
  const dest=stage+'/wrapper/'+name;
  // Preserve installed dependencies, but never copy generated output from source.

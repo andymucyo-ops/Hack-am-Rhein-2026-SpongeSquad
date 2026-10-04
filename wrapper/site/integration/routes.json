@@ -131,8 +131,9 @@
       "owner": "Bala Chandar Muppala",
       "title": "Explainers and context",
       "page": "explainer-videos-context/",
-      "status": "placeholder",
-      "summary": "Explanations and video assets. Template page until assets are added."
+      "status": "live",
+      "shellPage": true,
+      "summary": "Standalone video playground with Bala's current Riehen explainer and evidence cuts."
     },
     {
       "folder": "presentation-story/",
@@ -144,6 +145,18 @@
     }
   ],
   "modules": [
+    {
+      "id": "bala-explainers",
+      "source": "explainer-videos-context",
+      "output": "explainer-videos-context",
+      "build": "copy",
+      "files": [
+        "playground.html",
+        "riehen-explainer.mp4",
+        "riehen-sources.mp4",
+        "README.md"
+      ]
+    },
     {
       "id": "simon-visual-lab",
       "source": "wrapper/frontend/v1",

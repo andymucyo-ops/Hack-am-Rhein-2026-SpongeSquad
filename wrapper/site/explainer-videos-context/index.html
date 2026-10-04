@@ -17,32 +17,36 @@
         <div>
           <p class="eyebrow">Workstream · explainer-videos-context/</p>
           <h1>Explain the principle</h1>
-          <p class="lead">Short explanations and videos that make the sponge-city idea clear before and after the demo.</p>
+          <p class="lead">Bala’s standalone video playground makes the sponge-city story visible, while keeping claims, sources and intended audiences explicit.</p>
+          <div class="actions">
+            <a class="button primary" href="playground.html">Open the playground <span aria-hidden="true">→</span></a>
+            <a class="button" href="../research/">Check shared sources</a>
+          </div>
         </div>
         <aside class="panel">
           <p class="eyebrow">Workstream owner</p>
           <h3>Bala Chandar Muppala · Context</h3>
-          <p class="small">Reusable pieces that the website and the presentation can embed or link.</p>
-          <p><span class="label placeholder">Template page</span></p>
+          <p class="small">Bala owns one portable HTML file and its local media. The wrapper copies and embeds it without rewriting the presentation.</p>
+          <p><span class="label works">Live playground</span></p>
         </aside>
       </div>
     </section>
     <section class="section">
       <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">Slots</p><h2>Where explainers fit the journey</h2></div><p>Suggested places. Each asset should record its claim, source and intended audience.</p></div>
-        <div class="grid-3">
-          <article class="panel dashed"><span class="label placeholder">Empty slot</span><h3 style="margin-top:10px">What is a sponge city?</h3><p class="small">Before Find: the principle in under a minute.</p><dl class="kv small"><dt>Claim</dt><dd>—</dd><dt>Source</dt><dd>—</dd><dt>Audience</dt><dd>—</dd></dl></article>
-          <article class="panel dashed"><span class="label placeholder">Empty slot</span><h3 style="margin-top:10px">Why connection matters</h3><p class="small">Beside See: a garden only helps when water can reach it.</p><dl class="kv small"><dt>Claim</dt><dd>—</dd><dt>Source</dt><dd>—</dd><dt>Audience</dt><dd>—</dd></dl></article>
-          <article class="panel dashed"><span class="label placeholder">Empty slot</span><h3 style="margin-top:10px">What is still unknown</h3><p class="small">Beside Decide: why a real street needs more evidence.</p><dl class="kv small"><dt>Claim</dt><dd>—</dd><dt>Source</dt><dd>—</dd><dt>Audience</dt><dd>—</dd></dl></article>
+        <div class="section-head"><div><p class="eyebrow">Current reel</p><h2>Riehen in two short cuts</h2></div><p>The playground contains Bala’s current explainer and sources videos, plus a repeatable card for future assets.</p></div>
+        <div class="embed">
+          <div class="embed-bar"><span>Bala · explainer playground</span><a href="playground.html">Open without the wrapper ↗</a></div>
+          <iframe src="playground.html" title="Bala's SpongeSquad explainer playground" loading="eager"></iframe>
         </div>
       </div>
     </section>
     <section class="section white">
       <div class="wrap">
-        <div class="panel dashed">
-          <span class="label placeholder">For the owner</span>
-          <h3 style="margin-top:10px">Replace this page</h3>
-          <p class="small">This file is <code>explainer-videos-context/index.html</code>. Edit or replace it freely; keep the two slot <code>div</code>s and the script tags so the site header and footer stay. Then set your <code>status</code> in <code>integration/routes.json</code> and run <code>npm run build:shell</code>. Videos can sit in this folder; add their file names to the build so they are copied.</p>
+        <div class="section-head"><div><p class="eyebrow">Integration contract</p><h2>Portable by design</h2></div><p>Bala can work in his folder; the wrapper only needs a declared file list.</p></div>
+        <div class="grid-3">
+          <article class="panel"><span class="label works">Owner file</span><h3 style="margin-top:10px"><code>playground.html</code></h3><p class="small">Runs independently with relative paths. Bala can edit the sequence and presentation without entering the wrapper code.</p></article>
+          <article class="panel"><span class="label source">Manifest</span><h3 style="margin-top:10px">Declared assets</h3><p class="small">The website build copies only the playground, its two current MP4 files and the workstream README.</p></article>
+          <article class="panel"><span class="label illustrative">Editorial fields</span><h3 style="margin-top:10px">Claim · sources · audience</h3><p class="small">Missing context stays visibly marked until the workstream owner completes it.</p></article>
         </div>
       </div>
     </section>
