@@ -17,8 +17,8 @@ test('showcase follows the four-part five-minute presentation', () => {
 });
 
 test('Simon is the centerpiece and all live modules stay bounded', () => {
-  assert.equal(showcase.modules.length, 13);
-  for (const id of ['scoping', 'lab', 'atlas', 'charter-map', 'catalogue', 'decisions']) assert.ok(showcase.modules.some(module => module.id === id));
+  assert.equal(showcase.modules.length, 14);
+  for (const id of ['heat', 'scoping', 'lab', 'atlas', 'charter-map', 'catalogue', 'decisions']) assert.ok(showcase.modules.some(module => module.id === id));
   assert.equal(showcase.modules[0].id, 'simon');
   for (const module of showcase.modules) {
     assert.ok(module.owner);

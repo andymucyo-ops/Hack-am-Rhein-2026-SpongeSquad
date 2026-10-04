@@ -26,27 +26,36 @@
   "modules": [
     {
       "id": "simon",
-      "label": "Simon \u00b7 Street",
+      "label": "Street",
       "title": "Interactive street",
-      "owner": "Simon \u00b7 Visual interface",
+      "owner": "Visual interface",
       "purpose": "See how visible street interventions change the character of a place.",
       "boundary": "A concept view, not a feasibility assessment.",
       "url": "../wrapper/frontend/v1/index.html"
     },
     {
+      "id": "heat",
+      "label": "Heat + Runoff Map",
+      "title": "Heat + Runoff Map",
+      "owner": "Heat and water layers",
+      "purpose": "Explore heat-action zones and surface runoff from Riehen to Liestal.",
+      "boundary": "Visual overlap of official layers, not a computed intersection or site recommendation.",
+      "url": "../explainer-videos-context/Bider-Basel-Heat-Map.html"
+    },
+    {
       "id": "andy",
-      "label": "Andy \u00b7 Map",
-      "title": "Location explorer",
-      "owner": "Andy \u00b7 Data and mapping",
-      "purpose": "Move from city-scale signals to a candidate place worth investigating.",
+      "label": "Tellplatz Scenario",
+      "title": "Tellplatz scenario",
+      "owner": "Site context and data",
+      "purpose": "Explore the street scenario with bundled Tellplatz context and source evidence.",
       "boundary": "A screening signal is not a site recommendation.",
       "url": "contributions/andy/current/index.html"
     },
     {
       "id": "bala",
-      "label": "Bala \u00b7 Learn",
+      "label": "Learn",
       "title": "Sponge-city explainers",
-      "owner": "Bala \u00b7 Learning experience",
+      "owner": "Learning experience",
       "purpose": "Understand the measures, mechanisms and language behind a sponge city.",
       "boundary": "Educational context does not establish local performance.",
       "url": "../explainer-videos-context/playground.html"
@@ -55,7 +64,7 @@
       "id": "xray",
       "label": "Street X-Ray",
       "title": "Street X-Ray",
-      "owner": "Achim \u00b7 Evidence workflow",
+      "owner": "Evidence workflow",
       "purpose": "Expose hypotheses, blockers, gatekeepers and missing evidence.",
       "boundary": "Visible space is not automatically buildable space.",
       "url": "../wrapper/street-xray/index.html"
@@ -64,7 +73,7 @@
       "id": "rainwalk",
       "label": "Rain Walk",
       "title": "Rain Walk",
-      "owner": "Achim + residents \u00b7 Observation",
+      "owner": "Observation",
       "purpose": "Turn local observation into a provenance-bearing field note.",
       "boundary": "Surface observation cannot reveal underground conditions.",
       "url": "../wrapper/street-workspace/public/rain-walk/index.html"
@@ -73,7 +82,7 @@
       "id": "charter",
       "label": "Data Charter",
       "title": "Data Charter",
-      "owner": "Team \u00b7 Evidence classification",
+      "owner": "Evidence classification",
       "purpose": "Mark what is known, derived, assumed, modelled, restricted or missing.",
       "boundary": "A relevant dataset is not automatically valid for a decision.",
       "url": "stage.html#classify"
@@ -82,7 +91,7 @@
       "id": "case",
       "label": "Connected Case",
       "title": "Connected Case",
-      "owner": "Team \u00b7 Next action",
+      "owner": "Next action",
       "purpose": "Connect claims, gaps, gatekeepers and actions into one bounded case.",
       "boundary": "The current state is investigation, not a recommendation to construct.",
       "url": "stage.html#decide"
@@ -91,7 +100,7 @@
       "id": "scoping",
       "label": "Site Scoping Map",
       "title": "Basel Site Scoping",
-      "owner": "Andy \u00b7 Mapping",
+      "owner": "Mapping",
       "purpose": "Compare candidate places and inspect the dataset catalogue.",
       "boundary": "Candidate locations and scores are illustrative screening fixtures.",
       "url": "../basel-site-scoping-tool/"
@@ -100,7 +109,7 @@
       "id": "lab",
       "label": "Street Lab",
       "title": "Street Lab",
-      "owner": "Achim \u00b7 Water pathways",
+      "owner": "Water pathways",
       "purpose": "Explore how a synthetic street routes rain through connected interventions.",
       "boundary": "Illustrative water model, not validated engineering performance.",
       "url": "../lab/"
@@ -109,7 +118,7 @@
       "id": "atlas",
       "label": "Evidence Atlas",
       "title": "Evidence Atlas + Situation Map",
-      "owner": "Achim \u00b7 Sources and actors",
+      "owner": "Sources and actors",
       "purpose": "Inspect claims, sources, actors and spatial context.",
       "boundary": "Context does not establish site feasibility.",
       "url": "../view/?m=evidence-atlas"
@@ -118,7 +127,7 @@
       "id": "charter-map",
       "label": "Charter Map",
       "title": "Data Charter Map",
-      "owner": "Achim \u00b7 Data gaps",
+      "owner": "Data gaps",
       "purpose": "Explore decision indicators, evidence classes and gatekeepers.",
       "boundary": "Unknown evidence cannot become a favourable default.",
       "url": "../view/?m=data-charter"
@@ -127,7 +136,7 @@
       "id": "catalogue",
       "label": "Catalogue",
       "title": "Sponge Catalogue",
-      "owner": "Achim \u00b7 Intervention knowledge",
+      "owner": "Intervention knowledge",
       "purpose": "Inspect mechanisms, prerequisites and Basel precedents.",
       "boundary": "Candidate measures are not site-specific design recipes.",
       "url": "../research/sponge-catalogue/"
@@ -136,7 +145,7 @@
       "id": "decisions",
       "label": "Decision Pathway",
       "title": "Decision Pathway",
-      "owner": "Achim \u00b7 Decisions and participation",
+      "owner": "Decisions and participation",
       "purpose": "Explore who can decide, what evidence is needed and what comes next.",
       "boundary": "An investigation package is not construction approval.",
       "url": "../decide/"

@@ -116,35 +116,45 @@
       "source": "basel-site-scoping-tool/bucket",
       "output": "andy",
       "build": "copy",
-      "files": ["index.html"]
+      "files": [
+        "index.html"
+      ]
     },
     {
       "id": "simon-bucket",
       "source": "frontend/bucket",
       "output": "simon",
       "build": "copy",
-      "files": ["index.html"]
+      "files": [
+        "index.html"
+      ]
     },
     {
       "id": "bala-bucket",
       "source": "explainer-videos-context/bucket",
       "output": "bala",
       "build": "copy",
-      "files": ["index.html"]
+      "files": [
+        "index.html"
+      ]
     },
     {
       "id": "mary-bucket",
       "source": "presentation-story/bucket",
       "output": "mary",
       "build": "copy",
-      "files": ["index.html"]
+      "files": [
+        "index.html"
+      ]
     },
     {
       "id": "achim-bucket",
       "source": "wrapper/achim",
       "output": "achim",
       "build": "copy",
-      "files": ["index.html"]
+      "files": [
+        "index.html"
+      ]
     },
     {
       "id": "bala-explainers",
@@ -155,7 +165,8 @@
         "playground.html",
         "riehen-explainer.mp4",
         "riehen-sources.mp4",
-        "README.md"
+        "README.md",
+        "Bider-Basel-Heat-Map.html"
       ]
     },
     {
