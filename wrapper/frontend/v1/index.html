@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="theme-color" content="#ddecf5" id="themeColorMeta" />
+  <title>Sponge City Street Lab</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="eyebrow">SpongeSquad presents</div><h1>Turn Basel Into a Sponge</h1></div>
+    <div class="center-tools">
+      <div class="segmented weather-toggle" role="group" aria-label="Weather">
+        <button class="weather-btn active" data-weather="mild" aria-pressed="true"><span>☁</span>Mild</button>
+        <button class="weather-btn" data-weather="rainstorm" aria-pressed="false"><span>💧</span>Rainstorm</button>
+        <button class="weather-btn" data-weather="heatwave" aria-pressed="false"><span>☀</span>Heatwave</button>
+      </div>
+      <div class="toolbar-row">
+        <div class="segmented scale-toggle" role="group" aria-label="Scene scale">
+          <button class="scale-btn" data-scale="0.4" aria-pressed="false">40%</button>
+          <button class="scale-btn" data-scale="0.5" aria-pressed="false">50%</button>
+          <button class="scale-btn active" data-scale="0.6" aria-pressed="true">60%</button>
+          <button class="scale-btn" data-scale="0.75" aria-pressed="false">75%</button>
+          <button class="scale-btn" data-scale="1" aria-pressed="false">100%</button>
+        </div>
+        <button class="theme-btn" id="themeToggle" type="button" aria-pressed="false" title="Toggle dark mode">🌙 Dark mode</button>
+      </div>
+    </div>
+    <div class="metrics" aria-live="polite">
+      <div class="metric-card flood-card"><div class="metric-top"><span>Sewer load tendency</span><strong id="floodValue">Idle</strong></div><div class="meter"><i id="floodBar"></i></div></div>
+      <div class="metric-card heat-card"><div class="metric-top"><span>Surface heating</span><strong id="heatValue">Idle</strong></div><div class="meter"><i id="heatBar"></i></div></div>
+    </div>
+  </header>
+  <main>
+    <div class="scroll-shell" id="scrollShell">
+      <section class="scene-frame" id="sceneFrame">
+        <div id="pixiMount" aria-label="Interactive dissected sponge-city street"></div>
+        <aside class="hover-info" id="hoverInfo" aria-live="polite">
+          <strong id="hoverTitle">Hover over an intervention</strong>
+          <span id="hoverText">Each option changes how this street section stores water, infiltrates rainfall or reduces heat.</span>
+        </aside>
+        <div class="loading" id="loading">Loading street assets…</div>
+      </section>
+      <section class="controls-grid" id="controlsGrid" aria-label="Sponge city interventions"></section>
+      <div class="worldstate-status" id="worldStateStatus" aria-live="polite">Loading WorldState…</div>
+    </div>
+
+    <section class="reading" aria-labelledby="readingTitle">
+      <div class="reading-kicker">CONTEXT</div>
+      <h2 id="readingTitle">Retrofitting a sponge city into an old European city</h2>
+      <p class="reading-lead">The principle is the same everywhere: keep rain close to where it falls, slow it down, give it room to infiltrate or evaporate, and reserve safe places for excess water. The difficult part in an old European city is fitting that water system into a street network that already exists.</p>
+
+      <div class="comparison-grid">
+        <article>
+          <h3>China: large-area sponge systems</h3>
+          <p>China's national Sponge City programme has often worked at district or city scale. The 2015–2016 pilot programme selected 30 cities, and each national pilot developed an area of at least 15 km², making it possible to combine wetlands, parks, retention landscapes, green streets and drainage as one larger water system.</p>
+          <p>Kongjian Yu's landscape approach is similarly systemic: retain water at its source, recharge groundwater, slow flows, clean water biologically and make room for water at its destination. Floodable parks and restored wetlands can therefore be major pieces of infrastructure rather than decorative additions.</p>
+        </article>
+        <article>
+          <h3>Historic European cities: retrofit the existing fabric</h3>
+          <p>In dense European centres the same ideas are more often inserted into existing streets, courtyards, roofs and public spaces. Historic-environment protection, underground utilities, combined sewers, limited public space and many different property owners can all constrain where water can go.</p>
+          <p>That tends to favour a distributed network of smaller interventions: one roof stores water, one parking bay is de-sealed, one tree trench gains more rooting volume, and one park doubles as emergency storage. The challenge is making those pieces work together.</p>
+        </article>
+      </div>
+
+      <div class="basel-card">
+        <div>
+          <div class="reading-kicker">BASEL-STADT</div>
+          <h3>Basel is already treating rainwater as a local resource</h3>
+          <p>Basel-Stadt describes the sponge city as a central part of climate adaptation. Its aim is to collect, retain, infiltrate, evaporate or use rainwater locally and close to the surface—in green spaces, open spaces, streets and buildings—rather than immediately sending it into the sewer system.</p>
+          <p>This is particularly relevant to a dense, historic city. Basel's climate strategy explicitly notes that the historic Altstadt, new development areas, settlement edges and industrial zones offer very different room for intervention; the goal is to implement as many suitable measures as each place allows.</p>
+        </div>
+        <ul>
+          <li><strong>More root space:</strong> Basel is developing multifunctional substrates for urban trees that balance load-bearing capacity, structure, water availability, aeration and filtration.</li>
+          <li><strong>Permeable parking:</strong> the city is testing permeable parking surfaces and directing sidewalk runoff into them so water can reach soil and street trees.</li>
+          <li><strong>Tree + swale systems:</strong> planned street redesigns increasingly combine infiltration swales with tree locations.</li>
+          <li><strong>Heat and drought:</strong> Basel is testing vegetation systems that can survive the dry, variable conditions along streets while still fitting the cityscape.</li>
+          <li><strong>Cloudburst safety:</strong> for very heavy rain, Basel also describes surface emergency flow paths and temporarily floodable areas such as parks.</li>
+        </ul>
+      </div>
+
+      <div class="sources">
+        <strong>Sources and further reading</strong>
+        <a href="https://www.bs.ch/bvd/stadtgaertnerei/forschung-und-entwicklung/schwammstadt" target="_blank" rel="noreferrer">Basel-Stadt · Schwammstadt</a>
+        <a href="https://www.bs.ch/schwerpunkte/klima/stadtklima/umsetzung-stadtklimakonzept" target="_blank" rel="noreferrer">Basel-Stadt · Umsetzung Stadtklimakonzept</a>
+        <a href="https://www.bs.ch/wsu/aue/abteilung-gewaesser-und-boden/direkteinleitung-von-regenwasser" target="_blank" rel="noreferrer">Basel-Stadt · Regenwasser / blau-grüne Infrastruktur</a>
+        <a href="https://climate-adapt.eea.europa.eu/en/metadata/projects/water-resilient-cities-increasing-urban-resilience-to-climate-change-through-improved-storm-water-management" target="_blank" rel="noreferrer">Climate-ADAPT · Retrofitting SuDS in existing cities</a>
+        <a href="https://www.mdpi.com/2073-4441/14/10/1531" target="_blank" rel="noreferrer">Water · China’s national Sponge City pilots</a>
+        <a href="https://www.turenscape.com/en/news/detail/398.html" target="_blank" rel="noreferrer">Turenscape · Kongjian Yu on Sponge City</a>
+      </div>
+    </section>
+  </main>
+  <footer><span>WorldState outputs are qualitative prototype projections, not engineering predictions. “Concept only” options have no executable recipe yet.</span><span>Scroll normally to move vertically. Hold Shift while scrolling to move the scene horizontally.</span></footer>
+</div>
+</body>
+</html>

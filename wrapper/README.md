@@ -21,9 +21,9 @@ Deployable static output is `wrapper/dist/`; no deployment is performed here.
 - `site/frontend/`, `site/data/`, `site/explainer-videos-context/`,
   `site/presentation-story/`: workstream pages in the shared shell. Simon's page
   is live; the remaining placeholders stay owned by their workstreams.
-- `../frontend/v1/`: Simon's canonical Visual Street Lab. The build stages it
-  without moving the source, publishes the full artefact at `frontend/v1/`, and
-  embeds its compact `?embed=1` mode on the landing page.
+- `frontend/v1/`: wrapper-owned integration copy of Simon's Visual Street Lab,
+  connected to WorldState and published at `wrapper/frontend/v1/`. Simon's
+  original `../frontend/v1/` files remain untouched.
 - `site/basel-site-scoping-tool/`: unchanged snapshot from fork commit `74826d7`.
   Current group main has no runnable Andy app. This snapshot supplies FIND and
   candidate fixtures; its provenance is in `site/research/MIGRATION.md`.

@@ -114,9 +114,9 @@
       "owner": "Simon",
       "title": "Visual Street Lab",
       "page": "frontend/",
-      "app": "frontend/v1/",
+      "app": "wrapper/frontend/v1/",
       "status": "live",
-      "summary": "Interactive cutaway street with selectable sponge measures and mild, rainstorm and heatwave modes."
+      "summary": "Wrapper-owned integration copy of Simon's visual street, connected to qualitative WorldState effects."
     },
     {
       "folder": "data/",
@@ -146,12 +146,13 @@
   "modules": [
     {
       "id": "simon-visual-lab",
-      "source": "frontend/v1",
-      "output": "frontend/v1",
+      "source": "wrapper/frontend/v1",
+      "output": "wrapper/frontend/v1",
       "build": "copy",
       "files": [
         "index.html",
         "main.js",
+        "worldstate-adapter.js",
         "style.css",
         "assets",
         "README.md"

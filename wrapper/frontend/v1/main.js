@@ -1,31 +1,32 @@
+import { createWorldStateBridge, mappingFor } from './worldstate-adapter.js';
+
 const LOGICAL_W = 1920;
 const LOGICAL_H = 1150;
 const ORDER = ['apartments','sidewalk','street','parking lot'];
+const EMBED_MODE = new URLSearchParams(window.location.search).get('embed') === '1';
+document.body.classList.toggle('embed-mode', EMBED_MODE);
 
-// Game-balancing estimates, not hydraulic/thermal engineering calculations.
-// stormMm = approximate reduction in peak surface ponding during the demo storm.
-// coolC   = approximate reduction in hottest hard-surface temperature.
 const SECTIONS = {
   apartments:{title:'Apartments',subtitle:'Roof sponge area',options:[
-    {id:'unchanged',label:'Unchanged',file:'apartments/unchanged.png',stormMm:0,coolC:0,info:'The existing roof is the baseline: rain runs off quickly and the roof stores more solar heat than a vegetated surface.'},
-    {id:'green roof',label:'Green roof',file:'apartments/green roof.png',stormMm:5,coolC:1.6,info:'A planted roof holds part of each rainfall event in its substrate and vegetation. Evapotranspiration also lowers roof temperatures during hot weather.'},
-    {id:'green-blue roof',label:'Blue-green roof',file:'apartments/green-blue roof.png',stormMm:8,coolC:1.3,info:'A blue-green roof adds temporary water storage to a planted roof. It delays runoff for longer while still providing vegetation, evaporation and habitat.'}
+    {id:'unchanged',label:'Unchanged',file:'apartments/unchanged.png',info:'The existing roof is the baseline: rain runs off quickly and the roof stores more solar heat than a vegetated surface.'},
+    {id:'green roof',label:'Green roof',file:'apartments/green roof.png',info:'A planted roof holds part of each rainfall event in its substrate and vegetation. Evapotranspiration also lowers roof temperatures during hot weather.'},
+    {id:'green-blue roof',label:'Blue-green roof',file:'apartments/green-blue roof.png',info:'A blue-green roof adds temporary water storage to a planted roof. It delays runoff for longer while still providing vegetation, evaporation and habitat.'}
   ]},
   sidewalk:{title:'Sidewalk',subtitle:'Sponge area',options:[
-    {id:'unchanged',label:'Unchanged',file:'sidewalk/unchanged.png',stormMm:0,coolC:0,info:'The conventional sidewalk is mostly sealed, so rainfall has little access to soil and root space.'},
-    {id:'street tree + permeatable pavement + bioswale (vegetated drainage strip)',label:'Tree + permeable paving + bioswale',file:'sidewalk/street tree + permeatable pavement + bioswale (vegetated drainage strip).png',stormMm:10,coolC:4.3,info:'Permeable paving admits runoff while the bioswale stores and filters it in planted soil. The street tree adds shade, interception and evapotranspiration while gaining a larger, wetter rooting volume.'}
+    {id:'unchanged',label:'Unchanged',file:'sidewalk/unchanged.png',info:'The conventional sidewalk is mostly sealed, so rainfall has little access to soil and root space.'},
+    {id:'street tree + permeatable pavement + bioswale (vegetated drainage strip)',label:'Tree + permeable paving + bioswale',file:'sidewalk/street tree + permeatable pavement + bioswale (vegetated drainage strip).png',info:'Permeable paving admits runoff while the bioswale stores and filters it in planted soil. The street tree adds shade, interception and evapotranspiration while gaining a larger, wetter rooting volume.'}
   ]},
   street:{title:'Street',subtitle:'Surface + detention',options:[
-    {id:'unchanged',label:'Unchanged',file:'street/unchanged.png',stormMm:0,coolC:0,info:'Conventional asphalt sheds water rapidly from the carriageway and stores substantial heat in summer.'},
-    {id:'permeable asphalt',label:'Permeable asphalt',file:'street/permeable asphalt.png',stormMm:9,coolC:.6,info:'Open-graded asphalt lets rainfall pass through the road surface. A coarse stone detention layer beneath stores water temporarily before slow infiltration or controlled release.'},
-    {id:'permeable paving blocks',label:'Permeable paving blocks',file:'street/permeable paving blocks.png',stormMm:11,coolC:1.1,info:'Water passes through porous joints and voids between paving blocks into a detention layer below. This creates temporary subsurface storage without giving up the usable street surface.'}
+    {id:'unchanged',label:'Unchanged',file:'street/unchanged.png',info:'Conventional asphalt sheds water rapidly from the carriageway and stores substantial heat in summer.'},
+    {id:'permeable asphalt',label:'Permeable asphalt',file:'street/permeable asphalt.png',info:'Open-graded asphalt lets rainfall pass through the road surface. A coarse stone detention layer beneath stores water temporarily before slow infiltration or controlled release.'},
+    {id:'permeable paving blocks',label:'Permeable paving blocks',file:'street/permeable paving blocks.png',info:'Water passes through porous joints and voids between paving blocks into a detention layer below. This creates temporary subsurface storage without giving up the usable street surface.'}
   ]},
   'parking lot':{title:'Parking lot',subtitle:'Large sponge area',options:[
-    {id:'unchanged',label:'Unchanged',file:'parking lot/unchanged.png',stormMm:0,coolC:0,info:'The sealed parking lot is the baseline: nearly all rainfall becomes runoff and the large hard surface heats strongly in sunshine.'},
-    {id:'constructed wetland',label:'Constructed wetland',file:'parking lot/constructed wetland.png',stormMm:16,coolC:2.4,info:'A constructed wetland holds stormwater in shallow planted basins. Wetland vegetation and soils slow, filter and biologically treat runoff while creating habitat.'},
-    {id:'retention pools',label:'Retention ponds',file:'parking lot/retention pools.png',stormMm:18,coolC:1.8,info:'Retention ponds give stormwater a dedicated place to collect instead of flooding streets. They attenuate the peak flow and can release or infiltrate water gradually after the storm.'},
-    {id:'floodable park',label:'Floodable park',file:'parking lot/floodable park.png',stormMm:14,coolC:2.8,info:'A floodable park is normal public space most of the time, but its lower areas safely accept water during cloudbursts. One piece of land therefore serves both recreation and temporary flood storage.'},
-    {id:'native vegetation',label:'Native habitat',file:'parking lot/native vegetation.png',stormMm:10,coolC:3.4,info:'De-sealing the parking area and restoring locally appropriate vegetation gives rainfall access to living soil. The result improves infiltration, cooling and habitat at the same time.'}
+    {id:'unchanged',label:'Unchanged',file:'parking lot/unchanged.png',info:'The sealed parking lot is the baseline: nearly all rainfall becomes runoff and the large hard surface heats strongly in sunshine.'},
+    {id:'constructed wetland',label:'Constructed wetland',file:'parking lot/constructed wetland.png',info:'A constructed wetland holds stormwater in shallow planted basins. Wetland vegetation and soils slow, filter and biologically treat runoff while creating habitat.'},
+    {id:'retention pools',label:'Retention ponds',file:'parking lot/retention pools.png',info:'Retention ponds give stormwater a dedicated place to collect instead of flooding streets. They attenuate the peak flow and can release or infiltrate water gradually after the storm.'},
+    {id:'floodable park',label:'Floodable park',file:'parking lot/floodable park.png',info:'A floodable park is normal public space most of the time, but its lower areas safely accept water during cloudbursts. One piece of land therefore serves both recreation and temporary flood storage.'},
+    {id:'native vegetation',label:'Native habitat',file:'parking lot/native vegetation.png',info:'De-sealing the parking area and restoring locally appropriate vegetation gives rainfall access to living soil. The result improves infiltration, cooling and habitat at the same time.'}
   ]}
 };
 
@@ -44,7 +45,7 @@ const FALLBACK_LINEUP_Y = {
 const state={
   weather:'mild',displayScale:.60,darkMode:false,
   selected:{},coords:FALLBACK_COORDS,lineupY:FALLBACK_LINEUP_Y,
-  images:new Map(),nodes:new Map(),ready:false
+  images:new Map(),nodes:new Map(),ready:false,worldBridge:null
 };
 ORDER.forEach(s=>state.selected[s]='unchanged');
 
@@ -139,6 +140,9 @@ function buildControls(){
       const b=document.createElement('button');b.type='button';b.className='choice-btn'+(o.id==='unchanged'?' active':'');
       b.dataset.section=section;b.dataset.option=o.id;
       b.textContent=o.label;
+      const mapping=mappingFor(section,o.id);
+      if(mapping?.fidelity==='concept'){b.classList.add('concept-only');b.setAttribute('aria-label',`${o.label}, visual concept only`)}
+      else if(mapping?.fidelity==='partial'){b.classList.add('partial-model');b.setAttribute('aria-label',`${o.label}, partially represented in WorldState`)}
       b.onclick=()=>swap(section,o.id);
       b.addEventListener('mouseenter',()=>setHoverInfo(section,o.id));
       b.addEventListener('focus',()=>setHoverInfo(section,o.id));
@@ -167,7 +171,7 @@ function setTheme(dark){
 }
 function initTheme(){
   let dark=false;
-  try{dark=localStorage.getItem('sponge-theme')==='dark'}catch{}
+  if(!EMBED_MODE)try{dark=localStorage.getItem('sponge-theme')==='dark'}catch{}
   setTheme(dark);
 }
 function bindTop(){
@@ -240,22 +244,26 @@ function drawRain(dt){
 function setWeather(w){
   state.weather=w;document.querySelectorAll('.weather-btn').forEach(b=>{const on=b.dataset.weather===w;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});resetClouds(w==='rainstorm');if(w==='rainstorm'){lightning=0;lightningWait=3+Math.random()*5}updateMetrics();
 }
-function performanceValues(){
-  let stormReduction=0,cooling=0;
-  for(const s of ORDER){const o=option(s,state.selected[s]);stormReduction+=o.stormMm;cooling+=o.coolC}
-  const basePonding=state.weather==='rainstorm'?46:0;
-  const baseSurfaceTemp=state.weather==='heatwave'?57:state.weather==='rainstorm'?23:31;
-  return {
-    ponding:Math.max(0,Math.round(basePonding-stormReduction)),
-    temp:Math.max(state.weather==='rainstorm'?16:22,Math.round((baseSurfaceTemp-cooling)*10)/10)
-  };
-}
 function updateMetrics(){
-  const m=performanceValues();
-  document.querySelector('#floodValue').textContent=`${m.ponding} mm`;
-  document.querySelector('#heatValue').textContent=`${m.temp.toFixed(1)}°C`;
-  document.querySelector('#floodBar').style.width=Math.min(100,m.ponding/50*100)+'%';
-  document.querySelector('#heatBar').style.width=Math.min(100,Math.max(0,(m.temp-15)/45*100))+'%';
+  const flood=document.querySelector('#floodValue'),heat=document.querySelector('#heatValue'),status=document.querySelector('#worldStateStatus');
+  const bars=[document.querySelector('#floodBar'),document.querySelector('#heatBar')];
+  if(!state.worldBridge){flood.textContent='Loading';heat.textContent='Loading';status.textContent='Loading WorldState…';return}
+  const result=state.worldBridge.update({selected:state.selected,weather:state.weather});
+  const active=state.weather==='rainstorm'?flood:state.weather==='heatwave'?heat:null;
+  flood.textContent=state.weather==='rainstorm'?labelEffect(result.effect):'Idle';
+  heat.textContent=state.weather==='heatwave'?labelEffect(result.effect):'Idle';
+  bars.forEach(bar=>bar.style.width='0%');
+  if(active&&result.effect){const levels={low:28,medium:58,high:88};const after=result.effect.after;bars[state.weather==='rainstorm'?0:1].style.width=`${levels[after?.value]??12}%`}
+  const applied=result.applied.length?`${result.applied.length} recipe${result.applied.length===1?'':'s'} applied`:'Baseline state';
+  const concepts=result.concepts.length?` · ${result.concepts.length} selected visual concept${result.concepts.length===1?' has':'s have'} no exact recipe`:'';
+  const scenario=result.scenarioId?` · ${result.scenarioId}`:' · choose Rainstorm or Heatwave to test effects';
+  status.textContent=`WorldState connected · ${applied}${concepts}${scenario}`;
+}
+function labelEffect(effect){
+  if(!effect)return 'Unknown';
+  const value=effect.after?.state==='derived'?effect.after.value:'Unknown';
+  const assessment=effect.assessment&&effect.assessment!=='same'?` · ${effect.assessment}`:'';
+  return `${value[0]?.toUpperCase()||''}${value.slice?.(1)||''}${assessment}`;
 }
 
 function drawBackground(dt){
@@ -299,7 +307,8 @@ function enableScroll(){
   },{passive:false});
 }
 async function init(){
-  buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(.60);resetClouds(false);setWeather('mild');updateMetrics();enableScroll();requestAnimationFrame(render);
+  buildControls();resetHoverInfo();bindTop();initTheme();applyDisplayScale(EMBED_MODE ? .40 : .60);resetClouds(false);setWeather('mild');updateMetrics();enableScroll();requestAnimationFrame(render);
+  state.worldBridge=await createWorldStateBridge();updateMetrics();
   const parsed=await readCoordinates();state.coords=parsed.coords;state.lineupY=parsed.lineupY;
   const failures=await loadAssets();setupNodes();state.ready=true;
   const loading=document.querySelector('#loading');
