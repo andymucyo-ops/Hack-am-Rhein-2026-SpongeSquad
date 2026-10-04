@@ -3,84 +3,194 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Achim's SpongeSquad systems, evidence and decision workspace." />
-  <title>Achim · SpongeSquad workspace</title>
+  <meta name="description" content="Achim's modular data-gap-to-decision work for SpongeSquad." />
+  <title>Achim · Data gap to decision · SpongeSquad</title>
   <link rel="stylesheet" href="../assets/site.css" />
   <script src="../assets/routes.js" defer></script>
   <script src="../assets/site.js" defer></script>
+  <style>
+    .portfolio-hero { padding-bottom: clamp(40px, 7vw, 76px); }
+    .portfolio-hero h1 { max-width: 850px; font-size: clamp(40px, 7vw, 74px); line-height: 1.04; }
+    .portfolio-hero .lead { max-width: 810px; }
+    .thesis { display: grid; gap: 12px; align-content: start; background: #1f352b; color: #eaf4ed; border: 0; }
+    .thesis .eyebrow { color: #acd1b9; }
+    .thesis h3 { color: #fff; font-size: clamp(21px, 2.5vw, 29px); }
+    .thesis p { color: #cadbd0; }
+    .thesis-rule { display: grid; gap: 7px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.16); font: 500 12px/1.55 var(--mono); }
+    .thesis-rule span { display: flex; align-items: center; gap: 9px; }
+    .thesis-rule i { width: 7px; height: 7px; border-radius: 50%; background: #77bd90; flex: 0 0 auto; }
+    .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; counter-reset: modules; }
+    .module-card { counter-increment: modules; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 16px; padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
+    .module-card::before { content: counter(modules, decimal-leading-zero); width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--green-dark); font: 500 12px var(--mono); }
+    .module-card h3 { margin: 1px 0 5px; }
+    .module-card .question { margin: 0 0 13px; color: var(--ink-soft); font: 600 15px/1.45 var(--head); }
+    .module-contract { display: grid; grid-template-columns: 58px 1fr; gap: 4px 10px; margin: 0 0 13px; font-size: 12.5px; }
+    .module-contract dt { color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+    .module-contract dd { margin: 0; color: var(--ink-soft); }
+    .module-card a { font-size: 13.5px; font-weight: 700; }
+    .module-card.orchestrator { grid-column: 1 / -1; background: #eef5f0; border-color: #cbded0; }
+    .module-card.orchestrator::before { background: var(--green); border-color: var(--green); color: #fff; }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .chain-step { appearance: none; min-height: 128px; padding: 18px 15px 16px; border: 0; border-right: 1px solid var(--line); background: #fff; color: var(--ink); text-align: left; cursor: pointer; font-family: var(--sans); }
+    .chain-step:last-child { border-right: 0; }
+    .chain-step:hover { background: #f6f9f6; }
+    .chain-step[aria-selected="true"] { background: var(--green); color: #fff; }
+    .chain-step[aria-selected="true"] .chain-no, .chain-step[aria-selected="true"] small { color: #d8ebdf; }
+    .chain-no { display: block; margin-bottom: 12px; color: var(--muted); font: 500 11px var(--mono); letter-spacing: .08em; }
+    .chain-step b { display: block; margin-bottom: 5px; font: 700 15px var(--head); }
+    .chain-step small { display: block; color: var(--muted); font: 400 12px/1.4 var(--sans); }
+    .chain-detail { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: 24px; margin-top: 14px; padding: clamp(20px, 3vw, 30px); background: #1f352b; color: #dce9e0; border-radius: 12px; }
+    .chain-detail h3 { color: #fff; font-size: clamp(22px, 3vw, 31px); }
+    .chain-detail p { color: #c9d9ce; }
+    .chain-detail .label { margin-bottom: 12px; }
+    .chain-output { border-left: 1px solid rgba(255,255,255,.17); padding-left: 24px; }
+    .chain-output h4 { color: #fff; font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .chain-output ul { margin: 0; padding-left: 19px; color: #d6e4da; font-size: 14px; }
+    .chain-output li + li { margin-top: 5px; }
+    .chain-detail a { color: #bde2c9; }
+    .evidence-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .evidence-column { padding: 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); }
+    .evidence-column h3 { display: flex; align-items: center; gap: 9px; font-size: 16px; }
+    .evidence-column ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 14px; }
+    .evidence-column li + li { margin-top: 5px; }
+    .evidence-column.known { border-top: 4px solid var(--green); }
+    .evidence-column.hypothesis { border-top: 4px solid #c9a14e; }
+    .evidence-column.unknown { border-top: 4px solid #b8613b; }
+    .boundary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; }
+    .boundary-grid article { padding: 20px; border-right: 1px solid var(--line); }
+    .boundary-grid article:last-child { border-right: 0; }
+    .boundary-grid h3 { font-size: 16px; }
+    .boundary-grid p { color: var(--ink-soft); font-size: 14px; margin: 0; }
+    @media (max-width: 1000px) {
+      .chain { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .chain-step:nth-child(3) { border-right: 0; }
+      .chain-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .evidence-board { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .module-grid, .chain-detail, .boundary-grid { grid-template-columns: 1fr; }
+      .module-card.orchestrator { grid-column: auto; }
+      .chain { grid-template-columns: 1fr 1fr; }
+      .chain-step { min-height: 116px; border-bottom: 1px solid var(--line); }
+      .chain-step:nth-child(3) { border-right: 1px solid var(--line); }
+      .chain-step:nth-child(even) { border-right: 0; }
+      .chain-step:nth-last-child(-n+2) { border-bottom: 0; }
+      .chain-output { border-left: 0; border-top: 1px solid rgba(255,255,255,.17); padding: 20px 0 0; }
+      .boundary-grid article { border-right: 0; border-bottom: 1px solid var(--line); }
+      .boundary-grid article:last-child { border-bottom: 0; }
+    }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
   <main id="main">
-    <section class="section plain">
-      <div class="wrap hero-grid" style="align-items:end">
+    <section class="section plain portfolio-hero">
+      <div class="wrap hero-grid">
         <div>
-          <p class="eyebrow">Independent workspace · wrapper/</p>
-          <h1>From a data gap to <i>a decision someone can inspect</i></h1>
-          <p class="lead">My work connects the sponge-city idea to evidence, unknowns, participation, intervention logic and an end-to-end demonstrator—without pretending that an illustrative scenario is a real site assessment.</p>
-          <div class="actions">
-            <a class="button primary" href="../find/">Open the end-to-end path <span aria-hidden="true">→</span></a>
-            <a class="button" href="../view/?m=street-xray">Start with the evidence gap</a>
-          </div>
+          <p class="eyebrow">Achim · product architecture and prototypes</p>
+          <h1>From data gaps <i>to a decision.</i></h1>
+          <p class="lead">A modular system for moving from a promising place to an honest next step: preserve the evidence, expose what is missing, explore an intervention and never confuse a scenario with a recommendation.</p>
+          <div class="actions"><a class="button primary" href="#example">Follow one example <span aria-hidden="true">↓</span></a><a class="button" href="#modules">Explore the modules</a></div>
         </div>
-        <aside class="panel">
-          <p class="eyebrow">Achim’s container</p>
-          <h3>Product framing, system design and prototypes</h3>
-          <p class="small">The modules are intentionally separate. Some run end to end; some are research or experiments. Their evidence level stays visible.</p>
-          <p><span class="label works">Working portfolio</span></p>
+        <aside class="panel thesis">
+          <p class="eyebrow">The proposition</p>
+          <h3>The map finds a signal. The system finds out what that signal permits us to do.</h3>
+          <p>Each module has one job and a small contract. They can be used independently today and connected without turning them into one fragile application.</p>
+          <div class="thesis-rule" aria-label="System principles"><span><i></i> GIS calculates</span><span><i></i> Rules constrain</span><span><i></i> AI may explain—not invent evidence</span></div>
         </aside>
       </div>
     </section>
 
+    <section class="section white" id="modules">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">The modular system</p><h2>Seven concepts, each useful on its own</h2></div><p>The modules exchange evidence-bearing objects and questions, not shared UI internals.</p></div>
+        <div class="module-grid">
+          <article class="module-card"><div><span class="label works">Working</span><h3>Evidence Atlas + Situation Map</h3><p class="question">What do we know about the city, and where did it come from?</p><dl class="module-contract"><dt>Input</dt><dd>Sources, claims, actors and spatial context</dd><dt>Output</dt><dd>Inspectable evidence and open questions</dd></dl><a href="../view/?m=evidence-atlas">Open the Evidence Atlas →</a></div></article>
+          <article class="module-card"><div><span class="label works">Working</span><h3>Data Charter</h3><p class="question">Is the evidence open, inferred, gated—or not yet measured?</p><dl class="module-contract"><dt>Input</dt><dd>25 decision-relevant indicators and Basel sources</dd><dt>Output</dt><dd>Evidence class, gatekeeper, limitations and permitted use</dd></dl><a href="../view/?m=data-charter">Open the Data Charter →</a></div></article>
+          <article class="module-card"><div><span class="label works">Working slice</span><h3>Street X-Ray</h3><p class="question">A place looks promising. Is the intervention actually buildable?</p><dl class="module-contract"><dt>Input</dt><dd>Candidate identity and bounded contextual evidence</dd><dt>Output</dt><dd>Known facts, hypotheses, blockers and Evidence Passport</dd></dl><a href="../view/?m=street-xray">Open Street X-Ray →</a></div></article>
+          <article class="module-card"><div><span class="label works">Working demo</span><h3>Rain Walk</h3><p class="question">What can a person responsibly observe on the street?</p><dl class="module-contract"><dt>Input</dt><dd>Field prompts, local observations and optional photos</dd><dt>Output</dt><dd>Review history and a portable evidence record</dd></dl><a href="../view/?m=rain-walk">Open Rain Walk →</a></div></article>
+          <article class="module-card"><div><span class="label source">Knowledge model</span><h3>Sponge Catalogue</h3><p class="question">What could change here, for whom, and what would block it?</p><dl class="module-contract"><dt>Input</dt><dd>Basel actions, owners, mechanisms, precedents and gaps</dd><dt>Output</dt><dd>Candidate measures and investigation requirements</dd></dl><a href="../research/sponge-catalogue/">Read the catalogue →</a></div></article>
+          <article class="module-card"><div><span class="label works">Working MVP</span><h3>Street Lab</h3><p class="question">How does a connected intervention change the water pathway?</p><dl class="module-contract"><dt>Input</dt><dd>Typed synthetic street, intervention and storm</dd><dt>Output</dt><dd>WorldState, conserved water balance and explanation</dd></dl><a href="../lab/">Open Street Lab →</a></div></article>
+          <article class="module-card orchestrator"><div><span class="label works">Runnable experiment</span><h3>Adaptive Interface + Wrapper</h3><p class="question">How can providers, rules, state and renderers change independently?</p><dl class="module-contract"><dt>Input</dt><dd>PlaceModel, intervention knowledge, scenario and renderer</dd><dt>Output</dt><dd>Validated state transitions, qualitative effects and a replaceable presentation</dd></dl><a href="../view/?m=adaptive-preview">Preview the orchestration experiment →</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="example">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Connected example · illustrative</p><h2>One promising edge in Klybeck</h2></div><p>Click through the chain. The example connects the modules through outputs, while uncertainty survives every handoff.</p></div>
+        <div class="chain" role="tablist" aria-label="Connected example stages">
+          <button class="chain-step" type="button" role="tab" aria-selected="true" data-step="0"><span class="chain-no">01 · SIGNAL</span><b>Candidate</b><small>A map identifies a place worth investigating.</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="1"><span class="chain-no">02 · CONTEXT</span><b>Evidence</b><small>The charter classifies what is available.</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="2"><span class="chain-no">03 · GATE</span><b>X-Ray</b><small>Street-scale blockers become explicit.</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="3"><span class="chain-no">04 · VERIFY</span><b>Rain Walk</b><small>Visible conditions become reviewable observations.</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="4"><span class="chain-no">05 · EXPLORE</span><b>Street Lab</b><small>A scenario teaches the mechanism.</small></button>
+          <button class="chain-step" type="button" role="tab" aria-selected="false" data-step="5"><span class="chain-no">06 · DECIDE</span><b>Next move</b><small>The output is a bounded action—not a verdict.</small></button>
+        </div>
+        <div class="chain-detail" aria-live="polite">
+          <div><span class="label source" id="chain-label">Upstream contract</span><h3 id="chain-title">A candidate arrives with identity—not invented street geometry.</h3><p id="chain-copy">Andy’s scoping tool can nominate a promising area and pass a versioned candidate context. The handoff carries the place name, coordinates, sources, constraints and evidence questions. It does not turn a district score into soil, utilities or drainage facts.</p><a id="chain-link" href="../find/">Open FIND →</a></div>
+          <aside class="chain-output"><h4>Output to the next module</h4><ul id="chain-output-list"><li>Candidate identity and location</li><li>Source references and known constraints</li><li>Explicit missing-evidence prompts</li></ul></aside>
+        </div>
+      </div>
+    </section>
+
     <section class="section white">
       <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">Core proposition</p><h2>Data-gap-to-decision</h2></div><p>A map can suggest where to look. A decision needs a different chain of evidence.</p></div>
-        <div class="stage-facts">
-          <div><h3><span class="dot works"></span>What exists</h3><p>Published city data, candidate signals, rules and research.</p></div>
-          <div><h3><span class="dot illustrative"></span>What can be estimated</h3><p>Bounded hypotheses and illustrative scenarios with declared assumptions.</p></div>
-          <div><h3><span class="dot missing"></span>What must be learned</h3><p>Site observations, soil, drainage, utilities, ownership and local constraints.</p></div>
-          <div><h3><span class="dot q"></span>What can be decided</h3><p>The next lawful, evidence-backed action—not a fabricated recommendation.</p></div>
+        <div class="section-head"><div><p class="eyebrow">Evidence survives the journey</p><h2>The example never collapses into one score</h2></div><p>At every stage, the user can still distinguish evidence from design fiction.</p></div>
+        <div class="evidence-board">
+          <article class="evidence-column known"><h3><span class="dot works"></span> Known or sourced</h3><ul><li>Candidate identity and coordinates</li><li>Bundled city-level context and source references</li><li>Reviewed observations with their history</li></ul></article>
+          <article class="evidence-column hypothesis"><h3><span class="dot illustrative"></span> Illustrative or assumed</h3><ul><li>The demonstration street geometry</li><li>The candidate strip and rain-garden design</li><li>The Street Lab storm and performance parameters</li></ul></article>
+          <article class="evidence-column unknown"><h3><span class="dot missing"></span> Still blocking a real decision</h3><ul><li>Underground utilities and ownership</li><li>Soil infiltration and groundwater clearance</li><li>Actual drainage connections and engineering feasibility</li></ul></article>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">Working modules</p><h2>What is already here</h2></div><p>Each module can stand alone and later connect through explicit contracts.</p></div>
-        <div class="grid-3">
-          <article class="panel"><span class="label works">End to end</span><h3 style="margin-top:10px">Decision journey</h3><p class="small">Find → Understand → Design → Test → See → Decide. A complete demonstrator with visible claim boundaries.</p><p class="small"><a href="../find/">Open the journey →</a></p></article>
-          <article class="panel"><span class="label works">Evidence gate</span><h3 style="margin-top:10px">Street X-Ray</h3><p class="small">Separates observed facts, bounded hypotheses and blockers before intervention design.</p><p class="small"><a href="../view/?m=street-xray">Open Street X-Ray →</a></p></article>
-          <article class="panel"><span class="label works">Participation prototype</span><h3 style="margin-top:10px">Rain Walk</h3><p class="small">A citizen evidence campaign for recording visible street conditions with review history and an evidence passport.</p><p class="small"><a href="../view/?m=rain-walk">Open Rain Walk →</a></p></article>
-          <article class="panel"><span class="label works">Interactive model</span><h3 style="margin-top:10px">Street Lab</h3><p class="small">A typed synthetic street, rain-garden intervention and conserved illustrative water balance.</p><p class="small"><a href="../lab/">Open Street Lab →</a></p></article>
-          <article class="panel"><span class="label works">Evidence system</span><h3 style="margin-top:10px">Data Charter</h3><p class="small">Twenty-five indicators showing what Basel publishes, what is inferred, what is gated and what is missing.</p><p class="small"><a href="../view/?m=data-charter">Open the map</a> · <a href="../research/data-charter/">Read the charter</a></p></article>
-          <article class="panel"><span class="label works">Research collection</span><h3 style="margin-top:10px">Evidence Atlas</h3><p class="small">Claims, sources, interventions, decision questions, precedents and monitoring ideas in inspectable form.</p><p class="small"><a href="../view/?m=evidence-atlas">Open the atlas →</a></p></article>
-          <article class="panel"><span class="label works">Explainer</span><h3 style="margin-top:10px">Sponge Street</h3><p class="small">An early standalone explainer with seven intervention tracks and twelve guided states.</p><p class="small"><a href="../wrapper/prototypes/sponge-street/">Open the explainer →</a></p></article>
-          <article class="panel"><span class="label works">Integration</span><h3 style="margin-top:10px">WorldState bridge</h3><p class="small">An adapter connects supported visual selections to canonical interventions and refuses to invent results for unsupported concepts.</p><p class="small"><a href="../wrapper/frontend/v1/">Open the integrated visual →</a></p></article>
-          <article class="panel"><span class="label illustrative">Experiment</span><h3 style="margin-top:10px">Adaptive interface</h3><p class="small">A separate qualitative state-engine experiment using mock inputs. Useful for architecture exploration, not a site claim.</p><p class="small"><a href="../view/?m=adaptive-preview">Open the experiment →</a></p></article>
+        <div class="section-head"><div><p class="eyebrow">The boundary</p><h2>What this system does—and does not do</h2></div></div>
+        <div class="boundary-grid">
+          <article><span class="label works">Does</span><h3 style="margin-top:10px">Make a mechanism understandable</h3><p>It shows why surfaces, storage, soil, drainage and overflow must work as a connected system.</p></article>
+          <article><span class="label source">Does</span><h3 style="margin-top:10px">Turn unknowns into a next action</h3><p>It identifies what must be requested, observed, tested or decided—and who may hold that evidence.</p></article>
+          <article><span class="label missing">Does not</span><h3 style="margin-top:10px">Issue an engineering recommendation</h3><p>A map signal or interactive scenario never proves that an intervention is feasible at a real site.</p></article>
         </div>
-      </div>
-    </section>
-
-    <section class="section white">
-      <div class="wrap">
-        <div class="section-head"><div><p class="eyebrow">System boundary</p><h2>How the pieces fit</h2></div><p>The frontend renders a projection. Evidence and domain rules remain behind explicit contracts.</p></div>
-        <div class="stage-facts">
-          <div><h3>01 · Evidence</h3><p>Sources, provenance, gaps and permissions.</p></div>
-          <div><h3>02 · Contracts</h3><p>Candidate context, street evidence, scenario and intervention types.</p></div>
-          <div><h3>03 · WorldState</h3><p>Deterministic state changes and bounded qualitative effects.</p></div>
-          <div><h3>04 · Views</h3><p>Maps, explainers, forms and visual streets render the state.</p></div>
-        </div>
-        <div class="notice green" style="margin-top:16px"><p><b>Working rule:</b> unknown never silently becomes zero, safe or suitable. The interface shows state; it does not invent truth.</p></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap grid-2">
-        <article class="panel"><span class="label source">Foundation</span><h3 style="margin-top:10px">Product and architecture notes</h3><p class="small"><a href="../team/product-vision/">Product vision</a> · <a href="../team/architecture/">Architecture</a> · <a href="../team/repository-map/">Repository map</a> · <a href="../team/component-ownership/">Component ownership</a></p></article>
-        <article class="panel"><span class="label missing">Next</span><h3 style="margin-top:10px">What remains open</h3><p class="small">Choose one real street, formalise a provenance-bearing StreetEvidenceProfile, populate only defensible fields, and test one intervention without hiding unresolved evidence.</p><p class="small"><a href="../research/data-gap-to-decision/">Read the bounded next slice →</a></p></article>
       </div>
     </section>
   </main>
   <div id="site-footer"></div>
+  <script>
+    (function () {
+      var steps = [
+        {label:'Upstream contract',labelClass:'source',title:'A candidate arrives with identity—not invented street geometry.',copy:'Andy’s scoping tool can nominate a promising area and pass a versioned candidate context. The handoff carries the place name, coordinates, sources, constraints and evidence questions. It does not turn a district score into soil, utilities or drainage facts.',link:'../find/',linkText:'Open FIND →',output:['Candidate identity and location','Source references and known constraints','Explicit missing-evidence prompts']},
+        {label:'Evidence classification',labelClass:'works',title:'The Data Charter asks what kind of knowledge we actually have.',copy:'The same missing field can mean very different things: open data not yet joined, information held by a gatekeeper, a bounded inference, or something that can only be established on site. The distinction determines what may happen next.',link:'../view/?m=data-charter',linkText:'Open the Data Charter →',output:['Evidence class and provenance','Gatekeeper or lawful access route','Permitted use: explain, screen, prioritise or design']},
+        {label:'Evidence gate',labelClass:'illustrative',title:'Street X-Ray separates context, hypotheses and decision blockers.',copy:'For the illustrative Klybeck edge, a visible strip may suggest room for change. But visible space is not buildable space. Utilities, ownership, access, soil and drainage remain explicit blockers rather than quietly becoming favourable defaults.',link:'../view/?m=street-xray',linkText:'Open Street X-Ray →',output:['Known-now evidence','Bounded screening hypotheses','A printable list of checks that block design']},
+        {label:'Citizen evidence',labelClass:'works',title:'Rain Walk collects what a person can see—and no more.',copy:'A participant can record curbs, drains, planting, obstructions or surface conditions. The observation keeps its source and review history. It cannot establish utilities, infiltration, contamination or groundwater clearance.',link:'../view/?m=rain-walk',linkText:'Open Rain Walk →',output:['Reviewable visible-surface observations','Uncertain and rejected records remain in the audit trail','Subsurface questions remain unknown']},
+        {label:'Illustrative mechanism',labelClass:'illustrative',title:'The catalogue proposes a measure; Street Lab explains the dependency.',copy:'A connected rain garden becomes a candidate learning scenario. Street Lab demonstrates that adding planting is not enough: runoff must reach storage, infiltration needs soil, and overflow still needs a safe route. The numbers stay labelled as synthetic.',link:'../lab/',linkText:'Open Street Lab →',output:['A reversible intervention plan','A conserved illustrative water balance','Visible mechanisms, dependencies and model limits']},
+        {label:'Bounded decision',labelClass:'source',title:'The result is a decision package, not a recommendation.',copy:'The connected modules can say why the place merits attention, what intervention mechanism is worth exploring, what evidence supports that exploration and what must happen before anyone recommends construction.',link:'../decide/',linkText:'Open DECIDE →',output:['Proceed to a named investigation','Request evidence from a gatekeeper','Pause or exclude the intervention when evidence conflicts']}
+      ];
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('.chain-step'));
+      var label = document.getElementById('chain-label');
+      var title = document.getElementById('chain-title');
+      var copy = document.getElementById('chain-copy');
+      var link = document.getElementById('chain-link');
+      var list = document.getElementById('chain-output-list');
+      function select(index) {
+        var step = steps[index];
+        buttons.forEach(function (button, i) { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1; });
+        label.className = 'label ' + step.labelClass; label.textContent = step.label;
+        title.textContent = step.title; copy.textContent = step.copy; link.href = step.link; link.textContent = step.linkText;
+        list.innerHTML = step.output.map(function (item) { return '<li>' + item + '</li>'; }).join('');
+      }
+      buttons.forEach(function (button, index) {
+        button.addEventListener('click', function () { select(index); });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          var next = event.key === 'ArrowRight' ? (index + 1) % buttons.length : (index - 1 + buttons.length) % buttons.length;
+          select(next); buttons[next].focus();
+        });
+      });
+      select(0);
+    })();
+  </script>
 </body>
 </html>
